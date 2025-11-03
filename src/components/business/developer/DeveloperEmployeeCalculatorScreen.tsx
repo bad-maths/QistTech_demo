@@ -1,217 +1,480 @@
-﻿import { useState } from 'react';
-import { ArrowLeft, ArrowRight, Calculator, Share2, Bookmark, Home, 
-  Bed, Maximize2, Edit3, Building2, ChartLine, ChartPie, Scale,
-  FileText, Printer, Send, Save, RotateCcw, Handshake, ShieldCheck, 
-  TrendingUp, ThumbsUp, Info, AlertCircle, Check, CheckCircle2, Plus } from 'lucide-react';
+﻿import React, { useState } from 'react';
+import { cn } from '../../../lib/utils';
+import {
+  ArrowLeft, ArrowRight, Calculator, Share2, Bookmark, Home,
+  Bed, Maximize2, Edit3, ChartLine, Check, CheckCircle2, Plus
+} from 'lucide-react';
 import { Card } from '../../ui/card';
 import { Slider } from '../../ui/slider';
 import { Label } from '../../ui/label';
 import { Input } from '../../ui/input';
-import { Checkbox } from '../../ui/checkbox';
 import { Progress } from '../../ui/progress';
 import { Switch } from '../../ui/switch';
 import { BottomNavBar } from '../../BottomNavBar';
 
+type CalculatorState = {
+  propertyValue: number;
+  downPaymentPercent: number;
+  interestRate: number;
+  loanTerm: number;
+  includeLifeInsurance: boolean;
+  includePropertyInsurance: boolean;
+  includeAdminFees: boolean;
+};
+
+type CalculatorResults = {
+  downPaymentAmount: number;
+  loanAmount: number;
+  monthlyRate: number;
+  numberOfPayments: number;
+  baseMonthlyPayment: number;
+  totalInsurance: number;
+  totalMonthlyPayment: number;
+  paymentToSalaryRatio: number;
+  isEligibleForSupport: boolean;
+};
+
 interface EmployeeCalculatorScreenProps {
   onNavigate: (screen: string, data?: any) => void;
   language: 'en' | 'ar';
-  employeeData: any;
+  employeeData?: any;
 }
 
-export function EmployeeCalculatorScreen({ onNavigate, language, employeeData }: EmployeeCalculatorScreenProps) {
+const useCalculator = (salary: number = 15000) => {
+  const [state, setState] = useState<CalculatorState>({
+    propertyValue: 2850000,
+    downPaymentPercent: 20,
+    interestRate: 3.25,
+    loanTerm: 25,
+    includeLifeInsurance: true,
+    includePropertyInsurance: true,
+    includeAdminFees: false
+  });
+
+  const calculateResults = (s: CalculatorState): CalculatorResults => {
+    const downPaymentAmount = Math.round((s.propertyValue * s.downPaymentPercent) / 100);
+    const loanAmount = s.propertyValue - downPaymentAmount;
+    const monthlyRate = s.interestRate / 100 / 12;
+    const numberOfPayments = s.loanTerm * 12;
+
+    const baseMonthlyPayment = Math.round(
+      loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, numberOfPayments)) /
+      (Math.pow(1 + monthlyRate, numberOfPayments) - 1)
+    );
+
+    const lifeInsurance = s.includeLifeInsurance ? 285 : 0;
+    const propertyInsurance = s.includePropertyInsurance ? 190 : 0;
+    const adminFees = s.includeAdminFees ? 150 : 0;
+    const totalInsurance = lifeInsurance + propertyInsurance + adminFees;
+    const totalMonthlyPayment = baseMonthlyPayment + totalInsurance;
+
+    const paymentToSalaryRatio = (totalMonthlyPayment / salary) * 100;
+
+    return {
+      downPaymentAmount,
+      loanAmount,
+      monthlyRate,
+      numberOfPayments,
+      baseMonthlyPayment,
+      totalInsurance,
+      totalMonthlyPayment,
+      paymentToSalaryRatio,
+      isEligibleForSupport: s.propertyValue <= 850000
+    };
+  };
+
+  return {
+    state,
+    setState,
+    results: calculateResults(state)
+  };
+};
+
+export const EmployeeCalculatorScreen: React.FC<EmployeeCalculatorScreenProps> = ({ 
+  onNavigate, 
+  language, 
+  employeeData 
+}) => {
   const isRTL = language === 'ar';
-  const [propertyValue, setPropertyValue] = useState(2850000);
-  const [downPaymentPercent, setDownPaymentPercent] = useState(20);
-  const [interestRate, setInterestRate] = useState(3.25);
-  const [loanTerm, setLoanTerm] = useState(25);
-  const [includeLifeInsurance, setIncludeLifeInsurance] = useState(true);
-  const [includePropertyInsurance, setIncludePropertyInsurance] = useState(true);
-  const [includeAdminFees, setIncludeAdminFees] = useState(false);
-
-  const downPaymentAmount = Math.round((propertyValue * downPaymentPercent) / 100);
-  const loanAmount = propertyValue - downPaymentAmount;
-  const monthlyRate = interestRate / 100 / 12;
-  const numberOfPayments = loanTerm * 12;
-
-  const baseMonthlyPayment = Math.round(
-    loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, numberOfPayments)) /
-    (Math.pow(1 + monthlyRate, numberOfPayments) - 1)
-  );
-
-  const lifeInsurance = includeLifeInsurance ? 285 : 0;
-  const propertyInsurance = includePropertyInsurance ? 190 : 0;
-  const adminFees = includeAdminFees ? 150 : 0;
-  const totalInsurance = lifeInsurance + propertyInsurance + adminFees;
-  const totalMonthlyPayment = baseMonthlyPayment + totalInsurance;
-
-  const salary = 15000;
-  const paymentToSalaryRatio = (totalMonthlyPayment / salary) * 100;
-
+  const { state, setState, results } = useCalculator();
   const housingSupportAmount = 500000;
-  const isEligibleForSupport = propertyValue <= 850000;
+
+  // Animation states
+  const [isCalculatorVisible, setIsCalculatorVisible] = useState(false);
+  const [showResults, setShowResults] = useState(false);
+
+  React.useEffect(() => {
+    setIsCalculatorVisible(true);
+    setTimeout(() => setShowResults(true), 500);
+  }, []);
 
   return (
-    <div className="min-h-screen bg-[#F2F4F5] relative overflow-hidden" dir={isRTL ? 'rtl' : 'ltr'}>
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-10" style={{backgroundColor: '#0F4C5C'}}></div>
-        <div className="absolute bottom-0 left-0 w-72 h-72 rounded-full opacity-10" style={{backgroundColor: '#D4AF37'}}></div>
-      </div>
-      <div className="relative z-10">
-        <div className="bg-gradient-to-r from-[#0F4C5C] to-[#0A3540] px-6 py-4 flex items-center gap-4">
-          <button onClick={() => onNavigate('home')} className="p-2 hover:bg-[#0A3540] rounded-full transition-colors">
-            {isRTL ? <ArrowRight className="w-5 h-5 text-white" /> : <ArrowLeft className="w-5 h-5 text-white" />}
-          </button>
-          <div>
-            <h1 className="text-xl font-semibold text-white">{isRTL ? 'حاسبة التمويل' : 'Financing Calculator'}</h1>
-            <p className="text-sm text-white/70">{isRTL ? 'احسب التمويل المناسب للعميل' : 'Calculate suitable financing for customer'}</p>
+    <div 
+      className={cn("min-h-screen bg-gray-50 font-arabic relative overflow-hidden animate-[fadeIn_0.5s_ease-out]")} 
+      dir={isRTL ? 'rtl' : 'ltr'}
+      style={{
+        // keep inline styles typed
+      } as React.CSSProperties}
+    >
+      {/* Header */}
+      <header className="relative bg-gradient-to-r from-[#0F4C5C] via-[#0A3540] to-[#0F4C5C] overflow-hidden transition-transform duration-500 transform translate-y-0">
+        <div className="relative z-20 px-4 py-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3 space-x-reverse">
+              <button onClick={() => onNavigate('home')} className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                {isRTL ? <ArrowRight className="w-5 h-5 text-white" /> : <ArrowLeft className="w-5 h-5 text-white" />}
+              </button>
+              <div>
+                <h1 className="text-white text-lg font-semibold">{isRTL ? 'حاسبة التمويل العقاري' : 'Mortgage Calculator'}</h1>
+                <p className="text-teal-100 text-sm">{isRTL ? 'أداة حساب خيارات التمويل' : 'Financing Options Calculator'}</p>
+              </div>
+            </div>
+            <div className="flex items-center space-x-3 space-x-reverse">
+              <button className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                <Share2 className="w-5 h-5 text-white" />
+              </button>
+              <button className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                <Bookmark className="w-5 h-5 text-white" />
+              </button>
+            </div>
           </div>
         </div>
-        <div className="px-6 py-6 space-y-6 pb-28">
-          <Card className="p-6 bg-gradient-to-br from-white to-[#f8f9fa] border border-[rgba(15,76,92,0.08)] shadow-[0px_8px_24px_0px_rgba(0,0,0,0.06)] rounded-3xl relative overflow-hidden">
-            <div className="absolute bg-[rgba(212,175,55,0.05)] blur-3xl filter right-0 rounded-full size-32 top-0"></div>
-            <div className="absolute bg-[rgba(15,76,92,0.03)] blur-2xl filter left-0 rounded-full size-24 bottom-0"></div>
-            <div className="relative z-10 space-y-5">
-              <div className="flex items-center justify-between pb-4">
-                <div className="flex items-center gap-3">
-                  <div className="bg-gradient-to-b from-[#d4af37] to-[#b8941f] rounded-2xl size-12 flex items-center justify-center shadow-[0px_4px_16px_0px_rgba(212,175,55,0.25)]"><Calculator className="w-5 h-5 text-white" /></div>
-                  <div>
-                    <h2 className="text-base text-[#0e1e25] mb-1 tracking-[-0.3px]" dir="auto">{isRTL ? 'حاسبة التمويل الذكية' : 'Smart Calculator'}</h2>
-                    <p className="text-xs text-gray-500" dir="auto">{isRTL ? 'احسب قسطك الشهري' : 'Calculate your monthly payment'}</p>
+
+        {/* Wave SVG with gradient */}
+        <svg className="w-full h-20 relative z-10" viewBox="0 0 1440 80" fill="none" preserveAspectRatio="none">
+          <path d="M0 40C360 20 720 20 1080 40C1260 50 1350 50 1440 40V80H0V40Z" fill="#F9FAFB"/>
+          <path d="M0 50C240 30 480 30 720 50C960 70 1200 70 1440 50V80H0V50Z" fill="url(#wave-gradient-1)" fillOpacity="0.3"/>
+          <defs>
+            <linearGradient id="wave-gradient-1" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#0F4C5C" stopOpacity="0.4"/>
+              <stop offset="0.5" stopColor="#D4AF37" stopOpacity="0.5"/>
+              <stop offset="1" stopColor="#0F4C5C" stopOpacity="0.4"/>
+            </linearGradient>
+          </defs>
+        </svg>
+
+        {/* Decorative elements */}
+        <div className="absolute top-4 left-6 w-2 h-2 bg-[#D4AF37]/30 rounded-full animate-pulse"></div>
+        <div className="absolute top-8 left-12 w-1.5 h-1.5 bg-white/20 rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
+        <div className="absolute top-6 right-8 w-2 h-2 bg-[#D4AF37]/25 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
+      </header>
+
+      <div className="space-y-4 p-4">
+        {/* Client Selection Section */}
+        <section className="relative z-30">
+          <Card className="bg-white">
+            <div className="p-4">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="font-semibold text-gray-900">{isRTL ? 'اختيار العميل' : 'Client Selection'}</h3>
+                <button className="text-[#0F4C5C] text-sm font-medium">
+                  <Plus className="w-4 h-4 inline-block ml-1" />
+                  {isRTL ? 'عميل جديد' : 'New Client'}
+                </button>
+              </div>
+              <div className="flex items-center space-x-3 space-x-reverse p-3 bg-gradient-to-r from-[#0F4C5C]/5 to-[#D4AF37]/5 rounded-xl border border-[#0F4C5C]/20">
+                <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="Client" className="w-12 h-12 rounded-full object-cover" />
+                <div className="flex-1">
+                  <h4 className="font-semibold text-gray-900">{isRTL ? 'سارة أحمد محمد' : 'Sarah Ahmed Mohammed'}</h4>
+                  <p className="text-sm text-gray-600">{isRTL ? 'الراتب: 15,000 ر.س | العمر: 32 سنة' : 'Salary: 15,000 SAR | Age: 32 years'}</p>
+                  <div className="flex items-center space-x-2 space-x-reverse mt-1">
+                    <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">
+                      {isRTL ? 'مؤهل للتمويل' : 'Eligible'}
+                    </span>
+                    <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
+                      {isRTL ? 'عميل نشط' : 'Active Client'}
+                    </span>
                   </div>
                 </div>
-                <button onClick={() => onNavigate('home')} className="w-8 h-8 rounded-full bg-[#f2f4f5] hover:bg-gray-200 transition-colors flex items-center justify-center"><span className="text-gray-500">✕</span></button>
+                <button className="w-8 h-8 bg-[#0F4C5C] rounded-lg flex items-center justify-center">
+                  <Check className="w-4 h-4 text-white" />
+                </button>
               </div>
+            </div>
+          </Card>
+        </section>
+
+        {/* Property Selection Section */}
+        <section>
+          <Card className="bg-white">
+            <div className="p-4 border-b border-gray-100">
+              <h2 className="text-lg font-semibold text-gray-900 flex items-center">
+                <Home className="w-5 h-5 text-[#D4AF37] mr-2" />
+                {isRTL ? 'اختيار العقار' : 'Property Selection'}
+              </h2>
+            </div>
+            <div className="p-4">
+              <div className="space-y-3">
+                <div className="flex items-center space-x-3 space-x-reverse p-3 bg-gradient-to-r from-[#D4AF37]/5 to-[#0F4C5C]/5 rounded-xl border-2 border-[#D4AF37]/30">
+                  <div className="w-16 h-16 rounded-xl overflow-hidden">
+                    <img className="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/fccaea5c53-10cb0632546a88784036.png" alt="Modern luxury villa with Saudi Arabian architecture" />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-gray-900">{isRTL ? 'فيلا الواحة الذهبية' : 'Golden Oasis Villa'}</h4>
+                    <p className="text-sm text-gray-600">{isRTL ? 'الرياض - حي الملقا' : 'Riyadh - Al Malqa'}</p>
+                    <div className="flex items-center space-x-3 space-x-reverse text-sm text-gray-500 mt-1">
+                      <span className="flex items-center space-x-1 space-x-reverse">
+                        <Bed className="w-4 h-4" />
+                        <span>5</span>
+                      </span>
+                      <span className="flex items-center space-x-1 space-x-reverse">
+                        <Maximize2 className="w-4 h-4" />
+                        <span>450م²</span>
+                      </span>
+                    </div>
+                    <div className="mt-2">
+                      <span className="text-lg font-bold text-[#0F4C5C]">2,850,000 ر.س</span>
+                    </div>
+                  </div>
+                  <div className="w-6 h-6 bg-[#D4AF37] rounded-full flex items-center justify-center">
+                    <Check className="w-4 h-4 text-white" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Card>
+        </section>
+
+        {/* Main Calculator Section */}
+        <section>
+          <Card className="bg-white">
+            <div className="p-4 border-b border-gray-100">
+              <h2 className="text-lg font-semibold text-gray-900 flex items-center">
+                <Calculator className="w-5 h-5 text-[#D4AF37] mr-2" />
+                {isRTL ? 'معاملات التمويل' : 'Financing Parameters'}
+              </h2>
+            </div>
+            <div className="p-4 space-y-4">
+              {/* Property Value */}
               <div>
-                <Label className="text-sm text-[#0e1e25] mb-3 block" dir="auto">{isRTL ? 'قيمة العقار' : 'Property Value'}</Label>
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="flex-1 bg-white rounded-2xl border border-[rgba(15,76,92,0.1)] px-4 py-3">
-                    <span className="text-lg text-[#0f4c5c]">{propertyValue.toLocaleString()}</span>
-                  </div>
-                  <span className="text-sm text-gray-600" dir="auto">{isRTL ? 'ر.س' : 'SAR'}</span>
-                </div>
-                <Slider value={[propertyValue]} onValueChange={(value: number[]) => setPropertyValue(value[0])} min={100000} max={10000000} step={50000} className="w-full" />
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label className="text-sm text-[#0e1e25] mb-3 block" dir="auto">{isRTL ? 'الدفعة الأولى (%)' : 'Down Payment (%)'}</Label>
-                  <div className="flex items-center gap-2 mb-2">
-                    <Input 
-                      type="number" 
-                      value={downPaymentPercent}
-                      onChange={(e) => setDownPaymentPercent(Math.max(5, Math.min(50, parseInt(e.target.value) || 5)))}
-                      min={5}
-                      max={50}
-                      className="flex-1 bg-white border-[rgba(15,76,92,0.1)] rounded-2xl px-3 py-2 text-base focus:border-[#0f4c5c] focus:ring-1 focus:ring-[#0f4c5c]"
-                    />
-                  </div>
-                  <p className="text-xs text-gray-500">{downPaymentAmount.toLocaleString()} SAR</p>
-                </div>
-                <div>
-                  <Label className="text-sm text-[#0e1e25] mb-3 block" dir="auto">{isRTL ? 'المدة (سنوات)' : 'Term (Years)'}</Label>
+                <Label className="block text-sm font-medium text-gray-700 mb-2">
+                  {isRTL ? 'قيمة العقار' : 'Property Value'}
+                </Label>
+                <div className="relative">
                   <Input
-                    type="number"
-                    value={loanTerm}
-                    onChange={(e) => setLoanTerm(Math.max(5, Math.min(30, parseInt(e.target.value) || 5)))}
-                    min={5}
-                    max={30}
-                    className="bg-white border-[rgba(15,76,92,0.1)] rounded-2xl px-3 py-2 text-base focus:border-[#0f4c5c] focus:ring-1 focus:ring-[#0f4c5c]"
+                    type="text"
+                    value={state.propertyValue.toLocaleString()}
+                    onChange={(e) => {
+                      const value = parseInt(e.target.value.replace(/,/g, '')) || state.propertyValue;
+                      setState({ ...state, propertyValue: value });
+                    }}
+                    className="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-4 text-center font-bold text-lg text-[#0F4C5C]"
                   />
-                  <p className="text-xs text-gray-500 mt-2">{loanTerm * 12} {isRTL ? 'شهر' : 'months'}</p>
+                  <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-sm text-gray-500">
+                    {isRTL ? 'ر.س' : 'SAR'}
+                  </span>
+                  <button className="absolute right-2 top-1/2 transform -translate-y-1/2 w-8 h-8 bg-[#0F4C5C] rounded-lg flex items-center justify-center">
+                    <Edit3 className="w-4 h-4 text-white" />
+                  </button>
                 </div>
               </div>
-              <div className="space-y-3">
-                <Label className="text-sm text-[#0e1e25] block" dir="auto">{isRTL ? 'معدل الفائدة' : 'Interest Rate'}</Label>
-                <div className="flex items-center gap-2">
-                  <Input
-                    type="number"
-                    value={interestRate}
-                    onChange={(e) => setInterestRate(Math.max(1, Math.min(10, parseFloat(e.target.value) || 1)))}
-                    step={0.25}
-                    min={1}
-                    max={10}
-                    className="w-32 bg-white border-[rgba(15,76,92,0.1)] rounded-2xl px-3 py-2 text-base focus:border-[#0f4c5c] focus:ring-1 focus:ring-[#0f4c5c]"
+
+              {/* Down Payment Slider */}
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <Label className="text-sm font-medium text-gray-700">
+                    {isRTL ? 'الدفعة المقدمة' : 'Down Payment'}
+                  </Label>
+                  <span className="text-sm font-semibold text-[#0F4C5C]">{state.downPaymentPercent}%</span>
+                </div>
+                <div className="relative mb-3">
+                  <Slider
+                    value={[state.downPaymentPercent]}
+                    onValueChange={(value: number[]) => setState({ ...state, downPaymentPercent: value[0] })}
+                    min={10}
+                    max={50}
+                    step={1}
+                    className="w-full"
                   />
-                  <span className="text-sm text-gray-500">%</span>
+                  <div className="flex justify-between text-xs text-gray-500 mt-1">
+                    <span>10%</span>
+                    <span>30%</span>
+                    <span>50%</span>
+                  </div>
                 </div>
-              </div>
-              <div className="space-y-3">
-                <h3 className="text-sm text-[#0e1e25] font-medium" dir="auto">{isRTL ? 'الرسوم والتأمين' : 'Fees & Insurance'}</h3>
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <Label className="text-sm text-gray-600" dir="auto">{isRTL ? 'تأمين على الحياة' : 'Life Insurance'}</Label>
-                    <Switch checked={includeLifeInsurance} onCheckedChange={setIncludeLifeInsurance} />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <Label className="text-sm text-gray-600" dir="auto">{isRTL ? 'تأمين على العقار' : 'Property Insurance'}</Label>
-                    <Switch checked={includePropertyInsurance} onCheckedChange={setIncludePropertyInsurance} />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <Label className="text-sm text-gray-600" dir="auto">{isRTL ? 'رسوم إدارية' : 'Admin Fees'}</Label>
-                    <Switch checked={includeAdminFees} onCheckedChange={setIncludeAdminFees} />
+                <div className="bg-gradient-to-r from-[#0F4C5C]/10 to-[#D4AF37]/10 rounded-lg p-3 border border-[#0F4C5C]/20">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-gray-600">{isRTL ? 'المبلغ المطلوب:' : 'Required Amount:'}</span>
+                    <span className="font-bold text-[#0F4C5C] text-lg">{results.downPaymentAmount.toLocaleString()} {isRTL ? 'ر.س' : 'SAR'}</span>
                   </div>
                 </div>
               </div>
-              {isEligibleForSupport && (
-                <div className="bg-gradient-to-r from-emerald-50 to-emerald-100 rounded-2xl p-4 border border-emerald-200">
-                  <div className="flex items-start gap-3">
-                    <div className="bg-gradient-to-b from-emerald-500 to-emerald-600 rounded-full size-10 flex items-center justify-center shrink-0 shadow-[0px_4px_12px_0px_rgba(16,185,129,0.25)]"><CheckCircle2 className="w-5 h-5 text-white" /></div>
-                    <div className="flex-1">
-                      <h3 className="text-sm text-emerald-900 mb-1" dir="auto">✓ {isRTL ? 'مؤهل للدعم السكني' : 'Eligible for Housing Support'}</h3>
-                      <p className="text-sm text-emerald-700 mb-2" dir="auto">{isRTL ? `دعم متوقع: ${housingSupportAmount.toLocaleString()} ر.س` : `Expected support: ${housingSupportAmount.toLocaleString()} SAR`}</p>
-                      <p className="text-xs text-emerald-600" dir="auto">{isRTL ? 'سيتم خصم الدعم من قيمة التمويل' : 'Support will be deducted from financing amount'}</p>
+
+              {/* Interest Rate */}
+              <div>
+                <Label className="block text-sm font-medium text-gray-700 mb-2">
+                  {isRTL ? 'معدل الفائدة السنوي' : 'Annual Interest Rate'}
+                </Label>
+                <div className="grid grid-cols-3 gap-2">
+                  <button
+                    className={`${state.interestRate === 3.25 ? 'bg-gradient-to-r from-[#0F4C5C] to-[#0A3540]' : 'bg-gray-100'} 
+                      ${state.interestRate === 3.25 ? 'text-white' : 'text-gray-700'} 
+                      py-3 rounded-lg font-semibold text-sm`}
+                    onClick={() => setState({ ...state, interestRate: 3.25 })}
+                  >
+                    3.25%
+                  </button>
+                  <button
+                    className={`${state.interestRate === 3.75 ? 'bg-gradient-to-r from-[#0F4C5C] to-[#0A3540]' : 'bg-gray-100'} 
+                      ${state.interestRate === 3.75 ? 'text-white' : 'text-gray-700'} 
+                      py-3 rounded-lg font-semibold text-sm border border-gray-200`}
+                    onClick={() => setState({ ...state, interestRate: 3.75 })}
+                  >
+                    3.75%
+                  </button>
+                  <button
+                    className={`${state.interestRate === 4.25 ? 'bg-gradient-to-r from-[#0F4C5C] to-[#0A3540]' : 'bg-gray-100'} 
+                      ${state.interestRate === 4.25 ? 'text-white' : 'text-gray-700'} 
+                      py-3 rounded-lg font-semibold text-sm border border-gray-200`}
+                    onClick={() => setState({ ...state, interestRate: 4.25 })}
+                  >
+                    4.25%
+                  </button>
+                </div>
+              </div>
+
+              {/* Loan Term */}
+              <div>
+                <Label className="block text-sm font-medium text-gray-700 mb-2">
+                  {isRTL ? 'مدة القرض' : 'Loan Term'}
+                </Label>
+                <div className="grid grid-cols-4 gap-2">
+                  {[15, 20, 25, 30].map((term) => (
+                    <button
+                      key={term}
+                      className={`${state.loanTerm === term ? 'bg-gradient-to-r from-[#0F4C5C] to-[#0A3540]' : 'bg-gray-100'} 
+                        ${state.loanTerm === term ? 'text-white' : 'text-gray-700'} 
+                        py-3 rounded-lg font-semibold text-sm border border-gray-200`}
+                      onClick={() => setState({ ...state, loanTerm: term })}
+                    >
+                      {term} {isRTL ? 'سنة' : 'years'}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Insurance & Fees */}
+              <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
+                <h4 className="font-semibold text-gray-900 mb-3">{isRTL ? 'الرسوم والتأمينات' : 'Fees & Insurance'}</h4>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2 space-x-reverse">
+                      <Switch
+                        checked={state.includeLifeInsurance}
+                        onCheckedChange={(checked) => setState({ ...state, includeLifeInsurance: checked })}
+                      />
+                      <span className="text-sm text-gray-700">{isRTL ? 'تأمين الحياة' : 'Life Insurance'}</span>
+                    </div>
+                    <span className="text-sm font-semibold text-gray-900">285 {isRTL ? 'ر.س/شهر' : 'SAR/month'}</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2 space-x-reverse">
+                      <Switch
+                        checked={state.includePropertyInsurance}
+                        onCheckedChange={(checked) => setState({ ...state, includePropertyInsurance: checked })}
+                      />
+                      <span className="text-sm text-gray-700">{isRTL ? 'تأمين العقار' : 'Property Insurance'}</span>
+                    </div>
+                    <span className="text-sm font-semibold text-gray-900">190 {isRTL ? 'ر.س/شهر' : 'SAR/month'}</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2 space-x-reverse">
+                      <Switch
+                        checked={state.includeAdminFees}
+                        onCheckedChange={(checked) => setState({ ...state, includeAdminFees: checked })}
+                      />
+                      <span className="text-sm text-gray-700">{isRTL ? 'رسوم إدارية' : 'Admin Fees'}</span>
+                    </div>
+                    <span className="text-sm font-semibold text-gray-900">150 {isRTL ? 'ر.س/شهر' : 'SAR/month'}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Card>
+        </section>
+
+        {/* Results Section */}
+        <section>
+          <Card className="bg-gradient-to-br from-[#0F4C5C]/5 to-[#D4AF37]/5 border border-[#0F4C5C]/20 overflow-hidden relative">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#D4AF37]/10 rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#0F4C5C]/10 rounded-full blur-2xl transform translate-x-1/4 translate-y-1/4"></div>
+            <div className="relative z-10">
+              <div className="p-4 border-b border-[#0F4C5C]/20">
+                <h2 className="text-lg font-semibold text-gray-900 flex items-center">
+                  <ChartLine className="w-5 h-5 text-[#D4AF37] mr-2" />
+                  {isRTL ? 'نتائج الحساب' : 'Calculation Results'}
+                </h2>
+              </div>
+              
+              <div className="p-4">
+                {/* Main Monthly Payment */}
+                <div className="bg-white rounded-2xl p-6 mb-4 shadow-sm border border-white/50 text-center">
+                  <p className="text-sm text-gray-600 mb-2">{isRTL ? 'القسط الشهري الإجمالي' : 'Total Monthly Payment'}</p>
+                  <h3 className="text-4xl font-bold text-[#0F4C5C] mb-4">{results.totalMonthlyPayment.toLocaleString()} {isRTL ? 'ر.س' : 'SAR'}</h3>
+                  
+                  <div className="grid grid-cols-2 gap-4 text-sm">
+                    <div className="text-center p-3 bg-gray-50 rounded-lg">
+                      <span className="block font-semibold text-gray-900">+ {results.totalInsurance.toLocaleString()} {isRTL ? 'ر.س' : 'SAR'}</span>
+                      <span className="text-gray-600">{isRTL ? 'التأمينات' : 'Insurance'}</span>
+                    </div>
+                    <div className="text-center p-3 bg-[#0F4C5C]/10 rounded-lg">
+                      <span className="block font-semibold text-[#0F4C5C]">{results.baseMonthlyPayment.toLocaleString()} {isRTL ? 'ر.س' : 'SAR'}</span>
+                      <span className="text-[#0F4C5C]">{isRTL ? 'القسط الأساسي' : 'Base Payment'}</span>
                     </div>
                   </div>
                 </div>
-              )}
-              {!isEligibleForSupport && (
-                <div className="bg-gradient-to-r from-amber-50 to-amber-100 rounded-2xl p-4 border border-amber-200">
-                  <div className="flex items-start gap-3">
-                    <div className="bg-gradient-to-b from-amber-500 to-amber-600 rounded-full size-10 flex items-center justify-center shrink-0 shadow-[0px_4px_12px_0px_rgba(217,119,6,0.25)]"><AlertCircle className="w-5 h-5 text-white" /></div>
-                    <div className="flex-1">
-                      <h3 className="text-sm text-amber-900 mb-1" dir="auto">{isRTL ? 'غير مؤهل للدعم السكني' : 'Not eligible for Housing Support'}</h3>
-                      <p className="text-xs text-amber-700" dir="auto">{isRTL ? 'قيمة العقار تتجاوز حد الدعم السكني (850,000 ر.س)' : 'Property value exceeds housing support limit (850,000 SAR)'}</p>
-                    </div>
+
+                {/* Payment to Salary Ratio */}
+                <div className="mb-6">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-sm font-medium text-gray-700">{isRTL ? 'نسبة القسط من الراتب' : 'Payment to Salary Ratio'}</span>
+                    <span className={`text-sm font-semibold ${results.paymentToSalaryRatio <= 50 ? 'text-green-600' : 'text-red-600'}`}>
+                      {results.paymentToSalaryRatio.toFixed(1)}%
+                    </span>
+                  </div>
+                  <Progress
+                    value={results.paymentToSalaryRatio}
+                    max={100}
+                    className={`h-2 ${results.paymentToSalaryRatio <= 50 ? 'bg-gradient-to-r from-green-500 to-green-600' : 'bg-gradient-to-r from-red-500 to-red-600'}`}
+                  />
+                  <div className="flex justify-between text-xs text-gray-500 mt-2">
+                    <span>{isRTL ? 'آمن (أقل من 50%)' : 'Safe (under 50%)'}</span>
+                    <span>{isRTL ? 'الحد الأقصى: 65%' : 'Max: 65%'}</span>
                   </div>
                 </div>
-              )}
-            </div>
-          </Card>
-          <Card className="p-6 bg-gradient-to-br from-[#0F4C5C] to-[#0A3540] text-white border-0 shadow-[0px_8px_24px_0px_rgba(15,76,92,0.15)] rounded-2xl">
-            <div className="text-center">
-              <p className="text-sm text-white/80 mb-2" dir="auto">{isRTL ? 'القسط الشهري المتوقع' : 'Estimated Monthly Payment'}</p>
-              <p className="text-3xl text-white mb-1">{totalMonthlyPayment.toLocaleString()}</p>
-              <p className="text-sm text-white/80" dir="auto">{isRTL ? 'ريال سعودي' : 'Saudi Riyal'}</p>
-              <div className="mt-4 pt-4 border-t border-white/20 grid grid-cols-2 gap-4 text-left">
-                <div>
-                  <p className="text-xs text-white/60" dir="auto">{isRTL ? 'أصل القسط' : 'Base Payment'}</p>
-                  <p className="text-sm text-white">{baseMonthlyPayment.toLocaleString()} SAR</p>
-                </div>
-                <div>
-                  <p className="text-xs text-white/60" dir="auto">{isRTL ? 'التأمين والرسوم' : 'Insurance & Fees'}</p>
-                  <p className="text-sm text-white">{totalInsurance.toLocaleString()} SAR</p>
-                </div>
-              </div>
-              <div className="mt-4 pt-4 border-t border-white/20 text-xs text-white/70">
-                <div className="flex items-center justify-between">
-                  <span dir="auto">{isRTL ? 'نسبة الدخل:' : 'Income Ratio:'}</span>
-                  <span>{paymentToSalaryRatio.toFixed(1)}%</span>
-                </div>
-              </div>
-              <div className="mt-2 text-xs text-white/70" dir="auto">
-                {isRTL ? `معدل الفائدة: ${interestRate}%` : `Interest Rate: ${interestRate}%`}
+
+                {/* Support Eligibility Card */}
+                {results.isEligibleForSupport && (
+                  <div className="bg-gradient-to-r from-emerald-50 to-emerald-100 rounded-2xl p-4 border border-emerald-200 mb-4">
+                    <div className="flex items-start gap-3">
+                      <div className="bg-gradient-to-b from-emerald-500 to-emerald-600 rounded-full w-10 h-10 flex items-center justify-center shrink-0 shadow-lg shadow-emerald-500/25">
+                        <CheckCircle2 className="w-5 h-5 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="text-sm font-semibold text-emerald-900 mb-1">
+                          {isRTL ? '✓ مؤهل للدعم السكني' : '✓ Eligible for Housing Support'}
+                        </h3>
+                        <p className="text-sm text-emerald-700 mb-2">
+                          {isRTL ? `دعم متوقع: ${housingSupportAmount.toLocaleString()} ر.س` : `Expected support: ${housingSupportAmount.toLocaleString()} SAR`}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </Card>
+        </section>
+
+        {/* Bottom Navigation */}
+        <div className="py-4">
+          <BottomNavBar
+            currentScreen="calculator"
+            onNavigate={onNavigate}
+            language={language}
+            variant="business"
+          />
         </div>
       </div>
-
-      {/* Bottom Navigation */}
-      <BottomNavBar
-        currentScreen="calculator"
-        onNavigate={onNavigate}
-        language={language}
-        variant="business"
-      />
     </div>
   );
-}
+};

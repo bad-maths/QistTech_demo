@@ -17,7 +17,8 @@ import { EmployeePropertiesScreen } from './components/business/EmployeeProperti
 import { EmployeePropertyDetailsScreen } from './components/business/EmployeePropertyDetailsScreen';
 import { EmployeeMessagesScreen } from './components/business/EmployeeMessagesScreen';
 import { EmployeeChatScreen } from './components/business/EmployeeChatScreen';
-import { EmployeeProfileScreen } from './components/business/EmployeeProfileScreen';
+import { EmployeeProfileScreen as CommonEmployeeProfileScreen } from './components/business/EmployeeProfileScreen';
+import { EmployeeProfileScreen as DeveloperEmployeeProfileScreen } from './components/business/developer/EmployeeProfileScreen';
 import { EmployeeNotificationsScreen } from './components/business/EmployeeNotificationsScreen';
 
 interface AppBusinessProps {
@@ -60,7 +61,9 @@ export default function AppBusiness({ onBack }: AppBusinessProps) {
       messages: <EmployeeMessagesScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
       employeeChat: <EmployeeChatScreen onNavigate={handleNavigate} language={language} contactData={navigationData} />,
       notifications: <EmployeeNotificationsScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
-      profile: <EmployeeProfileScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} onLogout={() => setCurrentScreen('auth')} />,
+      profile: isDeveloper 
+        ? <DeveloperEmployeeProfileScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} onLogout={() => setCurrentScreen('auth')} />
+        : <CommonEmployeeProfileScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} onLogout={() => setCurrentScreen('auth')} />,
     };
 
     if (isDeveloper) {

@@ -1,0 +1,120 @@
+@keyframes slideIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.container {
+  min-height: 100vh;
+  background: #F9FAFB;
+}
+
+.header {
+  position: relative;
+  background: linear-gradient(to right, #0F4C5C, #0A3540, #0F4C5C);
+  overflow: hidden;
+  animation: slideIn 0.5s ease-out;
+}
+
+.clientSection {
+  animation: slideIn 0.5s ease-out 0.1s both;
+}
+
+.propertySection {
+  animation: slideIn 0.5s ease-out 0.2s both;
+}
+
+.calculatorSection {
+  animation: slideIn 0.5s ease-out 0.3s both;
+}
+
+.resultsSection {
+  animation: slideIn 0.5s ease-out 0.4s both;
+}
+
+.decorativeCircle {
+  animation: fadeIn 1s ease-out;
+}
+
+.wavePath {
+  transition: all 0.3s ease;
+}
+
+.wavePath:hover {
+  transform: translateY(-2px);
+}
+
+.button {
+  transition: all 0.2s ease;
+}
+
+.button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.gradientBg {
+  background: linear-gradient(135deg, rgba(15, 76, 92, 0.05), rgba(212, 175, 55, 0.05));
+}
+
+.glowEffect {
+  position: relative;
+}
+
+.glowEffect::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(45deg, #0F4C5C20, #D4AF3720);
+  border-radius: inherit;
+  z-index: -1;
+  animation: glow 2s linear infinite;
+}
+
+@keyframes glow {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+.pulseEffect {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
