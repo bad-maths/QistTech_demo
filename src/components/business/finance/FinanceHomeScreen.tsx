@@ -101,7 +101,7 @@ export function FinanceHomeScreen({ onNavigate, language, employeeData }: Financ
       dir={isRTL ? 'rtl' : 'ltr'}
     >
       {/* Header */}
-      <div className="bg-gradient-to-r from-[#0F4C5C] via-[#0A3540] to-[#0F4C5C] text-white px-6 py-8 relative overflow-hidden">
+      <div className="bg-gradient-to-r from-[#0F4C5C] via-[#0A3540] to-[#0F4C5C] text-white px-6 pt-6 pb-6 relative overflow-hidden">
         {/* Decorative gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-white/5 via-transparent to-transparent pointer-events-none"></div>
         
@@ -146,6 +146,39 @@ export function FinanceHomeScreen({ onNavigate, language, employeeData }: Financ
             onCheckedChange={setIsOnline}
           />
         </div>
+      </div>
+
+      {/* ========== WAVE TRANSITION ========== */}
+      <div className="relative -mt-16 overflow-hidden">
+        {/* Floating gradient orbs for depth */}
+        <div className="absolute top-4 left-[10%] w-24 h-24 bg-[#D4AF37]/10 rounded-full blur-2xl animate-float"></div>
+        <div className="absolute top-6 right-[20%] w-20 h-20 bg-[#0F4C5C]/10 rounded-full blur-xl animate-float" style={{ animationDelay: '1s' }}></div>
+        
+        {/* Wave SVG with gradient */}
+        <svg className="w-full h-28 relative z-10" viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          {/* Main wave */}
+          <path d="M0 60C360 30 720 30 1080 60C1260 75 1350 75 1440 60V120H0V60Z" fill="#F2F4F5"/>
+          
+          {/* Accent wave with gradient */}
+          <path d="M0 70C240 40 480 40 720 70C960 100 1200 100 1440 70V120H0V70Z" fill="url(#wave-gradient-1)" opacity="0.4"/>
+          
+          {/* Top highlight wave */}
+          <path d="M0 50C300 20 600 20 900 50C1140 75 1320 75 1440 50V120H0V50Z" fill="#F2F4F5" opacity="0.5"/>
+          
+          <defs>
+            <linearGradient id="wave-gradient-1" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#0F4C5C" stopOpacity="0.4"/>
+              <stop offset="0.5" stopColor="#D4AF37" stopOpacity="0.5"/>
+              <stop offset="1" stopColor="#0F4C5C" stopOpacity="0.4"/>
+            </linearGradient>
+          </defs>
+        </svg>
+
+        {/* Decorative dots pattern */}
+        <div className="absolute bottom-6 left-1/4 w-2 h-2 bg-[#D4AF37]/30 rounded-full animate-pulse"></div>
+        <div className="absolute bottom-8 left-1/3 w-1.5 h-1.5 bg-[#0F4C5C]/20 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+        <div className="absolute bottom-7 right-1/3 w-2 h-2 bg-[#D4AF37]/25 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute bottom-9 right-1/4 w-1.5 h-1.5 bg-[#0F4C5C]/30 rounded-full animate-pulse" style={{ animationDelay: '1.5s' }}></div>
       </div>
 
       {/* Quick Stats */}

@@ -5,6 +5,7 @@ import { EmployeeAuthScreen } from './components/business/EmployeeAuthScreen';
 // Shared Screens
 import { EmployeeHomeScreen } from './components/business/EmployeeHomeScreen';
 import { FinanceHomeScreen } from './components/business/finance/FinanceHomeScreen';
+import { DeveloperHomeScreen } from './components/business/developer/DeveloperHomeScreen';
 import { PullClientScreen } from './components/business/PullClientScreen';
 import { EmployeeWalletScreen } from './components/business/EmployeeWalletScreen';
 import { EmployeeRequestsScreen } from './components/business/EmployeeRequestsScreen';
@@ -64,7 +65,7 @@ export default function AppBusiness({ onBack }: AppBusinessProps) {
     if (isDeveloper) {
       return {
         ...commonScreens,
-        home: <EmployeeHomeScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
+        home: <DeveloperHomeScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
         properties: <EmployeePropertiesScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
         propertyDetails: <EmployeePropertyDetailsScreen onNavigate={handleNavigate} language={language} propertyData={navigationData} employeeData={employeeData} />,
       };

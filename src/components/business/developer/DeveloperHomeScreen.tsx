@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Power, TrendingUp, CheckCircle, Wallet, Percent, UserPlus, Calculator, ClipboardList, Building2, Bell, ArrowRight, ArrowLeft } from 'lucide-react';
+import { Power, TrendingUp, CheckCircle, Wallet, Percent, UserPlus, ClipboardList, Building2, Bell, ArrowRight, ArrowLeft } from 'lucide-react';
 import { Button } from '../../ui/button';
 import { Card } from '../../ui/card';
 import { Badge } from '../../ui/badge';
@@ -64,6 +64,7 @@ export function DeveloperHomeScreen({ onNavigate, language, employeeData }: Deve
       location: isRTL ? 'الرياض، حي النرجس' : 'Riyadh, Narcissus District',
       price: '1,250,000',
       units: 5,
+      status: 'available',
       image: 'https://images.unsplash.com/photo-1681216868987-b7268753b81c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBidWlsZGluZyUyMGFyY2hpdGVjdHVyZXxlbnwxfHx8fDE3NjE3MjUwMDF8MA&ixlib=rb-4.1.0&q=80&w=1080',
     },
     {
@@ -72,6 +73,7 @@ export function DeveloperHomeScreen({ onNavigate, language, employeeData }: Deve
       location: isRTL ? 'جدة، كورنيش البحر' : 'Jeddah, Sea Corniche',
       price: '850,000',
       units: 12,
+      status: 'available',
       image: 'https://images.unsplash.com/photo-1638454668466-e8dbd5462f20?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBhcGFydG1lbnQlMjBpbnRlcmlvcnxlbnwxfHx8fDE3NjE3NjQ5OTl8MA&ixlib=rb-4.1.0&q=80&w=1080',
     },
   ];
@@ -104,67 +106,119 @@ export function DeveloperHomeScreen({ onNavigate, language, employeeData }: Deve
 
   return (
     <div 
-      className="min-h-screen bg-[#F2F4F5] relative overflow-hidden pb-20"
+      className="min-h-screen bg-[#F2F4F5] pb-20"
       dir={isRTL ? 'rtl' : 'ltr'}
     >
-      {/* Animated Background Orbs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-20 w-72 h-72 bg-[#D4AF37] rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob"></div>
-        <div className="absolute top-40 right-20 w-72 h-72 bg-[#0F4C5C] rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-2000"></div>
-        <div className="absolute -bottom-8 left-40 w-72 h-72 bg-[#0A3540] rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-4000"></div>
-      </div>
+      {/* Header */}
+      <div className="bg-gradient-to-r from-[#0F4C5C] via-[#0A3540] to-[#0F4C5C] text-white px-6 pt-6 pb-6 relative overflow-hidden">
+        {/* Decorative gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/5 via-transparent to-transparent pointer-events-none"></div>
+        
+        {/* Floating orbs for depth */}
+        <div className="absolute top-4 right-[10%] w-24 h-24 bg-[#D4AF37]/15 rounded-full blur-2xl"></div>
+        <div className="absolute bottom-4 left-[5%] w-32 h-32 bg-[#D4AF37]/10 rounded-full blur-3xl"></div>
 
-      <div className="relative z-10">
-        {/* Premium Header */}
-        <div className="relative bg-gradient-to-r from-[#0F4C5C] via-[#0A3540] to-[#0F4C5C] text-white px-6 py-8 overflow-hidden">
-          {/* Decorative gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-white/5 via-transparent to-transparent pointer-events-none"></div>
-          
-          {/* Floating orbs for depth */}
-          <div className="absolute top-4 right-[10%] w-24 h-24 bg-[#D4AF37]/15 rounded-full blur-2xl"></div>
-          <div className="absolute bottom-4 left-[5%] w-32 h-32 bg-[#D4AF37]/10 rounded-full blur-3xl"></div>
-
-          <div className="relative z-10 flex items-start justify-between mb-6">
-            <div>
-              <h1 className="text-2xl font-bold tracking-tight">
-                {isRTL ? `مرحباً، ${employeeData?.name}` : `Hello, ${employeeData?.name}`}
-              </h1>
-              <p className="text-sm text-white/80 mt-1">
-                {employeeData?.company} • {isRTL ? 'مطور عقاري' : 'Property Developer'}
-              </p>
-            </div>
-            <button className="p-2 hover:bg-white/20 rounded-xl transition-all duration-300 border border-white/10">
-              <Bell className="w-5 h-5 text-white" />
-            </button>
+        <div className="relative z-10 flex items-start justify-between mb-6">
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight">
+              {isRTL ? `مرحباً، ${employeeData?.name}` : `Hello, ${employeeData?.name}`}
+            </h1>
+            <p className="text-sm text-white/80 mt-1">
+              {employeeData?.company} • {isRTL ? 'مطور عقاري' : 'Property Developer'}
+            </p>
           </div>
-
-          {/* Online Status Toggle */}
-          <div className="flex items-center justify-between bg-white/10 backdrop-blur-xl rounded-xl p-4 border border-white/10 hover:bg-white/15 transition-all duration-300">
-            <div className="flex items-center gap-3">
-              <div
-                className="w-3 h-3 rounded-full"
-                style={{ backgroundColor: isOnline ? '#10B981' : '#6B7280' }}
-              />
-              <div>
-                <p className="font-medium text-white text-sm">
-                  {isRTL ? 'حالة الاستقبال' : 'Receiving Status'}
-                </p>
-                <p className="text-xs text-white/70">
-                  {isOnline 
-                    ? (isRTL ? 'متصل - يمكنك استقبال الحجوزات' : 'Online - Receiving bookings')
-                    : (isRTL ? 'غير متصل' : 'Offline')}
-                </p>
-              </div>
-            </div>
-            <Switch
-              checked={isOnline}
-              onCheckedChange={setIsOnline}
-            />
-          </div>
+          <button className="p-2 hover:bg-white/20 rounded-xl transition-all duration-300 border border-white/10">
+            <Bell className="w-5 h-5 text-white" />
+          </button>
         </div>
 
-        {/* Quick Stats */}
-        <div className="px-6 py-6">
+        {/* Online Status Toggle */}
+        <div className="flex items-center justify-between bg-white/10 backdrop-blur-xl rounded-xl p-4 border border-white/10 hover:bg-white/15 transition-all duration-300">
+          <div className="flex items-center gap-3">
+            <div
+              className="w-3 h-3 rounded-full"
+              style={{ backgroundColor: isOnline ? '#10B981' : '#6B7280' }}
+            />
+            <div>
+              <p className="font-medium text-white text-sm">
+                {isRTL ? 'حالة الاستقبال' : 'Receiving Status'}
+              </p>
+              <p className="text-xs text-white/70">
+                {isOnline 
+                  ? (isRTL ? 'متصل - يمكنك استقبال الحجوزات' : 'Online - Receiving bookings')
+                  : (isRTL ? 'غير متصل' : 'Offline')}
+              </p>
+            </div>
+          </div>
+          <Switch
+            checked={isOnline}
+            onCheckedChange={setIsOnline}
+          />
+        </div>
+      </div>
+
+      {/* ========== WAVE TRANSITION ========== */}
+      <div className="relative -mt-16 overflow-hidden">
+        {/* Floating gradient orbs for depth */}
+        <div className="absolute top-4 left-[10%] w-24 h-24 bg-[#D4AF37]/10 rounded-full blur-2xl animate-float"></div>
+        <div className="absolute top-6 right-[20%] w-20 h-20 bg-[#0F4C5C]/10 rounded-full blur-xl animate-float" style={{ animationDelay: '1s' }}></div>
+
+        {/* Wave SVG with flipped middle wave */}
+        <svg
+          className="w-full h-28 relative z-10"
+          viewBox="0 0 1440 120"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="none"
+        >
+          {/* Main wave */}
+          <path
+            d="M0 60C360 30 720 30 1080 60C1260 75 1350 75 1440 60V120H0V60Z"
+            fill="#F2F4F5"
+            transform="translate(1440,0) scale(-1,1)"
+          />
+
+          {/* Accent wave with gradient (flipped horizontally) */}
+          <path
+            d="M0 70C240 40 480 40 720 70C960 100 1200 100 1440 70V120H0V70Z"
+            fill="url(#wave-gradient-1)"
+            opacity="0.4"
+            transform="translate(1440,0) scale(-1,1)"
+          />
+
+          {/* Top highlight wave */}
+          <path
+            d="M0 50C300 20 600 20 900 50C1140 75 1320 75 1440 50V120H0V50Z"
+            fill="#F2F4F5"
+            opacity="0.5"
+            transform="translate(1440,0) scale(-1,1)"
+          />
+
+          <defs>
+            <linearGradient
+              id="wave-gradient-1"
+              x1="0"
+              y1="0"
+              x2="1440"
+              y2="0"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stopColor="#0F4C5C" stopOpacity="0.4" />
+              <stop offset="0.5" stopColor="#D4AF37" stopOpacity="0.5" />
+              <stop offset="1" stopColor="#0F4C5C" stopOpacity="0.4" />
+            </linearGradient>
+          </defs>
+        </svg>
+
+        {/* Decorative dots pattern */}
+        <div className="absolute bottom-6 left-1/4 w-2 h-2 bg-[#D4AF37]/30 rounded-full animate-pulse"></div>
+        <div className="absolute bottom-8 left-1/3 w-1.5 h-1.5 bg-[#0F4C5C]/20 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+        <div className="absolute bottom-7 right-1/3 w-2 h-2 bg-[#D4AF37]/25 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute bottom-9 right-1/4 w-1.5 h-1.5 bg-[#0F4C5C]/30 rounded-full animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+      </div>
+
+      {/* Quick Stats */}
+      <div className="px-6 py-6">
           <div className="grid grid-cols-2 gap-4 mb-6">
             <Card className="p-4 bg-gradient-to-br from-white via-white to-[#F2F4F5]/30 border-[#0F4C5C]/5 rounded-2xl shadow-lifted hover:shadow-2xl hover:scale-[1.02] transition-all duration-300">
               <div className="flex items-center gap-3">
@@ -273,23 +327,29 @@ export function DeveloperHomeScreen({ onNavigate, language, employeeData }: Deve
                 <Card
                   key={request.id}
                   onClick={() => onNavigate('requestDetails', request)}
-                  className="min-w-[280px] p-4 bg-gradient-to-br from-white via-white to-[#F2F4F5]/30 border-[#0F4C5C]/5 rounded-2xl cursor-pointer hover:shadow-2xl hover:scale-[1.02] transition-all duration-300"
+                  className="min-w-[280px] p-4 bg-gradient-to-br from-white via-white to-[#F2F4F5]/30 border-[#0F4C5C]/5 rounded-2xl cursor-pointer hover:shadow-2xl hover:scale-[1.01] transition-all duration-300 flex-shrink-0"
                 >
                   <div className="flex items-start justify-between mb-3">
-                    <Badge className={`text-xs font-medium ${getStatusColor(request.status)}`}>
-                      {getStatusText(request.status)}
-                    </Badge>
-                    <span className="text-xs text-[#4B5563]">{request.time}</span>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <Badge className={`text-xs font-medium ${getStatusColor(request.status)}`}>
+                          {getStatusText(request.status)}
+                        </Badge>
+                        <span className="text-xs text-[#4B5563]">{request.time}</span>
+                      </div>
+                      <h4 className="font-semibold text-[#0E1E25] mb-1 text-sm">{request.customerName}</h4>
+                      <p className="text-xs text-[#4B5563]">{request.propertyName}</p>
+                    </div>
                   </div>
 
-                  <h4 className="font-semibold text-[#0E1E25] mb-1 text-sm">{request.customerName}</h4>
-                  <p className="text-xs text-[#4B5563] mb-3">{request.propertyName}</p>
-                  
-                  <div className="flex items-center justify-between">
-                    <span className="text-lg font-bold bg-gradient-to-r from-[#0F4C5C] to-[#0A3540] bg-clip-text text-transparent">
-                      {request.amount} {isRTL ? 'ر.س' : 'SAR'}
-                    </span>
-                    <Badge variant="outline" className="text-xs font-medium border-[#0F4C5C]/20">
+                  <div className="flex items-center justify-between pt-3 border-t border-[#0F4C5C]/10">
+                    <div>
+                      <p className="text-xs text-[#4B5563] font-medium mb-1">{isRTL ? 'المبلغ' : 'Amount'}</p>
+                      <p className="font-semibold text-white bg-gradient-to-r from-[#D4AF37] to-[#B8941F] px-3 py-1.5 rounded-lg inline-block text-sm">
+                        {request.amount} {isRTL ? 'ر.س' : 'SAR'}
+                      </p>
+                    </div>
+                    <Badge className="bg-gradient-to-r from-[#D4AF37] to-[#B8941F] text-white border-0">
                       {isRTL ? 'حجز' : 'Booking'}
                     </Badge>
                   </div>
@@ -300,80 +360,38 @@ export function DeveloperHomeScreen({ onNavigate, language, employeeData }: Deve
 
           {/* Company Properties */}
           <div className="mb-6">
-            <div className="flex items-center justify-between mb-3">
-              <h3 className="font-semibold text-[#0E1E25] tracking-tight">
-                {isRTL ? 'عقارات شركتي' : 'Company Properties'}
-              </h3>
-              <button
-                onClick={() => onNavigate('properties')}
-                className="text-sm text-[#0F4C5C] hover:text-[#0A3540] font-medium flex items-center gap-1 transition-colors"
-              >
-                {isRTL ? 'عرض الكل' : 'View All'}
-                {isRTL ? (
-                  <ArrowLeft className="w-4 h-4" />
-                ) : (
-                  <ArrowRight className="w-4 h-4" />
-                )}
-              </button>
-            </div>
-
+            <h3 className="font-semibold text-[#0E1E25] mb-3 tracking-tight">
+              {isRTL ? 'عقارات الشركة' : 'Company Properties'}
+            </h3>
             <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
               {companyProperties.map((property) => (
                 <Card
                   key={property.id}
-                  onClick={() => onNavigate('propertyDetails', property)}
-                  className="min-w-[200px] overflow-hidden bg-gradient-to-br from-white via-white to-[#F2F4F5]/30 border-[#0F4C5C]/5 rounded-2xl cursor-pointer hover:shadow-2xl hover:scale-[1.02] transition-all duration-300"
+                  onClick={() => onNavigate('properties')}
+                  className="min-w-[200px] p-3 bg-gradient-to-br from-white via-white to-[#F2F4F5]/30 border-[#0F4C5C]/5 rounded-2xl cursor-pointer hover:shadow-2xl hover:scale-[1.01] transition-all duration-300 flex-shrink-0"
                 >
-                  <div className="relative h-32">
+                  <div className="relative w-full h-32 mb-3 rounded-lg overflow-hidden">
                     <ImageWithFallback
                       src={property.image}
                       alt={property.title}
                       className="w-full h-full object-cover"
                     />
-                    <Badge className="absolute top-2 right-2 bg-gradient-to-br from-[#D4AF37] to-[#B8941F] text-white font-medium">
-                      {property.units} {isRTL ? 'وحدة' : 'units'}
-                    </Badge>
                   </div>
-                  <div className="p-3">
-                    <h4 className="font-semibold text-[#0E1E25] text-sm mb-1 line-clamp-1 tracking-tight">
-                      {property.title}
-                    </h4>
-                    <p className="text-xs text-[#4B5563] mb-2">{property.location}</p>
-                    <p className="font-bold bg-gradient-to-r from-[#0F4C5C] to-[#0A3540] bg-clip-text text-transparent">
-                      {property.price} {isRTL ? 'ر.س' : 'SAR'}
-                    </p>
+                  <h4 className="font-semibold text-[#0E1E25] mb-1 text-sm">{property.title}</h4>
+                  <p className="text-xs text-[#4B5563] mb-2">{property.location}</p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-medium text-[#D4AF37]">{property.units} {isRTL ? 'وحدة' : 'Units'}</span>
+                    <Badge className={`text-xs ${property.status === 'available' ? 'bg-[#10B981] text-white' : 'bg-[#6B7280] text-white'} border-0`}>
+                      {property.status === 'available' ? (isRTL ? 'متاح' : 'Available') : (isRTL ? 'مباع' : 'Sold')}
+                    </Badge>
                   </div>
                 </Card>
               ))}
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Bottom Navigation */}
-      <BottomNavBar
-        currentScreen="home"
-        onNavigate={onNavigate}
-        language={language}
-        variant="business"
-      />
 
       <style>{`
-        @keyframes blob {
-          0% { transform: translate(0px, 0px) scale(1); }
-          33% { transform: translate(30px, -50px) scale(1.1); }
-          66% { transform: translate(-20px, 20px) scale(0.9); }
-          100% { transform: translate(0px, 0px) scale(1); }
-        }
-        .animate-blob {
-          animation: blob 7s infinite;
-        }
-        .animation-delay-2000 {
-          animation-delay: 2s;
-        }
-        .animation-delay-4000 {
-          animation-delay: 4s;
-        }
         .scrollbar-hide::-webkit-scrollbar {
           display: none;
         }
@@ -382,6 +400,14 @@ export function DeveloperHomeScreen({ onNavigate, language, employeeData }: Deve
           scrollbar-width: none;
         }
       `}</style>
+
+      {/* Bottom Navigation */}
+      <BottomNavBar
+        currentScreen="home"
+        onNavigate={onNavigate}
+        language={language}
+        variant="business"
+      />
     </div>
   );
 }
