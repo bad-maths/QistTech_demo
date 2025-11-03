@@ -100,56 +100,56 @@ export function FinanceHomeScreen({ onNavigate, language, employeeData }: Financ
       className="min-h-screen bg-[#F2F4F5] pb-20"
       dir={isRTL ? 'rtl' : 'ltr'}
     >
-      <div>
-        {/* Header */}
-        <div className="bg-gradient-to-r from-[#0F4C5C] via-[#0A3540] to-[#0F4C5C] text-white px-6 py-8 relative overflow-hidden">
-          {/* Decorative gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-white/5 via-transparent to-transparent pointer-events-none"></div>
-          
-          {/* Floating orbs for depth */}
-          <div className="absolute top-4 right-[10%] w-24 h-24 bg-[#D4AF37]/15 rounded-full blur-2xl"></div>
-          <div className="absolute bottom-4 left-[5%] w-32 h-32 bg-[#D4AF37]/10 rounded-full blur-3xl"></div>
+      {/* Header */}
+      <div className="bg-gradient-to-r from-[#0F4C5C] via-[#0A3540] to-[#0F4C5C] text-white px-6 py-8 relative overflow-hidden">
+        {/* Decorative gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/5 via-transparent to-transparent pointer-events-none"></div>
+        
+        {/* Floating orbs for depth */}
+        <div className="absolute top-4 right-[10%] w-24 h-24 bg-[#D4AF37]/15 rounded-full blur-2xl"></div>
+        <div className="absolute bottom-4 left-[5%] w-32 h-32 bg-[#D4AF37]/10 rounded-full blur-3xl"></div>
 
-          <div className="relative z-10 flex items-start justify-between mb-6">
-            <div>
-              <h1 className="text-2xl font-bold tracking-tight">
-                {isRTL ? `مرحباً، ${employeeData?.name}` : `Hello, ${employeeData?.name}`}
-              </h1>
-              <p className="text-sm text-white/80 mt-1">
-                {employeeData?.company} • {isRTL ? 'موظف تمويل' : 'Finance Staff'}
-              </p>
-            </div>
-            <button className="p-2 hover:bg-white/20 rounded-xl transition-all duration-300 border border-white/10">
-              <Bell className="w-5 h-5 text-white" />
-            </button>
+        <div className="relative z-10 flex items-start justify-between mb-6">
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight">
+              {isRTL ? `مرحباً، ${employeeData?.name}` : `Hello, ${employeeData?.name}`}
+            </h1>
+            <p className="text-sm text-white/80 mt-1">
+              {employeeData?.company} • {isRTL ? 'موظف تمويل' : 'Finance Staff'}
+            </p>
           </div>
-
-          {/* Online Status Toggle */}
-          <div className="flex items-center justify-between bg-white/10 backdrop-blur-xl rounded-xl p-4 border border-white/10 hover:bg-white/15 transition-all duration-300 relative z-10">
-            <div className="flex items-center gap-3">
-              <div className={`w-3 h-3 rounded-full ${isOnline ? 'bg-gradient-to-br from-[#10B981] to-[#059669]' : 'bg-gradient-to-br from-gray-500 to-gray-600'}`}></div>
-              <div>
-                <p className="font-medium text-white text-sm">
-                  {isRTL ? 'حالة الاستقبال' : 'Receiving Status'}
-                </p>
-                <p className="text-xs text-white/70">
-                  {isOnline 
-                    ? (isRTL ? 'متصل - يمكنك استقبال طلبات التمويل' : 'Online - Receiving financing requests')
-                    : (isRTL ? 'غير متصل' : 'Offline')}
-                </p>
-              </div>
-            </div>
-            <Switch
-              checked={isOnline}
-              onCheckedChange={setIsOnline}
-              className="data-[state=checked]:bg-gradient-to-br data-[state=checked]:from-[#10B981] data-[state=checked]:to-[#059669]"
-              style={isOnline ? { backgroundImage: 'none', backgroundColor: '#10B981' } : undefined}
-            />
-          </div>
+          <button className="p-2 hover:bg-white/20 rounded-xl transition-all duration-300 border border-white/10">
+            <Bell className="w-5 h-5 text-white" />
+          </button>
         </div>
 
-        {/* Quick Stats */}
-        <div className="px-6 py-6">
+        {/* Online Status Toggle */}
+        <div className="flex items-center justify-between bg-white/10 backdrop-blur-xl rounded-xl p-4 border border-white/10 hover:bg-white/15 transition-all duration-300">
+          <div className="flex items-center gap-3">
+            <div
+              className="w-3 h-3 rounded-full"
+              style={{ backgroundColor: isOnline ? '#10B981' : '#6B7280' }}
+            />
+            <div>
+              <p className="font-medium text-white text-sm">
+                {isRTL ? 'حالة الاستقبال' : 'Receiving Status'}
+              </p>
+              <p className="text-xs text-white/70">
+                {isOnline 
+                  ? (isRTL ? 'متصل - يمكنك استقبال طلبات التمويل' : 'Online - Receiving financing requests')
+                  : (isRTL ? 'غير متصل' : 'Offline')}
+              </p>
+            </div>
+          </div>
+          <Switch
+            checked={isOnline}
+            onCheckedChange={setIsOnline}
+          />
+        </div>
+      </div>
+
+      {/* Quick Stats */}
+      <div className="px-6 py-6">
           <div className="grid grid-cols-2 gap-4 mb-6">
             <Card className="p-4 bg-gradient-to-br from-white via-white to-[#F2F4F5]/30 border-[#0F4C5C]/5 rounded-2xl shadow-lifted hover:shadow-2xl hover:scale-[1.02] transition-all duration-300">
               <div className="flex items-center gap-3">
@@ -225,12 +225,12 @@ export function FinanceHomeScreen({ onNavigate, language, employeeData }: Financ
               </button>
 
               <button
-                onClick={() => onNavigate('requests')}
+                onClick={() => onNavigate('wallet')}
                 className="text-white rounded-xl p-4 text-center hover:shadow-2xl hover:scale-105 transition-all duration-300"
                 style={{ backgroundImage: 'linear-gradient(135deg, #10B981 0%, #059669 100%)' }}
               >
-                <ClipboardList className="w-6 h-6 mx-auto mb-2" />
-                <span className="text-xs font-medium">{isRTL ? 'الطلبات' : 'Requests'}</span>
+                <Wallet className="w-6 h-6 mx-auto mb-2" />
+                <span className="text-xs font-medium">{isRTL ? 'المحفظة' : 'Wallet'}</span>
               </button>
             </div>
           </div>
@@ -349,7 +349,6 @@ export function FinanceHomeScreen({ onNavigate, language, employeeData }: Financ
             </Card>
           </div>
         </div>
-      </div>
 
       {/* Bottom Navigation */}
       <BottomNavBar

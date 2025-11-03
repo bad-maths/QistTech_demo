@@ -1,7 +1,8 @@
 import { useState, useRef } from 'react';
-import { ArrowLeft, ArrowRight, Send, User, Banknote, Mic, Phone, X, Paperclip, FileText, Image as ImageIcon, Download } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Send, User, Banknote, Building2, Mic, Phone, X, Paperclip, FileText, Image as ImageIcon, Download, Check, XCircle } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
+import { Badge } from '../ui/badge';
 import { Tabs, TabsList, TabsTrigger } from '../ui/tabs';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '../ui/alert-dialog';
 
@@ -66,6 +67,9 @@ export function EmployeeChatScreen({ onNavigate, language, contactData }: Employ
   // Attachment states
   const [attachedFiles, setAttachedFiles] = useState<File[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  
+  // Booking fee payment status (in a real app, this would come from the backend)
+  const [bookingFeePaid, setBookingFeePaid] = useState(false);
 
   const getMessages = (contact: Contact, participantType?: 'customer' | 'finance'): Message[] => {
     const now = new Date();
@@ -102,7 +106,7 @@ export function EmployeeChatScreen({ onNavigate, language, contactData }: Employ
           {
             id: 'f2',
             sender: 'them',
-            text: isRTL ? 'بالتأكيد، العرض المبدئي جاهز وتم إرساله للعميل.' : 'Sure, the initial offer is ready and has been sent to the client.',
+            text: isRTL ? 'بالتأكيد، العقار متاح للمعاينة في أي وقت.' : 'Sure, the property is available for viewing at any time.',
             time: timeStr,
           },
         ];
@@ -231,7 +235,14 @@ export function EmployeeChatScreen({ onNavigate, language, contactData }: Employ
             >
               {isRTL ? <ArrowRight className="w-6 h-6" /> : <ArrowLeft className="w-6 h-6" />}
             </button>
-            <div className={`${selectedContact.color} rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0`}>
+            <div 
+              className="rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0"
+              style={{
+                backgroundImage: selectedContact.type === 'customer'
+                  ? 'linear-gradient(135deg, #0F4C5C 0%, #0A3540 100%)'
+                  : 'linear-gradient(135deg, #10B981 0%, #059669 100%)'
+              }}
+            >
               <span className="text-white text-sm">{selectedContact.avatar}</span>
             </div>
             <div className="flex-1 min-w-0">
@@ -284,6 +295,11 @@ export function EmployeeChatScreen({ onNavigate, language, contactData }: Employ
                     ? 'bg-gradient-to-br from-[#0F4C5C] to-[#0A3540] text-white'
                     : 'bg-white text-[#0E1E25] border border-teal-100'
                 }`}
+                style={
+                  message.sender === 'me'
+                    ? { backgroundImage: 'linear-gradient(135deg, #0F4C5C 0%, #0A3540 100%)' }
+                    : undefined
+                }
               >
                 {message.text && <p className="break-words">{message.text}</p>}
                 
@@ -479,31 +495,39 @@ export function EmployeeChatScreen({ onNavigate, language, contactData }: Employ
   // Combined Chat with Tabs
   const customerParticipant = selectedContact.participants?.find(p => p.type === 'customer');
   const financeParticipant = selectedContact.participants?.find(p => p.type === 'finance');
+  
+  // Check if the finance participant is actually a developer
+  const isDeveloper = financeParticipant && (
+    financeParticipant.name.includes('إعمار') || 
+    financeParticipant.name.includes('Emaar') || 
+    financeParticipant.color === 'bg-[#D4AF37]'
+  );
+  
   const currentParticipant = activeParticipant === 'customer' ? customerParticipant : financeParticipant;
   const messages = getMessages(selectedContact, activeParticipant);
 
   return (
     <div className="min-h-screen bg-[#F2F4F5] flex flex-col" dir={isRTL ? 'rtl' : 'ltr'}>
       {/* Header */}
-      <div className="bg-white border-b border-teal-100 px-6 pt-4 pb-3 sticky top-0 z-10">
+      <div className="px-6 pt-4 pb-3 sticky top-0 z-10 shadow-sm" style={{ backgroundImage: 'linear-gradient(135deg, #0F4C5C 0%, #0A3540 100%)' }}>
         <div className="flex items-center gap-3 mb-3">
           <button
             onClick={() => onNavigate('messages')}
-            className="text-[#0F4C5C] hover:text-[#0A3540] transition-colors"
+            className="text-white hover:text-teal-100 transition-colors"
           >
             {isRTL ? <ArrowRight className="w-6 h-6" /> : <ArrowLeft className="w-6 h-6" />}
           </button>
           <div className="flex-1">
-            <h2 className="text-[#0E1E25] font-semibold">{selectedContact.property || selectedContact.name}</h2>
-            <p className="text-xs text-[#4B5563]">
-              {isRTL ? 'محادثة مدمجة (عميل وتمويل)' : 'Combined Chat (Customer & Finance)'}
+            <h2 className="text-white font-semibold">{selectedContact.property || selectedContact.name}</h2>
+            <p className="text-xs text-teal-100">
+              {isRTL ? 'محادثة مدمجة (عميل ومطور)' : 'Combined Chat (Customer & Developer)'}
             </p>
           </div>
           <Button
             onClick={handleCall}
             variant="ghost"
             size="icon"
-            className="flex-shrink-0 text-[#10B981] hover:bg-green-50"
+            className="flex-shrink-0 text-white hover:bg-white/20"
           >
             <Phone className="w-5 h-5" />
           </Button>
@@ -511,35 +535,92 @@ export function EmployeeChatScreen({ onNavigate, language, contactData }: Employ
 
         {/* Tabs */}
         <Tabs value={activeParticipant} onValueChange={(v: string) => setActiveParticipant(v as 'customer' | 'finance')} className="w-full">
-          <TabsList className="grid w-full grid-cols-2 bg-gray-100">
-            <TabsTrigger value="customer" className="flex items-center gap-2 data-[state=active]:bg-[#0F4C5C] data-[state=active]:text-white">
+          <TabsList className="grid w-full grid-cols-2 bg-white/10 backdrop-blur-sm border border-white/20">
+            <TabsTrigger 
+              value="customer" 
+              className="flex items-center gap-2"
+              style={{
+                backgroundImage: activeParticipant === 'customer' ? 'linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.8) 100%)' : 'none',
+                color: activeParticipant === 'customer' ? '#0E1E25' : '#FFFFFF'
+              }}
+            >
               <User className="w-4 h-4" />
               <span>{isRTL ? 'العميل' : 'Customer'}</span>
             </TabsTrigger>
-            <TabsTrigger value="finance" className="flex items-center gap-2 data-[state=active]:bg-[#0F4C5C] data-[state=active]:text-white">
-              <Banknote className="w-4 h-4" />
-              <span>{isRTL ? 'التمويل' : 'Finance'}</span>
+            <TabsTrigger 
+              value="finance" 
+              className="flex items-center gap-2"
+              style={{
+                backgroundImage: activeParticipant === 'finance' ? 'linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.8) 100%)' : 'none',
+                color: activeParticipant === 'finance' ? '#0E1E25' : '#FFFFFF'
+              }}
+            >
+              {isDeveloper ? <Building2 className="w-4 h-4" /> : <Banknote className="w-4 h-4" />}
+              <span>{isDeveloper ? (isRTL ? 'المطور' : 'Developer') : (isRTL ? 'الممول' : 'Finance')}</span>
             </TabsTrigger>
           </TabsList>
         </Tabs>
 
         {/* Current Participant Info */}
         {currentParticipant && (
-          <div className="mt-3 p-2 bg-teal-50 rounded-lg flex items-center gap-2 border border-teal-200">
-            <div className={`${currentParticipant.color} rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0`}>
+          <div className="mt-3 p-2 bg-white/10 backdrop-blur-sm rounded-lg flex items-center gap-2 border border-white/20">
+            <div 
+              className="rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0"
+              style={{
+                backgroundImage: currentParticipant.type === 'customer'
+                  ? 'linear-gradient(135deg, #0F4C5C 0%, #0A3540 100%)'
+                  : isDeveloper
+                    ? 'linear-gradient(135deg, #D4AF37 0%, #B8941F 100%)'
+                    : 'linear-gradient(135deg, #10B981 0%, #059669 100%)'
+              }}
+            >
               <span className="text-white text-xs">{currentParticipant.avatar}</span>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm text-[#0E1E25] truncate font-medium">{currentParticipant.name}</p>
-              <p className="text-xs text-[#4B5563]">
-                {currentParticipant.type === 'finance' 
-                  ? (isRTL ? 'جهة التمويل' : 'Finance Partner')
-                  : (isRTL ? 'العميل' : 'Customer')
-                }
-              </p>
+              <div className="flex items-center gap-2 mb-0.5">
+                <p className="text-sm text-white truncate font-medium">{currentParticipant.name}</p>
+                {currentParticipant.type === 'customer' && (
+                  <Badge 
+                    className={`text-xs flex items-center gap-1 ${
+                      bookingFeePaid 
+                        ? 'bg-green-500/90 text-white border-green-400' 
+                        : 'bg-amber-500/90 text-white border-amber-400'
+                    }`}
+                    style={{
+                      backgroundImage: bookingFeePaid 
+                        ? 'linear-gradient(135deg, #10B981 0%, #059669 100%)'
+                        : 'linear-gradient(135deg, #F59E0B 0%, #D97706 100%)'
+                    }}
+                  >
+                    {bookingFeePaid ? (
+                      <>
+                        <Check className="w-3 h-3" />
+                        <span>{isRTL ? 'تم الدفع' : 'Paid'}</span>
+                      </>
+                    ) : (
+                      <>
+                        <XCircle className="w-3 h-3" />
+                        <span>{isRTL ? 'لم يدفع' : 'Unpaid'}</span>
+                      </>
+                    )}
+                  </Badge>
+                )}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-xs text-teal-100">
+                  {currentParticipant.type === 'customer' 
+                    ? (isRTL ? 'عميل' : 'Customer')
+                    : isDeveloper
+                      ? (isRTL ? 'مطور عقاري' : 'Property Developer')
+                      : (isRTL ? 'ممول - بنك' : 'Finance - Bank')
+                  }
+                </p>
+              </div>
             </div>
           </div>
         )}
+
+        {/* Messages Container */}
       </div>
 
       {/* Messages */}
@@ -552,9 +633,10 @@ export function EmployeeChatScreen({ onNavigate, language, contactData }: Employ
             <div
               className={`max-w-[75%] rounded-2xl px-4 py-2 ${
                 message.sender === 'me'
-                  ? 'bg-[#0F4C5C] text-white'
+                  ? 'text-white'
                   : 'bg-white text-[#0E1E25] border border-teal-100'
               }`}
+              style={message.sender === 'me' ? { backgroundImage: 'linear-gradient(135deg, #0F4C5C 0%, #0A3540 100%)' } : undefined}
             >
               {message.text && <p className="break-words">{message.text}</p>}
               
@@ -565,7 +647,7 @@ export function EmployeeChatScreen({ onNavigate, language, contactData }: Employ
                       key={attachment.id}
                       className={`flex items-center gap-2 p-2 rounded-lg ${
                         message.sender === 'me'
-                          ? 'bg-[#0A3540]/30'
+                          ? 'bg-white/10 backdrop-blur-sm'
                           : 'bg-teal-50'
                       }`}
                     >

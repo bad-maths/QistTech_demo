@@ -141,7 +141,10 @@ export function DeveloperHomeScreen({ onNavigate, language, employeeData }: Deve
           {/* Online Status Toggle */}
           <div className="flex items-center justify-between bg-white/10 backdrop-blur-xl rounded-xl p-4 border border-white/10 hover:bg-white/15 transition-all duration-300">
             <div className="flex items-center gap-3">
-              <div className={`w-3 h-3 rounded-full ${isOnline ? 'bg-gradient-to-br from-[#10B981] to-[#059669]' : 'bg-gradient-to-br from-gray-500 to-gray-600'}`}></div>
+              <div
+                className="w-3 h-3 rounded-full"
+                style={{ backgroundColor: isOnline ? '#10B981' : '#6B7280' }}
+              />
               <div>
                 <p className="font-medium text-white text-sm">
                   {isRTL ? 'حالة الاستقبال' : 'Receiving Status'}
@@ -156,8 +159,6 @@ export function DeveloperHomeScreen({ onNavigate, language, employeeData }: Deve
             <Switch
               checked={isOnline}
               onCheckedChange={setIsOnline}
-              className="data-[state=checked]:bg-gradient-to-br data-[state=checked]:from-[#10B981] data-[state=checked]:to-[#059669]"
-              style={isOnline ? { backgroundImage: 'none', backgroundColor: '#10B981' } : undefined}
             />
           </div>
         </div>

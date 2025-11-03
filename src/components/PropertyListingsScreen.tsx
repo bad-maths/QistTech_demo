@@ -198,6 +198,11 @@ export function PropertyListingsScreen({ onNavigate, language }: PropertyListing
                   ? 'bg-gradient-to-r from-[#0f4c5c] to-[#0a3540] text-white shadow-[0px_4px_12px_0px_rgba(15,76,92,0.2)]'
                   : 'bg-white text-[#4B5563] border border-[rgba(15,76,92,0.1)] hover:border-[rgba(15,76,92,0.2)]'
               }`}
+              style={
+                activeFilter === filter.value
+                  ? { backgroundImage: 'linear-gradient(90deg, #0f4c5c 0%, #0a3540 100%)' }
+                  : undefined
+              }
             >
               {filter.label}
             </button>

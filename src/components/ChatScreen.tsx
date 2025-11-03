@@ -651,7 +651,16 @@ export function ChatScreen({ onNavigate, language, bookingData }: ChatScreenProp
                   >
                     <div className="flex items-start gap-3">
                       {/* Avatar */}
-                      <div className={`${contact.color} rounded-full w-12 h-12 flex items-center justify-center flex-shrink-0 text-white`}>
+                      <div 
+                        className="rounded-full w-12 h-12 flex items-center justify-center flex-shrink-0 text-white"
+                        style={{
+                          backgroundImage: contact.chatType === 'combined' 
+                            ? 'linear-gradient(135deg, #0F4C5C 0%, #10B981 100%)'
+                            : contact.type === 'bank'
+                              ? 'linear-gradient(135deg, #0F4C5C 0%, #0A3540 100%)'
+                              : 'linear-gradient(135deg, #10B981 0%, #059669 100%)'
+                        }}
+                      >
                         {contact.chatType === 'combined' ? (
                           <div className="flex items-center justify-center">
                             <span className="text-xs">{contact.avatar}</span>
@@ -681,12 +690,12 @@ export function ChatScreen({ onNavigate, language, bookingData }: ChatScreenProp
                           >
                             {contact.chatType === 'combined' && (
                               <span className="flex items-center gap-1">
-                                <Banknote className="w-3 h-3" />
-                                <Building2 className="w-3 h-3" />
+                                <Banknote className="w-3 h-3" style={{ color: '#0F4C5C' }} />
+                                <Building2 className="w-3 h-3" style={{ color: '#0F4C5C' }} />
                               </span>
                             )}
-                            {contact.chatType === 'single-bank' && <Banknote className="w-3 h-3" />}
-                            {contact.chatType === 'single-developer' && <Building2 className="w-3 h-3" />}
+                            {contact.chatType === 'single-bank' && <Banknote className="w-3 h-3" style={{ color: '#0F4C5C' }} />}
+                            {contact.chatType === 'single-developer' && <Building2 className="w-3 h-3" style={{ color: '#059669' }} />}
                             <span className="ml-1">{getChatTypeLabel(contact.chatType)}</span>
                           </Badge>
                           
@@ -760,11 +769,11 @@ export function ChatScreen({ onNavigate, language, bookingData }: ChatScreenProp
     return (
       <div className="min-h-screen bg-[#F2F4F5] flex flex-col" dir={isRTL ? 'rtl' : 'ltr'}>
         {/* Header */}
-        <div className="bg-white border-b border-teal-100 px-6 pt-4 pb-4 sticky top-0 z-10">
+        <div className="px-6 pt-4 pb-4 sticky top-0 z-10 shadow-sm" style={{ backgroundImage: 'linear-gradient(135deg, #0F4C5C 0%, #0A3540 100%)' }}>
           <div className="flex items-center gap-3">
             <button
               onClick={() => setSelectedContact(null)}
-              className="text-[#0F4C5C] hover:text-[#0A3540] transition-colors"
+              className="text-white hover:text-teal-100 transition-colors"
             >
               {isRTL ? <ArrowRight className="w-6 h-6" /> : <ArrowLeft className="w-6 h-6" />}
             </button>
@@ -772,14 +781,14 @@ export function ChatScreen({ onNavigate, language, bookingData }: ChatScreenProp
               <span className="text-white text-sm">{selectedContact.avatar}</span>
             </div>
             <div className="flex-1 min-w-0">
-              <h2 className="text-[#0E1E25] truncate font-semibold">{selectedContact.name}</h2>
+              <h2 className="text-white truncate font-semibold">{selectedContact.name}</h2>
               <div className="flex items-center gap-1">
                 {selectedContact.type === 'bank' ? (
-                  <Banknote className="w-3 h-3 text-[#0F4C5C]" />
+                  <Banknote className="w-3 h-3 text-teal-200" />
                 ) : (
-                  <Building2 className="w-3 h-3 text-[#0F4C5C]" />
+                  <Building2 className="w-3 h-3 text-teal-200" />
                 )}
-                <p className="text-xs text-[#4B5563]">
+                <p className="text-xs text-teal-100">
                   {selectedContact.type === 'bank' 
                     ? (isRTL ? 'بنك' : 'Bank')
                     : (isRTL ? 'مطور عقاري' : 'Property Developer')
@@ -791,14 +800,14 @@ export function ChatScreen({ onNavigate, language, bookingData }: ChatScreenProp
               onClick={handleCall}
               variant="ghost"
               size="icon"
-              className="flex-shrink-0 text-[#10B981] hover:bg-green-50"
+              className="flex-shrink-0 text-white hover:bg-white/20"
             >
               <Phone className="w-5 h-5" />
             </Button>
           </div>
           {selectedContact.property && (
-            <div className="mt-3 p-2 bg-teal-50 rounded-lg border border-teal-200">
-              <p className="text-xs text-[#0F4C5C] font-medium">
+            <div className="mt-3 p-2 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
+              <p className="text-xs text-white font-medium">
                 <span className="font-semibold">
                   {isRTL ? 'العقار: ' : 'Property: '}
                 </span>
@@ -818,9 +827,10 @@ export function ChatScreen({ onNavigate, language, bookingData }: ChatScreenProp
               <div
                 className={`max-w-[75%] rounded-2xl px-4 py-2 ${
                   message.sender === 'me'
-                    ? 'bg-[#0F4C5C] text-white'
+                    ? 'text-white'
                     : 'bg-white text-[#0E1E25] border border-teal-100'
                 }`}
+                style={message.sender === 'me' ? { backgroundImage: 'linear-gradient(135deg, #0F4C5C 0%, #0A3540 100%)' } : undefined}
               >
                 {message.text && <p className="break-words">{message.text}</p>}
                 
@@ -832,7 +842,7 @@ export function ChatScreen({ onNavigate, language, bookingData }: ChatScreenProp
                         key={attachment.id}
                         className={`flex items-center gap-2 p-2 rounded-lg ${
                           message.sender === 'me'
-                            ? 'bg-[#0A3540]/30'
+                            ? 'bg-white/10 backdrop-blur-sm'
                             : 'bg-teal-50'
                         }`}
                       >
@@ -1026,17 +1036,17 @@ export function ChatScreen({ onNavigate, language, bookingData }: ChatScreenProp
   return (
     <div className="min-h-screen bg-[#F2F4F5] flex flex-col" dir={isRTL ? 'rtl' : 'ltr'}>
       {/* Header */}
-      <div className="bg-white border-b border-teal-100 px-6 pt-4 pb-3 sticky top-0 z-10">
+      <div className="px-6 pt-4 pb-3 sticky top-0 z-10 shadow-sm" style={{ backgroundImage: 'linear-gradient(135deg, #0F4C5C 0%, #0A3540 100%)' }}>
         <div className="flex items-center gap-3 mb-3">
           <button
             onClick={() => setSelectedContact(null)}
-            className="text-[#0F4C5C] hover:text-[#0A3540] transition-colors"
+            className="text-white hover:text-teal-100 transition-colors"
           >
             {isRTL ? <ArrowRight className="w-6 h-6" /> : <ArrowLeft className="w-6 h-6" />}
           </button>
           <div className="flex-1">
-            <h2 className="text-[#0E1E25] font-semibold">{selectedContact.property}</h2>
-            <p className="text-xs text-[#4B5563]">
+            <h2 className="text-white font-semibold">{selectedContact.property}</h2>
+            <p className="text-xs text-teal-100">
               {isRTL ? 'حجز وتمويل عقاري' : 'Property Booking & Financing'}
             </p>
           </div>
@@ -1044,20 +1054,34 @@ export function ChatScreen({ onNavigate, language, bookingData }: ChatScreenProp
             onClick={handleCall}
             variant="ghost"
             size="icon"
-            className="flex-shrink-0 text-[#10B981] hover:bg-green-50"
+            className="flex-shrink-0 text-white hover:bg-white/20"
           >
             <Phone className="w-5 h-5" />
           </Button>
         </div>
 
         {/* Tabs */}
-        <Tabs value={activeParticipant} onValueChange={(v) => setActiveParticipant(v as 'bank' | 'developer')} className="w-full">
-          <TabsList className="grid w-full grid-cols-2 bg-gray-100">
-            <TabsTrigger value="bank" className="flex items-center gap-2 data-[state=active]:bg-[#0F4C5C] data-[state=active]:text-white">
+        <Tabs value={activeParticipant} onValueChange={(v: string) => setActiveParticipant(v as 'bank' | 'developer')} className="w-full">
+          <TabsList className="grid w-full grid-cols-2 bg-white/10 backdrop-blur-sm border border-white/20">
+            <TabsTrigger 
+              value="bank" 
+              className="flex items-center justify-center gap-2" 
+              style={{ 
+                backgroundImage: activeParticipant === 'bank' ? 'linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.8) 100%)' : 'none',
+                color: activeParticipant === 'bank' ? '#0E1E25' : '#FFFFFF'
+              }}
+            >
               <Banknote className="w-4 h-4" />
               <span>{isRTL ? 'البنك' : 'Bank'}</span>
             </TabsTrigger>
-            <TabsTrigger value="developer" className="flex items-center gap-2 data-[state=active]:bg-[#0F4C5C] data-[state=active]:text-white">
+            <TabsTrigger 
+              value="developer" 
+              className="flex items-center justify-center gap-2" 
+              style={{ 
+                backgroundImage: activeParticipant === 'developer' ? 'linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.8) 100%)' : 'none',
+                color: activeParticipant === 'developer' ? '#0E1E25' : '#FFFFFF'
+              }}
+            >
               <Building2 className="w-4 h-4" />
               <span>{isRTL ? 'المطور' : 'Developer'}</span>
             </TabsTrigger>
@@ -1066,13 +1090,13 @@ export function ChatScreen({ onNavigate, language, bookingData }: ChatScreenProp
 
         {/* Current Participant Info */}
         {currentParticipant && (
-          <div className="mt-3 p-2 bg-teal-50 rounded-lg flex items-center gap-2 border border-teal-200">
+          <div className="mt-3 p-2 bg-white/10 backdrop-blur-sm rounded-lg flex items-center gap-2 border border-white/20">
             <div className={`${currentParticipant.color} rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0`}>
               <span className="text-white text-xs">{currentParticipant.avatar}</span>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm text-[#0E1E25] truncate font-medium">{currentParticipant.name}</p>
-              <p className="text-xs text-[#4B5563]">
+              <p className="text-sm text-white truncate font-medium">{currentParticipant.name}</p>
+              <p className="text-xs text-teal-100">
                 {currentParticipant.type === 'bank' 
                   ? (isRTL ? 'موظف البنك' : 'Bank Officer')
                   : (isRTL ? 'موظف المبيعات' : 'Sales Agent')
@@ -1201,9 +1225,10 @@ export function ChatScreen({ onNavigate, language, bookingData }: ChatScreenProp
             <div
               className={`max-w-[75%] rounded-2xl px-4 py-2 ${
                 message.sender === 'me'
-                  ? 'bg-[#0F4C5C] text-white'
+                  ? 'text-white'
                   : 'bg-white text-[#0E1E25] border border-teal-100'
               }`}
+              style={message.sender === 'me' ? { backgroundImage: 'linear-gradient(135deg, #0F4C5C 0%, #0A3540 100%)' } : undefined}
             >
               {message.text && <p className="break-words">{message.text}</p>}
               
@@ -1215,7 +1240,7 @@ export function ChatScreen({ onNavigate, language, bookingData }: ChatScreenProp
                       key={attachment.id}
                       className={`flex items-center gap-2 p-2 rounded-lg ${
                         message.sender === 'me'
-                          ? 'bg-[#0A3540]/30'
+                          ? 'bg-white/10 backdrop-blur-sm'
                           : 'bg-teal-50'
                       }`}
                     >

@@ -1,5 +1,5 @@
 ﻿import { useState } from 'react';
-import { ArrowLeft, ArrowRight, User, Banknote, MessageSquare } from 'lucide-react';
+import { ArrowLeft, ArrowRight, User, Banknote, Building2, MessageSquare } from 'lucide-react';
 import { Card } from '../ui/card';
 import { Badge } from '../ui/badge';
 import { BottomNavBar } from '../BottomNavBar';
@@ -64,15 +64,80 @@ export function EmployeeMessagesScreen({ onNavigate, language }: EmployeeMessage
       property: isRTL ? 'شقة البحر' : 'Sea Apartment',
       requestType: 'direct',
     },
+    {
+      id: '3',
+      chatType: 'combined',
+      name: isRTL ? 'شقة الياسمين - طلب #3421' : 'Jasmine Apartment - Request #3421',
+      lastMessage: isRTL ? 'الممول: تم إرسال عرض التمويل المبدئي' : 'Finance: Initial financing offer sent',
+      lastMessageTime: '14:22',
+      unread: 1,
+      avatar: '3',
+      color: 'bg-gradient-to-r from-[#0F4C5C] to-[#10B981]',
+      property: isRTL ? 'شقة الياسمين' : 'Jasmine Apartment',
+      participants: [
+        {
+          id: 'customer-1',
+          name: isRTL ? 'عبدالله محمد السعيد' : 'Abdullah Mohammed Al-Saeed',
+          type: 'customer',
+          avatar: 'AS',
+          color: 'bg-[#0F4C5C]',
+          property: isRTL ? 'شقة الياسمين' : 'Jasmine Apartment',
+        },
+        {
+          id: 'finance-1',
+          name: isRTL ? 'أحمد الراجحي - بنك الراجحي' : 'Ahmed Al-Rajhi - Al Rajhi Bank',
+          type: 'finance',
+          avatar: 'AR',
+          color: 'bg-[#10B981]',
+          property: isRTL ? 'شقة الياسمين' : 'Jasmine Apartment',
+        },
+      ],
+    },
+    {
+      id: '4',
+      chatType: 'combined',
+      name: isRTL ? 'فيلا الورد - طلب #3654' : 'Rose Villa - Request #3654',
+      lastMessage: isRTL ? 'المطور: العقار جاهز للمعاينة' : 'Developer: Property ready for viewing',
+      lastMessageTime: '11:45',
+      unread: 2,
+      avatar: '4',
+      color: 'bg-gradient-to-r from-[#0F4C5C] to-[#D4AF37]',
+      property: isRTL ? 'فيلا الورد' : 'Rose Villa',
+      participants: [
+        {
+          id: 'customer-2',
+          name: isRTL ? 'نورة عبدالعزيز المطيري' : 'Noura Abdulaziz Al-Mutairi',
+          type: 'customer',
+          avatar: 'NM',
+          color: 'bg-[#0F4C5C]',
+          property: isRTL ? 'فيلا الورد' : 'Rose Villa',
+        },
+        {
+          id: 'developer-1',
+          name: isRTL ? 'سارة المطيري - شركة إعمار العقارية' : 'Sarah Al-Mutairi - Emaar Properties',
+          type: 'finance',
+          avatar: 'SM',
+          color: 'bg-[#D4AF37]',
+          property: isRTL ? 'فيلا الورد' : 'Rose Villa',
+        },
+      ],
+    },
   ]);
 
-  const getChatTypeLabel = (chatType: Contact['chatType']) => {
-    switch (chatType) {
+  const getChatTypeLabel = (contact: Contact) => {
+    switch (contact.chatType) {
       case 'single-customer':
         return isRTL ? 'عميل' : 'Customer';
       case 'single-finance':
         return isRTL ? 'تمويل' : 'Finance';
       case 'combined':
+        // Check if it's a developer or finance combined chat
+        const isDeveloper = contact.participants?.some(p => 
+          p.name.includes('إعمار') || p.name.includes('Emaar') || p.color === 'bg-[#D4AF37]'
+        );
+        if (isDeveloper) {
+          return isRTL ? 'عميل ومطور' : 'Customer & Developer';
+        }
         return isRTL ? 'عميل وتمويل' : 'Customer & Finance';
     }
   };
@@ -109,7 +174,16 @@ export function EmployeeMessagesScreen({ onNavigate, language }: EmployeeMessage
                 onClick={() => onNavigate('employeeChat', { contact })}
               >
                 <div className="flex items-start gap-3">
-                  <div className={`${contact.color} rounded-full w-12 h-12 flex items-center justify-center flex-shrink-0 text-white`}>
+                  <div 
+                    className="rounded-full w-12 h-12 flex items-center justify-center flex-shrink-0 text-white"
+                    style={{
+                      backgroundImage: contact.chatType === 'combined' 
+                        ? 'linear-gradient(135deg, #0F4C5C 0%, #10B981 100%)'
+                        : contact.type === 'customer'
+                          ? 'linear-gradient(135deg, #0F4C5C 0%, #0A3540 100%)'
+                          : 'linear-gradient(135deg, #10B981 0%, #059669 100%)'
+                    }}
+                  >
                     <span>{contact.avatar}</span>
                   </div>
                   
@@ -120,9 +194,29 @@ export function EmployeeMessagesScreen({ onNavigate, language }: EmployeeMessage
                     </div>
                     
                     <div className="flex items-center gap-2 mb-1 flex-wrap">
-                      <Badge variant="outline" className="text-xs bg-green-50 border-green-200 text-[#059669]">
-                        <User className="w-3 h-3" />
-                        <span className="ml-1">{getChatTypeLabel(contact.chatType)}</span>
+                      <Badge 
+                        variant="outline" 
+                        className={`text-xs ${
+                          contact.chatType === 'combined'
+                            ? 'bg-purple-50 border-purple-200 text-purple-700'
+                            : 'bg-green-50 border-green-200 text-[#059669]'
+                        }`}
+                      >
+                        {contact.chatType === 'combined' ? (
+                          <>
+                            <User className="w-3 h-3" style={{ color: '#7C3AED' }} />
+                            {contact.participants?.some(p => 
+                              p.name.includes('إعمار') || p.name.includes('Emaar') || p.color === 'bg-[#D4AF37]'
+                            ) ? (
+                              <Building2 className="w-3 h-3 ml-1" style={{ color: '#7C3AED' }} />
+                            ) : (
+                              <Banknote className="w-3 h-3 ml-1" style={{ color: '#7C3AED' }} />
+                            )}
+                          </>
+                        ) : (
+                          <User className="w-3 h-3" />
+                        )}
+                        <span className="ml-1">{getChatTypeLabel(contact)}</span>
                       </Badge>
                       
                       {contact.property && (
