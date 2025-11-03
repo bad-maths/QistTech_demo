@@ -281,7 +281,7 @@ export function EmployeeChatScreen({ onNavigate, language, contactData }: Employ
               <div
                 className={`max-w-[75%] rounded-2xl px-4 py-2 ${
                   message.sender === 'me'
-                    ? 'bg-[#0F4C5C] text-white'
+                    ? 'bg-gradient-to-br from-[#0F4C5C] to-[#0A3540] text-white'
                     : 'bg-white text-[#0E1E25] border border-teal-100'
                 }`}
               >
@@ -294,7 +294,7 @@ export function EmployeeChatScreen({ onNavigate, language, contactData }: Employ
                         key={attachment.id}
                         className={`flex items-center gap-2 p-2 rounded-lg ${
                           message.sender === 'me'
-                            ? 'bg-[#0A3540]/30'
+                            ? 'bg-white/10 backdrop-blur-sm'
                             : 'bg-teal-50'
                         }`}
                       >

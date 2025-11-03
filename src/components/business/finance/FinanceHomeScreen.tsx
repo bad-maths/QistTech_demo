@@ -127,7 +127,7 @@ export function FinanceHomeScreen({ onNavigate, language, employeeData }: Financ
           {/* Online Status Toggle */}
           <div className="flex items-center justify-between bg-white/10 backdrop-blur-xl rounded-xl p-4 border border-white/10 hover:bg-white/15 transition-all duration-300 relative z-10">
             <div className="flex items-center gap-3">
-              <div className={`w-3 h-3 rounded-full ${isOnline ? 'bg-[#10B981]' : 'bg-gray-500'}`}></div>
+              <div className={`w-3 h-3 rounded-full ${isOnline ? 'bg-gradient-to-br from-[#10B981] to-[#059669]' : 'bg-gradient-to-br from-gray-500 to-gray-600'}`}></div>
               <div>
                 <p className="font-medium text-white text-sm">
                   {isRTL ? 'حالة الاستقبال' : 'Receiving Status'}
@@ -142,7 +142,7 @@ export function FinanceHomeScreen({ onNavigate, language, employeeData }: Financ
             <Switch
               checked={isOnline}
               onCheckedChange={setIsOnline}
-              className="data-[state=checked]:bg-[#10B981]"
+              className="data-[state=checked]:bg-gradient-to-br data-[state=checked]:from-[#10B981] data-[state=checked]:to-[#059669]"
             />
           </div>
         </div>
@@ -225,7 +225,8 @@ export function FinanceHomeScreen({ onNavigate, language, employeeData }: Financ
 
               <button
                 onClick={() => onNavigate('requests')}
-                className="bg-gradient-to-br from-[#10B981] to-[#059669] text-white rounded-xl p-4 text-center hover:shadow-2xl hover:scale-105 transition-all duration-300"
+                className="text-white rounded-xl p-4 text-center hover:shadow-2xl hover:scale-105 transition-all duration-300"
+                style={{ backgroundImage: 'linear-gradient(135deg, #10B981 0%, #059669 100%)' }}
               >
                 <ClipboardList className="w-6 h-6 mx-auto mb-2" />
                 <span className="text-xs font-medium">{isRTL ? 'الطلبات' : 'Requests'}</span>
