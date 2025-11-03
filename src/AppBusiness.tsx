@@ -6,6 +6,7 @@ import { EmployeeAuthScreen } from './components/business/EmployeeAuthScreen';
 import { EmployeeHomeScreen } from './components/business/EmployeeHomeScreen';
 import { FinanceHomeScreen } from './components/business/finance/FinanceHomeScreen';
 import { DeveloperHomeScreen } from './components/business/developer/DeveloperHomeScreen';
+import { DeveloperRequestsScreen } from './components/business/developer/DeveloperRequestsScreen';
 import { PullClientScreen } from './components/business/PullClientScreen';
 import { EmployeeWalletScreen } from './components/business/EmployeeWalletScreen';
 import { EmployeeRequestsScreen } from './components/business/EmployeeRequestsScreen';
@@ -66,6 +67,7 @@ export default function AppBusiness({ onBack }: AppBusinessProps) {
       return {
         ...commonScreens,
         home: <DeveloperHomeScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
+        requests: <DeveloperRequestsScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
         properties: <EmployeePropertiesScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
         propertyDetails: <EmployeePropertyDetailsScreen onNavigate={handleNavigate} language={language} propertyData={navigationData} employeeData={employeeData} />,
       };
