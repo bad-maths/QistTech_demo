@@ -143,6 +143,7 @@ export function FinanceHomeScreen({ onNavigate, language, employeeData }: Financ
               checked={isOnline}
               onCheckedChange={setIsOnline}
               className="data-[state=checked]:bg-gradient-to-br data-[state=checked]:from-[#10B981] data-[state=checked]:to-[#059669]"
+              style={isOnline ? { backgroundImage: 'none', backgroundColor: '#10B981' } : undefined}
             />
           </div>
         </div>
