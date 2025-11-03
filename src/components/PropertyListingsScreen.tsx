@@ -193,10 +193,10 @@ export function PropertyListingsScreen({ onNavigate, language }: PropertyListing
             <button
               key={index}
               onClick={() => setActiveFilter(filter.value)}
-              className={`px-4 py-2 rounded-full whitespace-nowrap text-sm font-medium transition-all ${
+              className={`px-4 py-2 rounded-full whitespace-nowrap text-sm font-medium transition-all shadow-[0px_2px_8px_0px_rgba(0,0,0,0.04)] ${
                 activeFilter === filter.value
-                  ? 'bg-[#0F4C5C] text-white shadow-md'
-                  : 'bg-white text-[#4B5563] border border-teal-100 hover:border-teal-300'
+                  ? 'bg-gradient-to-r from-[#0f4c5c] to-[#0a3540] text-white shadow-[0px_4px_12px_0px_rgba(15,76,92,0.2)]'
+                  : 'bg-white text-[#4B5563] border border-[rgba(15,76,92,0.1)] hover:border-[rgba(15,76,92,0.2)]'
               }`}
             >
               {filter.label}

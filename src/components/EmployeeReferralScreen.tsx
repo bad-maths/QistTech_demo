@@ -231,7 +231,7 @@ export function EmployeeReferralScreen({ onNavigate, language }: EmployeeReferra
             <Button
               type="button"
               onClick={handleSendReferral}
-              className="w-full bg-[#0F4C5C] hover:bg-[#0A3540] text-white h-12 font-semibold"
+              className="w-full bg-gradient-to-r from-[#0f4c5c] to-[#0a3540] hover:from-[#0a3540] hover:to-[#082830] text-white h-12 font-semibold shadow-[0px_4px_12px_0px_rgba(15,76,92,0.2)] transition-all"
               disabled={!formData.employeeId || formData.employeeId.length < 5 || isSubmitting}
             >
               {isSubmitting ? (
