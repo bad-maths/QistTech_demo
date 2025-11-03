@@ -266,7 +266,7 @@ export function EmployeeHomeScreen({ onNavigate, language, employeeData }: Emplo
                 <Card
                   key={request.id}
                   onClick={() => onNavigate('requestDetails', request)}
-                  className="min-w-[280px] p-4 bg-white border-teal-100 cursor-pointer hover:shadow-md transition-all"
+                  className="min-w-[280px] p-4 bg-white border-teal-100 cursor-pointer hover:shadow-md transition-all text-gray-900"
                 >
                   <div className="flex items-start justify-between mb-3">
                     <Badge className={`${
@@ -274,7 +274,7 @@ export function EmployeeHomeScreen({ onNavigate, language, employeeData }: Emplo
                         ? 'bg-amber-50 text-amber-700 border-amber-200'
                         : request.status === 'in-progress'
                         ? 'bg-teal-50 text-[#0F4C5C] border-teal-200'
-                        : 'bg-green-50 text-[#10B981] border-green-200'
+                        : 'bg-green-50 text-green-700 border-green-200'
                     } border`}>
                       {getStatusText(request.status)}
                     </Badge>

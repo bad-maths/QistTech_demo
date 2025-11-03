@@ -1,0 +1,452 @@
+{
+  "$schema": "https://tr.designtokens.org/format/9.0.0",
+  "project": {
+    "name": "QistTech Design System",
+    "version": "1.0.0",
+    "description": "Saudi fintech real estate app with modern glassmorphism and teal-gold aesthetic"
+  },
+  "colors": {
+    "brand": {
+      "primary": {
+        "value": "#0F4C5C",
+        "type": "color",
+        "description": "Deep teal - Primary brand color"
+      },
+      "primary-dark": {
+        "value": "#0A3540",
+        "type": "color",
+        "description": "Darker teal - Used in gradients"
+      },
+      "accent": {
+        "value": "#D4AF37",
+        "type": "color",
+        "description": "Gold - Premium accent color"
+      },
+      "accent-dark": {
+        "value": "#B8941F",
+        "type": "color",
+        "description": "Darker gold - Used in gradients"
+      }
+    },
+    "semantic": {
+      "success": {
+        "value": "#10B981",
+        "type": "color",
+        "description": "Success state - Green"
+      },
+      "error": {
+        "value": "#d4183d",
+        "type": "color",
+        "description": "Error/destructive state - Red"
+      },
+      "warning": {
+        "value": "#F59E0B",
+        "type": "color",
+        "description": "Warning state - Amber"
+      },
+      "info": {
+        "value": "#0F4C5C",
+        "type": "color",
+        "description": "Info state - Primary teal"
+      }
+    },
+    "neutral": {
+      "background": {
+        "value": "#FFFFFF",
+        "type": "color",
+        "description": "Primary background - White"
+      },
+      "surface": {
+        "value": "#F2F4F5",
+        "type": "color",
+        "description": "Surface/muted background - Light gray"
+      },
+      "surface-glass": {
+        "value": "rgba(255, 255, 255, 0.7)",
+        "type": "color",
+        "description": "Glassmorphism surface"
+      },
+      "surface-glass-strong": {
+        "value": "rgba(255, 255, 255, 0.85)",
+        "type": "color",
+        "description": "Strong glassmorphism surface"
+      }
+    },
+    "text": {
+      "primary": {
+        "value": "#0E1E25",
+        "type": "color",
+        "description": "Primary text - Dark slate"
+      },
+      "secondary": {
+        "value": "#4B5563",
+        "type": "color",
+        "description": "Secondary text - Medium gray"
+      },
+      "tertiary": {
+        "value": "#9CA3AF",
+        "type": "color",
+        "description": "Tertiary text - Light gray"
+      },
+      "inverse": {
+        "value": "#FFFFFF",
+        "type": "color",
+        "description": "Inverse text - White"
+      }
+    },
+    "border": {
+      "default": {
+        "value": "rgba(15, 76, 92, 0.15)",
+        "type": "color",
+        "description": "Default border - Teal with opacity"
+      },
+      "strong": {
+        "value": "rgba(15, 76, 92, 0.3)",
+        "type": "color",
+        "description": "Strong border - Teal with higher opacity"
+      },
+      "gold": {
+        "value": "rgba(212, 175, 55, 0.2)",
+        "type": "color",
+        "description": "Gold border - Accent with opacity"
+      }
+    }
+  },
+  "gradients": {
+    "primary": {
+      "value": "linear-gradient(to bottom right, #0F4C5C, #0A3540)",
+      "type": "gradient",
+      "description": "Primary teal gradient"
+    },
+    "primary-triple": {
+      "value": "linear-gradient(to bottom right, #0F4C5C, #0A3540, #0F4C5C)",
+      "type": "gradient",
+      "description": "Triple-stop teal gradient for depth"
+    },
+    "accent": {
+      "value": "linear-gradient(to bottom right, #D4AF37, #B8941F)",
+      "type": "gradient",
+      "description": "Accent gold gradient"
+    },
+    "hero": {
+      "value": "linear-gradient(to bottom right, rgba(15, 76, 92, 0.95), rgba(10, 53, 64, 0.9), rgba(15, 76, 92, 0.85))",
+      "type": "gradient",
+      "description": "Hero header gradient with transparency"
+    },
+    "surface-subtle": {
+      "value": "linear-gradient(to bottom right, #FFFFFF, #FFFFFF, rgba(242, 244, 245, 0.3))",
+      "type": "gradient",
+      "description": "Subtle surface gradient"
+    },
+    "accent-subtle": {
+      "value": "linear-gradient(to bottom right, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05), rgba(212, 175, 55, 0.03))",
+      "type": "gradient",
+      "description": "Subtle accent background gradient"
+    },
+    "primary-subtle": {
+      "value": "linear-gradient(to bottom right, rgba(15, 76, 92, 0.1), rgba(15, 76, 92, 0.05), rgba(15, 76, 92, 0.03))",
+      "type": "gradient",
+      "description": "Subtle primary background gradient"
+    }
+  },
+  "typography": {
+    "fontFamilies": {
+      "primary": {
+        "value": "'Inter', 'Noto Sans Arabic', sans-serif",
+        "type": "fontFamily",
+        "description": "Primary font stack - Inter for Latin, Noto Sans Arabic for Arabic"
+      },
+      "rtl": {
+        "value": "'Noto Sans Arabic', 'Inter', sans-serif",
+        "type": "fontFamily",
+        "description": "RTL font stack - Arabic font first"
+      }
+    },
+    "fontSizes": {
+      "xs": {
+        "value": "0.75rem",
+        "type": "dimension",
+        "description": "12px - Extra small text"
+      },
+      "sm": {
+        "value": "0.875rem",
+        "type": "dimension",
+        "description": "14px - Small text"
+      },
+      "base": {
+        "value": "1rem",
+        "type": "dimension",
+        "description": "16px - Base text size"
+      },
+      "lg": {
+        "value": "1.125rem",
+        "type": "dimension",
+        "description": "18px - Large text"
+      },
+      "xl": {
+        "value": "1.25rem",
+        "type": "dimension",
+        "description": "20px - Extra large text"
+      },
+      "2xl": {
+        "value": "1.5rem",
+        "type": "dimension",
+        "description": "24px - 2XL heading"
+      },
+      "3xl": {
+        "value": "1.875rem",
+        "type": "dimension",
+        "description": "30px - 3XL heading"
+      }
+    },
+    "fontWeights": {
+      "normal": {
+        "value": "400",
+        "type": "fontWeight",
+        "description": "Normal weight"
+      },
+      "medium": {
+        "value": "500",
+        "type": "fontWeight",
+        "description": "Medium weight"
+      },
+      "semibold": {
+        "value": "600",
+        "type": "fontWeight",
+        "description": "Semibold weight"
+      },
+      "bold": {
+        "value": "700",
+        "type": "fontWeight",
+        "description": "Bold weight"
+      }
+    },
+    "lineHeights": {
+      "tight": {
+        "value": "1.3",
+        "type": "number",
+        "description": "Tight line height for headings"
+      },
+      "normal": {
+        "value": "1.5",
+        "type": "number",
+        "description": "Normal line height"
+      },
+      "relaxed": {
+        "value": "1.6",
+        "type": "number",
+        "description": "Relaxed line height for body text"
+      }
+    },
+    "letterSpacing": {
+      "tight": {
+        "value": "-0.02em",
+        "type": "dimension",
+        "description": "Tight letter spacing for large headings"
+      },
+      "normal": {
+        "value": "0em",
+        "type": "dimension",
+        "description": "Normal letter spacing"
+      },
+      "wide": {
+        "value": "0.01em",
+        "type": "dimension",
+        "description": "Wide letter spacing for body text"
+      }
+    }
+  },
+  "spacing": {
+    "0": { "value": "0", "type": "dimension" },
+    "1": { "value": "0.25rem", "type": "dimension", "description": "4px" },
+    "2": { "value": "0.5rem", "type": "dimension", "description": "8px" },
+    "3": { "value": "0.75rem", "type": "dimension", "description": "12px" },
+    "4": { "value": "1rem", "type": "dimension", "description": "16px" },
+    "5": { "value": "1.25rem", "type": "dimension", "description": "20px" },
+    "6": { "value": "1.5rem", "type": "dimension", "description": "24px" },
+    "8": { "value": "2rem", "type": "dimension", "description": "32px" },
+    "10": { "value": "2.5rem", "type": "dimension", "description": "40px" },
+    "12": { "value": "3rem", "type": "dimension", "description": "48px" },
+    "16": { "value": "4rem", "type": "dimension", "description": "64px" },
+    "20": { "value": "5rem", "type": "dimension", "description": "80px" },
+    "24": { "value": "6rem", "type": "dimension", "description": "96px" }
+  },
+  "borderRadius": {
+    "sm": {
+      "value": "1rem",
+      "type": "dimension",
+      "description": "16px - Small radius"
+    },
+    "md": {
+      "value": "1.25rem",
+      "type": "dimension",
+      "description": "20px - Medium radius"
+    },
+    "lg": {
+      "value": "1.5rem",
+      "type": "dimension",
+      "description": "24px - Large radius (default)"
+    },
+    "xl": {
+      "value": "2rem",
+      "type": "dimension",
+      "description": "32px - Extra large radius"
+    },
+    "2xl": {
+      "value": "2.5rem",
+      "type": "dimension",
+        "description": "40px - 2XL radius"
+    },
+    "3xl": {
+      "value": "3rem",
+      "type": "dimension",
+      "description": "48px - 3XL radius for cards"
+    },
+    "full": {
+      "value": "9999px",
+      "type": "dimension",
+      "description": "Full circle/pill shape"
+    }
+  },
+  "shadows": {
+    "soft": {
+      "value": "0 8px 24px rgba(0, 0, 0, 0.05)",
+      "type": "shadow",
+      "description": "Soft shadow for subtle depth"
+    },
+    "lifted": {
+      "value": "0 12px 32px rgba(0, 0, 0, 0.08)",
+      "type": "shadow",
+      "description": "Lifted shadow for elevated elements"
+    },
+    "xl": {
+      "value": "0 20px 48px rgba(0, 0, 0, 0.12)",
+      "type": "shadow",
+      "description": "Extra large shadow for modals"
+    },
+    "2xl": {
+      "value": "0 24px 64px rgba(0, 0, 0, 0.15)",
+      "type": "shadow",
+      "description": "2XL shadow for highest elevation"
+    },
+    "glow-teal": {
+      "value": "0 0 24px rgba(15, 76, 92, 0.15)",
+      "type": "shadow",
+      "description": "Teal glow effect"
+    },
+    "glow-teal-strong": {
+      "value": "0 0 24px rgba(15, 76, 92, 0.2)",
+      "type": "shadow",
+      "description": "Strong teal glow effect"
+    },
+    "glow-gold": {
+      "value": "0 0 24px rgba(212, 175, 55, 0.25)",
+      "type": "shadow",
+      "description": "Gold glow effect for accent elements"
+    }
+  },
+  "effects": {
+    "blur": {
+      "light": {
+        "value": "8px",
+        "type": "dimension",
+        "description": "Light blur for glassmorphism"
+      },
+      "medium": {
+        "value": "16px",
+        "type": "dimension",
+        "description": "Medium blur for standard glass effect"
+      },
+      "strong": {
+        "value": "24px",
+        "type": "dimension",
+        "description": "Strong blur for prominent glass effect"
+      },
+      "extra": {
+        "value": "32px",
+        "type": "dimension",
+        "description": "Extra blur for background elements"
+      }
+    },
+    "transitions": {
+      "fast": {
+        "value": "0.15s",
+        "type": "duration",
+        "description": "Fast transition"
+      },
+      "normal": {
+        "value": "0.3s",
+        "type": "duration",
+        "description": "Normal transition"
+      },
+      "slow": {
+        "value": "0.5s",
+        "type": "duration",
+        "description": "Slow transition"
+      },
+      "easing-smooth": {
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "type": "cubicBezier",
+        "description": "Smooth easing curve for premium feel"
+      }
+    }
+  },
+  "components": {
+    "button": {
+      "height": {
+        "sm": { "value": "2rem", "type": "dimension", "description": "32px" },
+        "default": { "value": "2.25rem", "type": "dimension", "description": "36px" },
+        "lg": { "value": "2.5rem", "type": "dimension", "description": "40px" }
+      },
+      "padding": {
+        "sm": { "value": "0.75rem", "type": "dimension" },
+        "default": { "value": "1rem", "type": "dimension" },
+        "lg": { "value": "1.5rem", "type": "dimension" }
+      },
+      "borderRadius": { "value": "0.75rem", "type": "dimension" }
+    },
+    "card": {
+      "padding": { "value": "1.5rem", "type": "dimension", "description": "24px" },
+      "borderRadius": { "value": "1.5rem", "type": "dimension", "description": "24px - XL radius" },
+      "borderWidth": { "value": "1px", "type": "dimension" },
+      "gap": { "value": "1.5rem", "type": "dimension", "description": "24px internal gap" }
+    },
+    "input": {
+      "height": { "value": "2.5rem", "type": "dimension", "description": "40px" },
+      "padding": { "value": "0.75rem 1rem", "type": "dimension" },
+      "borderRadius": { "value": "0.75rem", "type": "dimension" },
+      "borderWidth": { "value": "1px", "type": "dimension" }
+    },
+    "badge": {
+      "padding": { "value": "0.25rem 0.75rem", "type": "dimension" },
+      "borderRadius": { "value": "0.5rem", "type": "dimension" },
+      "fontSize": { "value": "0.75rem", "type": "dimension" }
+    },
+    "chat-bubble": {
+      "borderRadius": { "value": "2rem", "type": "dimension", "description": "32px - Extra rounded" },
+      "padding": { "value": "1rem", "type": "dimension" },
+      "maxWidth": { "value": "75%", "type": "dimension" }
+    }
+  },
+  "layout": {
+    "containerMaxWidth": {
+      "sm": { "value": "640px", "type": "dimension" },
+      "md": { "value": "768px", "type": "dimension" },
+      "lg": { "value": "1024px", "type": "dimension" },
+      "xl": { "value": "1280px", "type": "dimension" }
+    },
+    "headerHeight": {
+      "mobile": { "value": "220px", "type": "dimension" },
+      "desktop": { "value": "280px", "type": "dimension" }
+    },
+    "bottomNavHeight": { "value": "80px", "type": "dimension" }
+  },
+  "zIndex": {
+    "base": { "value": "0", "type": "number" },
+    "dropdown": { "value": "10", "type": "number" },
+    "sticky": { "value": "20", "type": "number" },
+    "modal": { "value": "50", "type": "number" },
+    "popover": { "value": "60", "type": "number" },
+    "toast": { "value": "100", "type": "number" }
+  }
+}

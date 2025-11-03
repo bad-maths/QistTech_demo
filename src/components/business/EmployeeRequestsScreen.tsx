@@ -182,7 +182,7 @@ export function EmployeeRequestsScreen({ onNavigate, language, employeeData }: E
                 <Card
                   key={request.id}
                   onClick={() => onNavigate('requestDetails', request)}
-                  className="p-4 bg-gradient-to-br from-white via-white to-[#F2F4F5]/30 border-[#0F4C5C]/5 rounded-2xl cursor-pointer hover:shadow-2xl hover:scale-[1.01] transition-all duration-300"
+                  className="p-4 bg-gradient-to-br from-white via-white to-[#F2F4F5]/30 border-[#0F4C5C]/5 rounded-2xl cursor-pointer hover:shadow-2xl hover:scale-[1.01] transition-all duration-300 text-gray-900"
                 >
                   <div className="flex items-start justify-between mb-3">
                     <Badge className={`text-xs font-medium ${getStatusColor(request.status)}`}>
