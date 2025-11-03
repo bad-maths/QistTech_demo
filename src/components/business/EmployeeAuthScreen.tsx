@@ -90,9 +90,19 @@ export function EmployeeAuthScreen({ onComplete, language, onBack }: EmployeeAut
                   onClick={() => setEmployeeType('developer')}
                   className={`p-4 rounded-lg border-2 transition-all ${
                     employeeType === 'developer'
-                      ? 'border-[#0F4C5C] bg-teal-50'
-                      : 'border-teal-100 bg-white hover:border-teal-200'
+                       ? 'border-[#0F4C5C]'
+                       : 'border-teal-100 hover:border-teal-200'
                   }`}
+                  style={{
+                    background:
+                      employeeType === 'developer'
+                        ? 'linear-gradient(to bottom right, rgba(15, 76, 92, 0.1), rgba(15, 76, 92, 0.05), rgba(15, 76, 92, 0.03))'
+                        : '#FFFFFF',
+                    borderColor:
+                      employeeType === 'developer'
+                        ? 'rgba(15, 76, 92, 0.3)'
+                        : 'rgba(15, 76, 92, 0.15)'
+                  }}
                 >
                   <div className={`flex flex-col items-center gap-2`}>
                     <Building2 className={`w-6 h-6 ${employeeType === 'developer' ? 'text-[#0F4C5C]' : 'text-[#4B5563]'}`} />
@@ -107,9 +117,19 @@ export function EmployeeAuthScreen({ onComplete, language, onBack }: EmployeeAut
                   onClick={() => setEmployeeType('finance')}
                   className={`p-4 rounded-lg border-2 transition-all ${
                     employeeType === 'finance'
-                      ? 'border-[#0F4C5C] bg-teal-50'
-                      : 'border-teal-100 bg-white hover:border-teal-200'
+                       ? 'border-[#0F4C5C]'
+                       : 'border-teal-100 hover:border-teal-200'
                   }`}
+                  style={{
+                    background:
+                      employeeType === 'finance'
+                        ? 'linear-gradient(to bottom right, rgba(15, 76, 92, 0.1), rgba(15, 76, 92, 0.05), rgba(15, 76, 92, 0.03))'
+                        : '#FFFFFF',
+                    borderColor:
+                      employeeType === 'finance'
+                        ? 'rgba(15, 76, 92, 0.3)'
+                        : 'rgba(15, 76, 92, 0.15)'
+                  }}
                 >
                   <div className={`flex flex-col items-center gap-2`}>
                     <UserCheck className={`w-6 h-6 ${employeeType === 'finance' ? 'text-[#0F4C5C]' : 'text-[#4B5563]'}`} />

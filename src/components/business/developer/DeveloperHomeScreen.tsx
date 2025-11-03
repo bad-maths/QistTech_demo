@@ -132,20 +132,36 @@ export function DeveloperHomeScreen({ onNavigate, language, employeeData }: Deve
           </button>
         </div>
 
-        {/* Online Status Toggle */}
-        <div className="flex items-center justify-between bg-white/10 backdrop-blur-xl rounded-xl p-4 border border-white/10 hover:bg-white/15 transition-all duration-300">
+      
+       {/* Online Status Toggle */}
+        <div 
+          className="flex items-center justify-between rounded-xl p-4 transition-all duration-300 relative z-30"
+          style={{
+            backgroundColor: 'rgba(255, 255, 255, 0.1)',
+            backdropFilter: 'blur(12px)',
+            borderWidth: '1px',
+            borderStyle: 'solid',
+            borderColor: 'rgba(255, 255, 255, 0.1)',
+          }}
+          onMouseEnter={(e: React.MouseEvent<HTMLDivElement>) => {
+            e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.15)';
+          }}
+          onMouseLeave={(e: React.MouseEvent<HTMLDivElement>) => {
+            e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+          }}
+        >
           <div className="flex items-center gap-3">
             <div
-              className="w-3 h-3 rounded-full"
+              className="w-3 h-3 rounded-full animate-pulse"
               style={{ backgroundColor: isOnline ? '#10B981' : '#6B7280' }}
             />
             <div>
-              <p className="font-medium text-white text-sm">
+              <p className="font-medium text-sm" style={{ color: '#FFFFFF' }}>
                 {isRTL ? 'حالة الاستقبال' : 'Receiving Status'}
               </p>
-              <p className="text-xs text-white/70">
+              <p className="text-xs" style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
                 {isOnline 
-                  ? (isRTL ? 'متصل - يمكنك استقبال الحجوزات' : 'Online - Receiving bookings')
+                  ? (isRTL ? 'متصل - يمكنك استقبال طلبات التمويل' : 'Online - Receiving financing requests')
                   : (isRTL ? 'غير متصل' : 'Offline')}
               </p>
             </div>
@@ -153,6 +169,9 @@ export function DeveloperHomeScreen({ onNavigate, language, employeeData }: Deve
           <Switch
             checked={isOnline}
             onCheckedChange={setIsOnline}
+            style={{
+              backgroundColor: isOnline ? '#10B981' : undefined,
+            }}
           />
         </div>
       </div>
@@ -295,7 +314,10 @@ export function DeveloperHomeScreen({ onNavigate, language, employeeData }: Deve
 
               <button
                 onClick={() => onNavigate('properties')}
-                className="bg-gradient-to-br from-[#10B981] to-[#059669] text-white rounded-xl p-4 text-center hover:shadow-2xl hover:scale-105 transition-all duration-300"
+                className="text-white rounded-xl p-4 text-center hover:shadow-2xl hover:scale-105 transition-all duration-300"
+                style={{
+                  background: 'linear-gradient(to bottom right, #10B981, #059669)',
+                }}
               >
                 <Building2 className="w-6 h-6 mx-auto mb-2" />
                 <span className="text-xs font-medium">{isRTL ? 'عقاراتي' : 'Properties'}</span>

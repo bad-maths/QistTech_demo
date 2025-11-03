@@ -124,17 +124,32 @@ export function FinanceHomeScreen({ onNavigate, language, employeeData }: Financ
         </div>
 
         {/* Online Status Toggle */}
-        <div className="flex items-center justify-between bg-white/10 backdrop-blur-xl rounded-xl p-4 border border-white/10 hover:bg-white/15 transition-all duration-300">
+        <div 
+          className="flex items-center justify-between rounded-xl p-4 transition-all duration-300 relative z-30"
+          style={{
+            backgroundColor: 'rgba(255, 255, 255, 0.1)',
+            backdropFilter: 'blur(12px)',
+            borderWidth: '1px',
+            borderStyle: 'solid',
+            borderColor: 'rgba(255, 255, 255, 0.1)',
+          }}
+          onMouseEnter={(e: React.MouseEvent<HTMLDivElement>) => {
+            e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.15)';
+          }}
+          onMouseLeave={(e: React.MouseEvent<HTMLDivElement>) => {
+            e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+          }}
+        >
           <div className="flex items-center gap-3">
             <div
-              className="w-3 h-3 rounded-full"
+              className="w-3 h-3 rounded-full animate-pulse"
               style={{ backgroundColor: isOnline ? '#10B981' : '#6B7280' }}
             />
             <div>
-              <p className="font-medium text-white text-sm">
+              <p className="font-medium text-sm" style={{ color: '#FFFFFF' }}>
                 {isRTL ? 'حالة الاستقبال' : 'Receiving Status'}
               </p>
-              <p className="text-xs text-white/70">
+              <p className="text-xs" style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
                 {isOnline 
                   ? (isRTL ? 'متصل - يمكنك استقبال طلبات التمويل' : 'Online - Receiving financing requests')
                   : (isRTL ? 'غير متصل' : 'Offline')}
@@ -144,6 +159,9 @@ export function FinanceHomeScreen({ onNavigate, language, employeeData }: Financ
           <Switch
             checked={isOnline}
             onCheckedChange={setIsOnline}
+            style={{
+              backgroundColor: isOnline ? '#10B981' : undefined,
+            }}
           />
         </div>
       </div>
@@ -308,21 +326,21 @@ export function FinanceHomeScreen({ onNavigate, language, employeeData }: Financ
                   </div>
 
                   <div className="grid grid-cols-3 gap-3 pt-3 border-t border-[#0F4C5C]/10">
-                    <div>
+                    <div style={{ minWidth: '80px', maxWidth: '120px' }}>
                       <p className="text-xs text-[#4B5563] font-medium">{isRTL ? 'المبلغ المطلوب' : 'Amount'}</p>
-                      <p className="font-semibold text-white bg-gradient-to-r from-[#0F4C5C] to-[#0A3540] px-2 py-1 rounded-lg inline-block text-sm mt-1">
+                      <p className="font-semibold text-white bg-gradient-to-r from-[#0F4C5C] to-[#0A3540] px-2 py-1 rounded-lg inline-block text-sm mt-1 whitespace-nowrap">
                         {request.amount} {isRTL ? 'ر.س' : 'SAR'}
                       </p>
                     </div>
-                    <div>
+                    <div style={{ minWidth: '80px', maxWidth: '120px' }}>
                       <p className="text-xs text-[#4B5563] font-medium">{isRTL ? 'الدفعة الأولى' : 'Down Payment'}</p>
-                      <p className="font-semibold text-[#0E1E25] text-sm mt-1">
+                      <p className="font-semibold text-[#0E1E25] text-sm mt-1 whitespace-nowrap">
                         {request.downPayment} {isRTL ? 'ر.س' : 'SAR'}
                       </p>
                     </div>
-                    <div>
+                    <div style={{ minWidth: '60px', maxWidth: '80px' }}>
                       <p className="text-xs text-[#4B5563] font-medium">{isRTL ? 'الجدارة الائتمانية' : 'Credit Score'}</p>
-                      <p className={`font-semibold text-sm mt-1 ${getCreditScoreColor(request.creditScore)}`}>
+                      <p className={`font-semibold text-sm mt-1 whitespace-nowrap ${getCreditScoreColor(request.creditScore)}`}>
                         {request.creditScore}
                       </p>
                     </div>

@@ -319,7 +319,10 @@ export function NotificationsScreen({ onNavigate, language }: NotificationsScree
                             {notification.time}
                           </span>
                           
-                          <div className="flex gap-2 flex-wrap justify-end">
+                          <div 
+                            className="flex gap-2 flex-wrap justify-end"
+                            style={{ maxWidth: '150px' , minWidth: '250px' }}
+                          >
                             {!notification.isRead && (
                               <Button 
                                 size="sm" 
@@ -360,7 +363,14 @@ export function NotificationsScreen({ onNavigate, language }: NotificationsScree
                                 </Button>
                                 <Button 
                                   size="sm" 
-                                  className="text-xs h-8 font-medium bg-red-600 hover:bg-red-700 text-white"
+                                  className="text-xs h-8 font-medium text-white"
+                                  style={{ backgroundColor: '#d4183d' }}
+                                  onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
+                                    e.currentTarget.style.backgroundColor = '#b91433';
+                                  }}
+                                  onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
+                                    e.currentTarget.style.backgroundColor = '#d4183d';
+                                  }}
                                   onClick={() => handleReject(notification.id)}
                                 >
                                   <XCircle className="w-3 h-3 mr-1" />

@@ -170,16 +170,32 @@ export function DeveloperRequestsScreen({ onNavigate, language, employeeData }: 
               </div>
             </div>
 
-            <div className="flex items-center justify-between mb-6 p-4 bg-white/10 backdrop-blur-xl rounded-xl border border-white/20">
+            <div 
+              className="flex items-center justify-between p-4 rounded-xl transition-all duration-300 relative z-30"
+              style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                backdropFilter: 'blur(12px)',
+                borderWidth: '1px',
+                borderStyle: 'solid',
+                borderColor: 'rgba(255, 255, 255, 0.2)',
+              }}
+            >
               <div className="flex items-center gap-3">
                 <div
-                  className={`w-3 h-3 rounded-full ${isOnline ? 'bg-[#10B981]' : 'bg-[#6B7280]'} animate-pulse`}
+                  className="w-3 h-3 rounded-full animate-pulse"
+                  style={{ backgroundColor: isOnline ? '#10B981' : '#6B7280' }}
                 ></div>
-                <span className="font-medium">
+                <span className="font-medium" style={{ color: '#FFFFFF' }}>
                   {isOnline ? (isRTL ? 'متصل الآن' : 'Online Now') : isRTL ? 'غير متصل' : 'Offline'}
                 </span>
               </div>
-              <Switch checked={isOnline} onCheckedChange={setIsOnline} className="data-[state=checked]:bg-[#10B981]" />
+              <Switch 
+                checked={isOnline} 
+                onCheckedChange={setIsOnline}
+                style={{
+                  backgroundColor: isOnline ? '#10B981' : undefined,
+                }}
+              />
             </div>
 
             <div className="relative mb-6">

@@ -1,10 +1,10 @@
 ﻿import { useState } from 'react';
 import { ArrowLeft, ArrowRight, Calculator, CheckCircle2, AlertCircle } from 'lucide-react';
-import { Card } from '../ui/card';
-import { Slider } from '../ui/slider';
-import { Label } from '../ui/label';
-import { Input } from '../ui/input';
-import { BottomNavBar } from '../BottomNavBar';
+import { Card } from '../../ui/card';
+import { Slider } from '../../ui/slider';
+import { Label } from '../../ui/label';
+import { Input } from '../../ui/input';
+import { BottomNavBar } from '../../BottomNavBar';
 
 interface EmployeeCalculatorScreenProps {
   onNavigate: (screen: string, data?: any) => void;

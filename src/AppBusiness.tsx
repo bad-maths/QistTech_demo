@@ -11,7 +11,8 @@ import { PullClientScreen } from './components/business/PullClientScreen';
 import { EmployeeWalletScreen } from './components/business/EmployeeWalletScreen';
 import { EmployeeRequestsScreen } from './components/business/EmployeeRequestsScreen';
 import { EmployeeRequestDetailsScreen } from './components/business/EmployeeRequestDetailsScreen';
-import { EmployeeCalculatorScreen } from './components/business/EmployeeCalculatorScreen';
+import { EmployeeCalculatorScreen as FinanceEmployeeCalculatorScreen } from './components/business/finance/FinanceEmployeeCalculatorScreen';
+import { EmployeeCalculatorScreen as DeveloperEmployeeCalculatorScreen } from './components/business/developer/DeveloperEmployeeCalculatorScreen';
 import { EmployeePropertiesScreen } from './components/business/EmployeePropertiesScreen';
 import { EmployeePropertyDetailsScreen } from './components/business/EmployeePropertyDetailsScreen';
 import { EmployeeMessagesScreen } from './components/business/EmployeeMessagesScreen';
@@ -56,7 +57,6 @@ export default function AppBusiness({ onBack }: AppBusinessProps) {
       wallet: <EmployeeWalletScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
       requests: <EmployeeRequestsScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
       requestDetails: <EmployeeRequestDetailsScreen onNavigate={handleNavigate} language={language} requestData={navigationData} employeeData={employeeData} />,
-      calculator: <EmployeeCalculatorScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
       messages: <EmployeeMessagesScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
       employeeChat: <EmployeeChatScreen onNavigate={handleNavigate} language={language} contactData={navigationData} />,
       notifications: <EmployeeNotificationsScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
@@ -67,6 +67,7 @@ export default function AppBusiness({ onBack }: AppBusinessProps) {
       return {
         ...commonScreens,
         home: <DeveloperHomeScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
+        calculator: <DeveloperEmployeeCalculatorScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
         requests: <DeveloperRequestsScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
         properties: <EmployeePropertiesScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
         propertyDetails: <EmployeePropertyDetailsScreen onNavigate={handleNavigate} language={language} propertyData={navigationData} employeeData={employeeData} />,
@@ -77,6 +78,7 @@ export default function AppBusiness({ onBack }: AppBusinessProps) {
       return {
         ...commonScreens,
         home: <FinanceHomeScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
+        calculator: <FinanceEmployeeCalculatorScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
       };
     }
 

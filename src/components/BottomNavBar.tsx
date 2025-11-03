@@ -1,4 +1,4 @@
-import { Home, Banknote, Building2, ShoppingBag, User, ClipboardList, MessageSquare } from 'lucide-react';
+import { Home, Calculator, Building2, ShoppingBag, User, ClipboardList, MessageSquare } from 'lucide-react';
 
 interface BottomNavBarProps {
   currentScreen: string;
@@ -20,7 +20,7 @@ export function BottomNavBar({ currentScreen, onNavigate, language, variant = 'c
     },
     {
       id: 'financing',
-      icon: Banknote,
+      icon: Calculator,
       labelAr: 'التمويل',
       labelEn: 'Financing',
       screen: 'financingListings',
@@ -65,7 +65,7 @@ export function BottomNavBar({ currentScreen, onNavigate, language, variant = 'c
     },
     {
       id: 'calculator',
-      icon: Banknote,
+      icon: Calculator,
       labelAr: 'الحاسبة',
       labelEn: 'Calculator',
       screen: 'calculator',
