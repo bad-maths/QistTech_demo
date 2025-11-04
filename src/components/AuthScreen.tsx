@@ -4,7 +4,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
-import QistTechLogo from '../assets/Qistech_logo.jpg';
+import QistTechLogo from '../assets/Qis-Tech-highris.png';
 
 interface AuthScreenProps {
   onComplete: () => void;
@@ -123,7 +123,7 @@ export function AuthScreen({ onComplete, language }: AuthScreenProps) {
                   <div className="w-full border-t border-[#0F4C5C]/10"></div>
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-3 bg-gradient-to-br from-[#F2F4F5] via-white to-[#F2F4F5] text-[#4B5563]">
+                  <span className="px-3 text-[#4B5563]">
                     {isRTL ? 'أو' : 'OR'}
                   </span>
                 </div>
@@ -222,7 +222,7 @@ export function AuthScreen({ onComplete, language }: AuthScreenProps) {
                   <div className="w-full border-t border-[#0F4C5C]/10"></div>
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-3 bg-gradient-to-br from-[#F2F4F5] via-white to-[#F2F4F5] text-[#4B5563]">
+                  <span className="px-3 text-[#4B5563]">
                     {isRTL ? 'أو' : 'OR'}
                   </span>
                 </div>

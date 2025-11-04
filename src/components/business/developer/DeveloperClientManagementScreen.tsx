@@ -178,7 +178,7 @@ export function DeveloperClientManagementScreen({
   return (
     <div className="min-h-screen bg-[#F2F4F5] pb-20" dir={isRTL ? 'rtl' : 'ltr'}>
   {/* Header */}
-  <header className="relative gradient-primary text-white pb-20">
+  <header className="relative gradient-primary text-white pb-6">
         <div className="px-4 py-6">
           <div className="flex items-center justify-between mb-6">
             <button
@@ -249,12 +249,28 @@ export function DeveloperClientManagementScreen({
         </div>
 
         {/* Wave SVG */}
-        <svg
-          viewBox="0 0 1440 120"
+        <svg 
+          className="absolute bottom-0 left-0 w-full h-8" 
+          viewBox="0 0 1440 48" 
+          fill="none" 
           preserveAspectRatio="none"
-          className="absolute inset-x-0 bottom-0 w-full h-20 pointer-events-none text-[#F2F4F5]"
         >
-          <path d="M0 60C360 30 720 30 1080 60C1260 75 1350 75 1440 60V120H0V60Z" fill="currentColor" />
+          <path 
+            d="M0 24C360 12 720 12 1080 24C1260 30 1350 30 1440 24V48H0V24Z" 
+            fill="#F2F4F5"
+          />
+          <path 
+            d="M0 30C240 18 480 18 720 30C960 42 1200 42 1440 30V48H0V30Z" 
+            fill="url(#wave-gradient-dev-client)" 
+            fillOpacity="0.3"
+          />
+          <defs>
+            <linearGradient id="wave-gradient-dev-client" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stopColor="#0F4C5C" />
+              <stop offset="50%" stopColor="#D4AF37" />
+              <stop offset="100%" stopColor="#0F4C5C" />
+            </linearGradient>
+          </defs>
         </svg>
       </header>
 

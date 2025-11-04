@@ -18,12 +18,12 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
       style={{ backgroundColor: '#1f6862' }}
     >
       {/* Decorative Elements */}
-      <div className="absolute top-20 right-10 w-64 h-64 bg-[#D4AF37]/10 rounded-full blur-3xl float-subtle"></div>
-      <div className="absolute bottom-20 left-10 w-48 h-48 bg-white/5 rounded-full blur-2xl float-subtle" style={{ animationDelay: '1s' }}></div>
+      {/* <div className="absolute top-20 right-10 w-64 h-64 bg-[#D4AF37]/10 rounded-full blur-3xl float-subtle"></div>
+      <div className="absolute bottom-20 left-10 w-48 h-48 bg-white/5 rounded-full blur-2xl float-subtle" style={{ animationDelay: '1s' }}></div> */}
       
       {/* Logo */}
       <div className="relative z-10">
-        <div className="w-40 h-40 flex items-center justify-center">
+        <div className="w-185 h-auto flex items-center justify-center">
           <img 
             src={QistTechLogo} 
             alt="QistTech Logo" 

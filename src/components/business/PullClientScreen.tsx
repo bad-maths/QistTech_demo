@@ -46,7 +46,7 @@ export function PullClientScreen({ onNavigate, language, employeeData }: PullCli
         <div className="absolute bottom-20 left-10 w-48 h-48 bg-[#D4AF37]/5 rounded-full blur-3xl"></div>
 
         <div className="relative z-10 text-center max-w-md">
-          <div className="inline-block bg-green-50 rounded-full p-6 mb-6">
+          <div className="inline-block rounded-full p-6 mb-6" style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)' }}>
             <CheckCircle className="w-16 h-16 text-[#10B981]" />
           </div>
           
@@ -60,9 +60,9 @@ export function PullClientScreen({ onNavigate, language, employeeData }: PullCli
               : 'Notification sent to the customer on QistTech app. You will be connected once they accept the request.'}
           </p>
 
-          <Card className="p-4 bg-white border-teal-100 mb-6">
+          <Card className="p-4 bg-white border-teal-100 mb-6" style={{ boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)' }}>
             <div className="flex items-center gap-3">
-              <div className="bg-teal-50 rounded-lg p-3">
+              <div className="rounded-lg p-3" style={{ backgroundColor: 'rgba(15, 76, 92, 0.1)' }}>
                 <IdCard className="w-6 h-6 text-[#0F4C5C]" />
               </div>
               <div className="text-start">
@@ -115,32 +115,59 @@ export function PullClientScreen({ onNavigate, language, employeeData }: PullCli
 
       <div className="relative z-10">
         {/* Header */}
-        <div className="bg-gradient-to-br from-[#0F4C5C] to-[#0A3540] text-white px-6 py-4 flex items-center gap-4 shadow-sm">
-          <button
-            onClick={() => onNavigate('home')}
-            className="p-2 hover:bg-white/20 rounded-full transition-colors"
-          >
-            {isRTL ? (
-              <ArrowRight className="w-5 h-5" />
-            ) : (
-              <ArrowLeft className="w-5 h-5" />
-            )}
-          </button>
-          <div>
-            <h1 className="text-xl font-semibold">
-              {isRTL ? 'احسب لعميلك' : 'Calculate for Client'}
-            </h1>
-            <p className="text-teal-100 text-sm">
-              {isRTL ? 'احسب التمويل المناسب للعميل' : 'Calculate suitable financing for client'}
-            </p>
+        <div className="relative bg-gradient-to-br from-[#0F4C5C] to-[#0A3540] text-white px-6 pt-4 pb-6 shadow-sm">
+          <div className="flex items-center gap-4 mb-2">
+            <button
+              onClick={() => onNavigate('home')}
+              className="p-2 hover:bg-white/20 rounded-full transition-colors"
+            >
+              {isRTL ? (
+                <ArrowRight className="w-5 h-5" />
+              ) : (
+                <ArrowLeft className="w-5 h-5" />
+              )}
+            </button>
+            <div>
+              <h1 className="text-xl font-semibold">
+                {isRTL ? 'احسب لعميلك' : 'Calculate for Client'}
+              </h1>
+              <p className="text-teal-100 text-sm">
+                {isRTL ? 'احسب التمويل المناسب للعميل' : 'Calculate suitable financing for client'}
+              </p>
+            </div>
           </div>
+
+          {/* Wave SVG */}
+          <svg 
+            className="absolute bottom-0 left-0 w-full h-8" 
+            viewBox="0 0 1440 48" 
+            fill="none" 
+            preserveAspectRatio="none"
+          >
+            <path 
+              d="M0 24C360 12 720 12 1080 24C1260 30 1350 30 1440 24V48H0V24Z" 
+              fill="#F2F4F5"
+            />
+            <path 
+              d="M0 30C240 18 480 18 720 30C960 42 1200 42 1440 30V48H0V30Z" 
+              fill="url(#wave-gradient-pull-client)" 
+              fillOpacity="0.3"
+            />
+            <defs>
+              <linearGradient id="wave-gradient-pull-client" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stopColor="#0F4C5C" />
+                <stop offset="50%" stopColor="#D4AF37" />
+                <stop offset="100%" stopColor="#0F4C5C" />
+              </linearGradient>
+            </defs>
+          </svg>
         </div>
 
         <div className="px-6 py-6">
           {/* Info Card */}
-          <Card className="p-4 mb-6 bg-teal-50 border-teal-100">
+          <Card className="p-4 mb-6 border-teal-100" style={{ backgroundColor: 'rgba(15, 76, 92, 0.05)', boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)' }}>
             <div className="flex items-start gap-3">
-              <div className="bg-[#0F4C5C] rounded-full p-2">
+              <div className="rounded-full p-2" style={{ backgroundColor: '#0F4C5C' }}>
                 <Link2 className="w-5 h-5 text-white" />
               </div>
               <div>
@@ -163,9 +190,9 @@ export function PullClientScreen({ onNavigate, language, employeeData }: PullCli
             </h3>
             
             <div className="space-y-3">
-              <Card className="p-4 bg-white border-teal-100">
+              <Card className="p-4 bg-white border-teal-100" style={{ boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)' }}>
                 <div className="flex items-start gap-3">
-                  <div className="bg-[#0F4C5C] rounded-full w-8 h-8 flex items-center justify-center text-white flex-shrink-0 font-semibold">
+                  <div className="rounded-full w-8 h-8 flex items-center justify-center text-white flex-shrink-0 font-semibold" style={{ backgroundColor: '#0F4C5C' }}>
                     1
                   </div>
                   <div>
@@ -181,9 +208,9 @@ export function PullClientScreen({ onNavigate, language, employeeData }: PullCli
                 </div>
               </Card>
 
-              <Card className="p-4 bg-white border-teal-100">
+              <Card className="p-4 bg-white border-teal-100" style={{ boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)' }}>
                 <div className="flex items-start gap-3">
-                  <div className="bg-[#0F4C5C] rounded-full w-8 h-8 flex items-center justify-center text-white flex-shrink-0 font-semibold">
+                  <div className="rounded-full w-8 h-8 flex items-center justify-center text-white flex-shrink-0 font-semibold" style={{ backgroundColor: '#0F4C5C' }}>
                     2
                   </div>
                   <div>
@@ -199,9 +226,9 @@ export function PullClientScreen({ onNavigate, language, employeeData }: PullCli
                 </div>
               </Card>
 
-              <Card className="p-4 bg-white border-teal-100">
+              <Card className="p-4 bg-white border-teal-100" style={{ boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)' }}>
                 <div className="flex items-start gap-3">
-                  <div className="bg-[#0F4C5C] rounded-full w-8 h-8 flex items-center justify-center text-white flex-shrink-0 font-semibold">
+                  <div className="rounded-full w-8 h-8 flex items-center justify-center text-white flex-shrink-0 font-semibold" style={{ backgroundColor: '#0F4C5C' }}>
                     3
                   </div>
                   <div>
@@ -221,7 +248,7 @@ export function PullClientScreen({ onNavigate, language, employeeData }: PullCli
 
           {/* Input Form */}
           <form onSubmit={handleSubmit}>
-            <Card className="p-6 bg-white border-teal-100 mb-6">
+            <Card className="p-6 bg-white border-teal-100 mb-6" style={{ boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)' }}>
               <div className="flex items-center gap-2 mb-4">
                 <IdCard className="w-5 h-5 text-[#0F4C5C]" />
                 <h2 className="text-lg font-semibold text-[#0E1E25]">

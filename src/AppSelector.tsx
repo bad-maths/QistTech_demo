@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Building2, Users, ArrowRight, ArrowLeft } from 'lucide-react';
 import { Button } from './components/ui/button';
 import { Card } from './components/ui/card';
+import QistTechLogo from './assets/Qis-Tech-highris.png';
 
 interface AppSelectorProps {
   onSelectApp: (app: 'customer' | 'business') => void;
@@ -23,9 +24,13 @@ export function AppSelector({ onSelectApp }: AppSelectorProps) {
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-6 py-12">
         {/* Logo and Title */}
         <div className="text-center mb-12">
-          <div className="inline-block bg-gradient-to-br from-teal-600 to-teal-700 text-white px-6 py-3 rounded-2xl mb-4 shadow-lg">
-            <h1 className="text-3xl font-bold">قسط تك</h1>
-            <p className="text-sm text-teal-100">QistTech Platform</p>
+          <div className="mb-4 flex flex-col items-center">
+            <img 
+              src={QistTechLogo} 
+              alt="QistTech Logo" 
+              className="w-32 h-32 object-contain rounded-2xl shadow-lg"
+            />
+            <p className="text-sm text-teal-600 mt-2 font-semibold">QistTech Platform</p>
           </div>
           <p className="text-gray-600 mt-4">
             {isRTL ? 'اختر التطبيق المناسب' : 'Choose Your App'}
