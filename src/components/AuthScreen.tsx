@@ -135,7 +135,7 @@ export function AuthScreen({ onComplete, language }: AuthScreenProps) {
                 variant="outline" 
                 className="w-full border-2 border-[#D4AF37] text-[#0F4C5C] hover:bg-[#D4AF37]/5 h-12 shadow-soft"
               >
-                <Shield className="w-5 h-5 ml-2 mr-2 text-[#D4AF37]" />
+                <Shield className="w-5 h-5 ml-2 mr-2 text-[#0F4C5C]" />
                 {isLoading ? (isRTL ? 'جاري التحقق...' : 'Verifying...') : (isRTL ? 'الدخول عبر نفاذ' : 'Login with Nafath')}
               </Button>
               
@@ -234,7 +234,7 @@ export function AuthScreen({ onComplete, language }: AuthScreenProps) {
                 variant="outline" 
                 className="w-full border-2 border-[#D4AF37] text-[#0F4C5C] hover:bg-[#D4AF37]/5 h-12 shadow-soft"
               >
-                <Shield className="w-5 h-5 ml-2 mr-2 text-[#D4AF37]" />
+                <Shield className="w-5 h-5 ml-2 mr-2 text-[#0F4C5C]" />
                 {isLoading ? (isRTL ? 'جاري التحقق...' : 'Verifying...') : (isRTL ? 'التسجيل عبر نفاذ' : 'Register with Nafath')}
               </Button>
               
