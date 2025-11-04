@@ -123,7 +123,7 @@ export function EmployeeNotificationsScreen({ onNavigate, language, employeeData
       icon: MessageSquare,
       iconBg: 'bg-blue-600',
       actionText: isRTL ? 'عرض الرسالة' : 'View Message',
-      actionRoute: 'employeeMessages',
+      actionRoute: 'messages',
     },
     {
       id: 7,

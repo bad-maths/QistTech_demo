@@ -86,7 +86,7 @@
   --sidebar-ring: rgba(212, 175, 55, 0.3);
 }
 
-@theme inline {
+:root[data-theme="inline"] {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -134,11 +134,18 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    /* Replace Tailwind @apply utilities with standard CSS so the stylesheet is valid
+       border-border  -> set the default border color
+       outline-ring/50 -> set a default outline color while keeping width 0 to avoid visual noise */
+    border-color: var(--color-border);
+    outline-color: var(--ring);
+    outline-style: solid;
+    outline-width: 0;
   }
 
   body {
-    @apply bg-background text-foreground;
+    background-color: var(--background);
+    color: var(--foreground);
     font-family: 'Inter', 'Noto Sans Arabic', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -325,6 +332,15 @@ html {
   }
 }
 
+@keyframes subtleFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
 @keyframes shimmer {
   0% {
     transform: translateX(-100%);
@@ -355,6 +371,45 @@ html {
   }
 }
 
+@keyframes gentle-wave-float {
+  0%, 100% {
+    transform: translateX(0) translateY(0);
+  }
+  25% {
+    transform: translateX(-10px) translateY(-2px);
+  }
+  50% {
+    transform: translateX(10px) translateY(2px);
+  }
+  75% {
+    transform: translateX(-5px) translateY(-1px);
+  }
+}
+
+@keyframes wave-sway {
+  0%, 100% {
+    transform: scaleX(1) skewX(0deg) translateX(0);
+  }
+  25% {
+    transform: scaleX(1.05) skewX(2deg) translateX(-5px);
+  }
+  50% {
+    transform: scaleX(0.95) skewX(-2deg) translateX(-10px);
+  }
+  75% {
+    transform: scaleX(1.03) skewX(1deg) translateX(-5px);
+  }
+}
+
+.animate-wave-sway {
+  transform-origin: center;
+  animation: wave-sway 8s ease-in-out infinite;
+}
+
+.animate-gentle-wave-float {
+  animation: gentle-wave-float 10s ease-in-out infinite;
+}
+
 .animate-in {
   animation: fadeIn 0.3s var(--ease-smooth);
 }
@@ -376,7 +431,11 @@ html {
 }
 
 .animate-float {
-  animation: float 6s ease-in-out infinite;
+  animation: float 20s ease-in-out infinite;
+}
+
+.animate-subtle-float {
+  animation: subtleFloat 4s ease-in-out infinite;
 }
 
 .animate-shimmer {
@@ -402,37 +461,4 @@ html {
 /* Smooth transitions */
 .transition-smooth {
   transition: all 0.3s var(--ease-smooth);
-}
-
-/* Gradient utilities (added for missing classes used throughout the app) */
-.gradient-primary {
-  background: linear-gradient(to bottom right, #0F4C5C, #0A3540) !important;
-}
-
-.gradient-primary-triple {
-  background: linear-gradient(to bottom right, #0F4C5C, #0A3540, #0F4C5C) !important;
-}
-
-.gradient-accent {
-  background: linear-gradient(to bottom right, #D4AF37, #B8941F) !important;
-}
-
-.gradient-hero {
-  background: linear-gradient(to bottom right, rgba(15, 76, 92, 0.95), rgba(10, 53, 64, 0.9), rgba(15, 76, 92, 0.85)) !important;
-}
-
-.gradient-surface-subtle {
-  background: linear-gradient(to bottom right, #FFFFFF, #FFFFFF, rgba(242, 244, 245, 0.3)) !important;
-}
-
-.gradient-accent-subtle {
-  background: linear-gradient(to bottom right, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05), rgba(212, 175, 55, 0.03)) !important;
-}
-
-.gradient-primary-subtle {
-  background: linear-gradient(to bottom right, rgba(15, 76, 92, 0.1), rgba(15, 76, 92, 0.05), rgba(15, 76, 92, 0.03)) !important;
-}
-
-.gradient-bg {
-  background: linear-gradient(135deg, #0F4C5C 0%, #0A3540 100%) !important;
 }

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import QistTechLogo from '../assets/Qistech_logo.jpg';
+import QistTechLogo from '../assets/Qis-Tech-highris.png';
 
 interface SplashScreenProps {
   onComplete: () => void;
@@ -12,18 +12,22 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
   }, [onComplete]);
 
   return (
-    <div className="h-screen bg-gradient-to-br from-[#0F4C5C] via-[#0A3540] to-[#0F4C5C] flex flex-col items-center justify-center text-white overflow-hidden relative" dir="rtl">
+    <div 
+      className="h-screen flex flex-col items-center justify-center text-white overflow-hidden relative" 
+      dir="rtl"
+      style={{ backgroundColor: '#1f6862' }}
+    >
       {/* Decorative Elements */}
       <div className="absolute top-20 right-10 w-64 h-64 bg-[#D4AF37]/10 rounded-full blur-3xl float-subtle"></div>
       <div className="absolute bottom-20 left-10 w-48 h-48 bg-white/5 rounded-full blur-2xl float-subtle" style={{ animationDelay: '1s' }}></div>
       
-      {/* Logo with glassmorphism */}
-      <div className="relative z-10 animate-float">
+      {/* Logo */}
+      <div className="relative z-10">
         <div className="w-48 h-48 flex items-center justify-center">
           <img 
             src={QistTechLogo} 
             alt="QistTech Logo" 
-            className="w-full h-full object-contain rounded-3xl animate-pulse-slow"
+            className="w-full h-full object-contain"
           />
         </div>
       </div>

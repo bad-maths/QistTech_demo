@@ -4,7 +4,6 @@ import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Badge } from './ui/badge';
-import { Slider } from './ui/slider';
 import { Label } from './ui/label';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { BottomNavBar } from './BottomNavBar';
@@ -13,6 +12,8 @@ import { FinancialInsightCard } from './FinancialInsightCard';
 import { ActivityTimeline } from './ActivityTimeline';
 import { MarketTrendCard } from './MarketTrendCard';
 import { SmartRecommendation } from './SmartRecommendation';
+import { FinancingCalculator } from './FinancingCalculator';
+import QisTechBlackLogo from '../assets/Qis-Tech-white-logo.png';
 import AlAhliLogo from '../assets/شعار البنك الأهلي التجاري.svg';
 import AlRajhiLogo from '../assets/شعار مصرف الراجحي الجديد.svg';
 
@@ -24,31 +25,6 @@ interface HomeScreenProps {
 export function HomeScreen({ onNavigate, language }: HomeScreenProps) {
   const isRTL = language === 'ar';
   const [showCalculatorDrawer, setShowCalculatorDrawer] = useState(false);
-  const [loanAmount, setLoanAmount] = useState([1000000]);
-  const [downPaymentAmount, setDownPaymentAmount] = useState(100000);
-  const [termYears, setTermYears] = useState(25);
-
-  // Calculate monthly payment
-  const calculateMonthlyPayment = () => {
-    const principal = loanAmount[0];
-    const loanAfterDown = principal - downPaymentAmount;
-    const annualRate = 3.5;
-    const monthlyRate = annualRate / 100 / 12;
-    const numberOfPayments = termYears * 12;
-    
-    if (monthlyRate === 0) {
-      return Math.round(loanAfterDown / numberOfPayments);
-    }
-    
-    const monthlyPayment =
-      (loanAfterDown * monthlyRate * Math.pow(1 + monthlyRate, numberOfPayments)) /
-      (Math.pow(1 + monthlyRate, numberOfPayments) - 1);
-    
-    return Math.round(monthlyPayment);
-  };
-
-  const monthlyPayment = calculateMonthlyPayment();
-  const downPaymentPercentage = ((downPaymentAmount / loanAmount[0]) * 100).toFixed(0);
 
   // Featured properties data
   const featuredProperties = [
@@ -121,6 +97,17 @@ export function HomeScreen({ onNavigate, language }: HomeScreenProps) {
     },
     {
       id: 2,
+      title: isRTL ? 'احسب قدرتك' : 'Calculator',
+      subtitle: isRTL ? 'حاسبة التمويل' : 'Financing calculator',
+      icon: Calculator,
+      gradient: 'from-[#D4AF37] to-[#B8941F]',
+      bgGradient: 'from-[#D4AF37]/10 via-[#D4AF37]/5 to-[#D4AF37]/3',
+      action: () => onNavigate('financingListings'),
+      accentIcon: Sparkles,
+      accentColor: '#D4AF37',
+    },
+    {
+      id: 3,
       title: isRTL ? 'تصفح العقارات' : 'Browse Properties',
       subtitle: isRTL ? '200+ عقار متاح' : '200+ available',
       icon: Building2,
@@ -130,7 +117,7 @@ export function HomeScreen({ onNavigate, language }: HomeScreenProps) {
       showDot: true,
     },
     {
-      id: 3,
+      id: 4,
       title: isRTL ? 'إحالة موظف' : 'Refer Employee',
       subtitle: isRTL ? 'دعم احترافي' : 'Professional support',
       icon: UserPlus,
@@ -141,7 +128,7 @@ export function HomeScreen({ onNavigate, language }: HomeScreenProps) {
       accentColor: '#D4AF37',
     },
     {
-      id: 4,
+      id: 5,
       title: isRTL ? 'عرض الخريطة' : 'Map View',
       subtitle: isRTL ? 'اكتشف حسب الموقع' : 'Explore locations',
       icon: Map,
@@ -163,6 +150,7 @@ export function HomeScreen({ onNavigate, language }: HomeScreenProps) {
             src="https://images.unsplash.com/photo-1672757685171-190853353acb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080"
             alt="Header Background"
             className="w-full h-full object-cover"
+            priority={true}
           />
           {/* Multi-layer Gradient Overlay */}
           <div className="absolute inset-0 bg-gradient-to-br from-[#0F4C5C]/95 via-[#0A3540]/90 to-[#0F4C5C]/85"></div>
@@ -183,13 +171,11 @@ export function HomeScreen({ onNavigate, language }: HomeScreenProps) {
           <div className="flex items-center justify-between mb-6">
             {/* Logo */}
             <div className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#D4AF37] to-[#B8941F] flex items-center justify-center shadow-glow-gold">
-                <Building2 className="w-5 h-5 text-white" />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-white text-sm tracking-tight">QistTech</span>
-                <span className="text-[#D4AF37] text-xs">قسط تك</span>
-              </div>
+              <img
+                src={QisTechBlackLogo}
+                alt={isRTL ? 'شعار قسط تك' : 'QistTech logo'}
+                className="h-8 w-auto md:h-9 object-contain drop-shadow"
+              />
             </div>
 
             {/* Search & Notifications */}
@@ -462,99 +448,25 @@ export function HomeScreen({ onNavigate, language }: HomeScreenProps) {
 
       {/* ========== CALCULATOR OVERLAY ========== */}
       {showCalculatorDrawer && (
-        <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/40" onClick={() => setShowCalculatorDrawer(false)}>
-          <div className="w-full max-w-md mx-auto bg-white rounded-t-2xl p-4 overflow-y-auto" style={{ maxHeight: '50vh' }} onClick={(e) => e.stopPropagation()} dir={isRTL ? 'rtl' : 'ltr'}>
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-2">
-                <Calculator className="w-5 h-5 text-[#D4AF37]" />
-                <h4 className="text-sm font-semibold text-[#0E1E25]" dir="auto">{isRTL ? 'حاسبة التمويل العقاري' : 'Mortgage Calculator'}</h4>
-              </div>
-              <button className="text-[#4B5563] text-sm" onClick={() => setShowCalculatorDrawer(false)}>✕</button>
-            </div>
-            
-            <div className="space-y-6">
-              {/* Loan Amount */}
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <Label dir="auto">{isRTL ? 'مبلغ القرض' : 'Loan Amount'}</Label>
-                  <span className="text-lg text-[#0F4C5C]">{loanAmount[0].toLocaleString()} <span className="text-sm">{isRTL ? 'ر.س' : 'SAR'}</span></span>
-                </div>
-                <Slider
-                  value={loanAmount}
-                  onValueChange={setLoanAmount}
-                  max={5000000}
-                  min={100000}
-                  step={50000}
-                  className="w-full"
-                />
-              </div>
-
-              {/* Down Payment */}
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <Label dir="auto">{isRTL ? 'الدفعة المقدمة' : 'Down Payment'}</Label>
-                  <span className="text-lg text-[#0F4C5C]">
-                    {downPaymentAmount.toLocaleString()} <span className="text-sm">{isRTL ? 'ر.س' : 'SAR'}</span>
-                    <span className="text-xs text-[#4B5563] mr-1">({downPaymentPercentage}%)</span>
-                  </span>
-                </div>
-                <Slider
-                  value={[downPaymentAmount]}
-                  onValueChange={(v: number[]) => setDownPaymentAmount(v[0])}
-                  max={loanAmount[0] * 0.5}
-                  min={loanAmount[0] * 0.05}
-                  step={10000}
-                  className="w-full"
-                />
-              </div>
-
-              {/* Term Years */}
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <Label dir="auto">{isRTL ? 'مدة القرض' : 'Loan Term'}</Label>
-                  <span className="text-lg text-[#0F4C5C]">{termYears} <span className="text-sm">{isRTL ? 'سنة' : 'years'}</span></span>
-                </div>
-                <Slider
-                  value={[termYears]}
-                  onValueChange={(v: number[]) => setTermYears(v[0])}
-                  max={30}
-                  min={5}
-                  step={5}
-                  className="w-full"
-                />
-              </div>
-
-              {/* Results */}
-              <Card className="p-6 bg-gradient-to-br from-[#0F4C5C] to-[#0A3540] text-white border-0">
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-white/80" dir="auto">{isRTL ? 'القسط الشهري المتوقع' : 'Estimated Monthly Payment'}</span>
-                  </div>
-                  <div className="text-3xl">{monthlyPayment.toLocaleString()} <span className="text-lg">{isRTL ? 'ر.س' : 'SAR'}</span></div>
-                  
-                  <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/10">
-                    <div>
-                      <p className="text-xs text-white/60 mb-1" dir="auto">{isRTL ? 'الفائدة السنوية' : 'Annual Rate'}</p>
-                      <p className="text-lg">3.5%</p>
-                    </div>
-                    <div>
-                      <p className="text-xs text-white/60 mb-1" dir="auto">{isRTL ? 'إجمالي الدفعات' : 'Total Payments'}</p>
-                      <p className="text-lg">{(monthlyPayment * termYears * 12).toLocaleString()}</p>
-                    </div>
-                  </div>
-                </div>
-              </Card>
-
-              <Button 
-                className="w-full bg-gradient-to-r from-[#D4AF37] to-[#B8941F] hover:from-[#B8941F] hover:to-[#D4AF37] text-white"
-                onClick={() => {
-                  setShowCalculatorDrawer(false);
-                  onNavigate('financingListings');
-                }}
-              >
-                <span dir="auto">{isRTL ? 'تقدم بطلب تمويل' : 'Apply for Financing'}</span>
-              </Button>
-            </div>
+        <div 
+          className="fixed inset-0 z-50 flex items-end justify-center bg-black/60 backdrop-blur-sm animate-in fade-in duration-300" 
+          onClick={() => setShowCalculatorDrawer(false)}
+        >
+          <div 
+            className="w-full max-w-md mx-auto bg-white rounded-t-3xl shadow-2xl animate-in slide-in-from-bottom duration-300" 
+            style={{ maxHeight: '85vh' }} 
+            onClick={(e) => e.stopPropagation()}
+          >
+            <FinancingCalculator
+              language={language}
+              onClose={() => setShowCalculatorDrawer(false)}
+              onCalculate={(values) => {
+                console.log('Calculator values:', values);
+                setShowCalculatorDrawer(false);
+                onNavigate('financingListings');
+              }}
+              showCloseButton={true}
+            />
           </div>
         </div>
       )}

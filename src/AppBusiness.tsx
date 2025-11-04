@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SplashScreen } from './components/SplashScreen';
 import { OnboardingScreen } from './components/OnboardingScreen';
 import { EmployeeAuthScreen } from './components/business/EmployeeAuthScreen';
@@ -6,7 +6,6 @@ import { EmployeeAuthScreen } from './components/business/EmployeeAuthScreen';
 import { EmployeeHomeScreen } from './components/business/EmployeeHomeScreen';
 import { FinanceHomeScreen } from './components/business/finance/FinanceHomeScreen';
 import { DeveloperHomeScreen } from './components/business/developer/DeveloperHomeScreen';
-import { DeveloperRequestsScreen } from './components/business/developer/DeveloperRequestsScreen';
 import { DeveloperClientManagementScreen } from './components/business/developer/DeveloperClientManagementScreen';
 import { PullClientScreen } from './components/business/PullClientScreen';
 import { EmployeeWalletScreen } from './components/business/EmployeeWalletScreen';
@@ -18,6 +17,8 @@ import { EmployeeCalculatorScreen as DeveloperEmployeeCalculatorScreen } from '.
 import { EmployeePropertiesScreen } from './components/business/EmployeePropertiesScreen';
 import { EmployeePropertyDetailsScreen } from './components/business/EmployeePropertyDetailsScreen';
 import { EmployeeMessagesScreen } from './components/business/EmployeeMessagesScreen';
+import { DeveloperEmployeeMessagesScreen } from './components/business/developer/DeveloperEmployeeMessagesScreen';
+import { FinanceEmployeeMessagesScreen } from './components/business/finance/FinanceEmployeeMessagesScreen';
 import { EmployeeChatScreen } from './components/business/EmployeeChatScreen';
 import { EmployeeProfileScreen as CommonEmployeeProfileScreen } from './components/business/EmployeeProfileScreen';
 import { EmployeeProfileScreen as DeveloperEmployeeProfileScreen } from './components/business/developer/EmployeeProfileScreen';
@@ -44,9 +45,16 @@ export default function AppBusiness({ onBack }: AppBusinessProps) {
   };
 
   const handleLogin = (data: any) => {
+    // Set employee data first; navigate to home after state is committed
     setEmployeeData(data);
-    setCurrentScreen('home');
   };
+
+  // Navigate to the correct home after employeeData is set
+  useEffect(() => {
+    if (employeeData?.type === 'developer' || employeeData?.type === 'finance') {
+      setCurrentScreen('home');
+    }
+  }, [employeeData]);
 
   const isDeveloper = employeeData?.type === 'developer';
   const isFinance = employeeData?.type === 'finance';
@@ -61,7 +69,11 @@ export default function AppBusiness({ onBack }: AppBusinessProps) {
       wallet: <EmployeeWalletScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
       requests: <EmployeeRequestsScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
       requestDetails: <EmployeeRequestDetailsScreen onNavigate={handleNavigate} language={language} requestData={navigationData} employeeData={employeeData} />,
-      messages: <EmployeeMessagesScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
+      messages: isDeveloper 
+        ? <DeveloperEmployeeMessagesScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />
+        : isFinance 
+        ? <FinanceEmployeeMessagesScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />
+        : <EmployeeMessagesScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
       employeeChat: <EmployeeChatScreen onNavigate={handleNavigate} language={language} contactData={navigationData} />,
       notifications: <EmployeeNotificationsScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
       profile: isDeveloper
@@ -92,7 +104,7 @@ export default function AppBusiness({ onBack }: AppBusinessProps) {
         ...commonScreens,
         home: <DeveloperHomeScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
         calculator: <DeveloperEmployeeCalculatorScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
-        requests: <DeveloperRequestsScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
+        requests: <EmployeeRequestsScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
         clientManagement: <DeveloperClientManagementScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
         properties: <EmployeePropertiesScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
         propertyDetails: <EmployeePropertyDetailsScreen onNavigate={handleNavigate} language={language} propertyData={navigationData} employeeData={employeeData} />,
@@ -116,7 +128,8 @@ export default function AppBusiness({ onBack }: AppBusinessProps) {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {screens[currentScreen as keyof typeof screens]}
+      {/* Fallback to auth if target screen is not ready yet */}
+      {screens[currentScreen as keyof typeof screens] ?? screens['auth']}
     </div>
   );
 }

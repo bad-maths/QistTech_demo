@@ -1,8 +1,8 @@
 ﻿import { useState } from 'react';
 import { ArrowLeft, ArrowRight, User, Banknote, Building2, MessageSquare } from 'lucide-react';
-import { Card } from '../ui/card';
-import { Badge } from '../ui/badge';
-import { BottomNavBar } from '../BottomNavBar';
+import { Card } from '../../ui/card';
+import { Badge } from '../../ui/badge';
+import { BottomNavBar } from '../../BottomNavBar';
 
 interface ChatContact {
   id: string;
@@ -34,63 +34,76 @@ interface EmployeeMessagesScreenProps {
   employeeData: any;
 }
 
-export function EmployeeMessagesScreen({ onNavigate, language }: EmployeeMessagesScreenProps) {
+export function FinanceEmployeeMessagesScreen({ onNavigate, language }: EmployeeMessagesScreenProps) {
   const isRTL = language === 'ar';
   
   const [contacts] = useState<Contact[]>([
     {
       id: '1',
       chatType: 'single-customer',
-      name: isRTL ? 'أحمد علي الشمري' : 'Ahmed Ali Al-Shammari',
+      name: isRTL ? 'سعود أحمد العتيبي' : 'Saud Ahmed Al-Otaibi',
       type: 'customer',
-      lastMessage: isRTL ? 'شكراً على المساعدة' : 'Thank you for your help',
-      lastMessageTime: '11:20',
-      unread: 1,
-      avatar: 'AA',
+      lastMessage: isRTL ? 'متى سيتم الرد على طلب التمويل؟' : 'When will the financing request be answered?',
+      lastMessageTime: '10:30',
+      unread: 2,
+      avatar: 'SA',
       color: 'bg-[#0F4C5C]',
-      property: isRTL ? 'شقة الزهور' : 'Flowers Apartment',
-      requestType: 'referral',
+      property: isRTL ? 'شقة الأندلس' : 'Andalus Apartment',
+      requestType: 'direct',
     },
     {
       id: '2',
       chatType: 'combined',
-      name: isRTL ? 'فيلا السلام - طلب #5678' : 'Peace Villa - Request #5678',
-      lastMessage: isRTL ? 'العميل: متى يمكننا التوقيع؟' : 'Customer: When can we sign?',
-      lastMessageTime: '10:15',
-      unread: 2,
+      name: isRTL ? 'فيلا النخيل - طلب #4512' : 'Palm Villa - Request #4512',
+      lastMessage: isRTL ? 'المطور: جاهز لإتمام الصفقة' : 'Developer: Ready to close the deal',
+      lastMessageTime: '09:15',
+      unread: 3,
       avatar: '2',
-      color: 'bg-gradient-to-r from-[#0F4C5C] to-[#10B981]',
-      property: isRTL ? 'فيلا السلام' : 'Peace Villa',
+      color: 'bg-gradient-to-r from-[#0F4C5C] to-[#D4AF37]',
+      property: isRTL ? 'فيلا النخيل' : 'Palm Villa',
       participants: [
         {
-          id: 'customer-1',
-          name: isRTL ? 'هند عبدالله المالكي' : 'Hind Abdullah Al-Malki',
+          id: 'customer-2',
+          name: isRTL ? 'ريم خالد المطيري' : 'Reem Khalid Al-Mutairi',
           type: 'customer',
-          avatar: 'HM',
+          avatar: 'RM',
           color: 'bg-[#0F4C5C]',
-          property: isRTL ? 'فيلا السلام' : 'Peace Villa',
+          property: isRTL ? 'فيلا النخيل' : 'Palm Villa',
         },
         {
-          id: 'finance-1',
-          name: isRTL ? 'فيصل العمري - بنك الأهلي' : 'Faisal Al-Omari - Al Ahli Bank',
+          id: 'developer-2',
+          name: isRTL ? 'ماجد الدوسري - شركة دار الأركان' : 'Majed Al-Dosari - Dar Al-Arkan',
           type: 'finance',
-          avatar: 'FO',
-          color: 'bg-[#10B981]',
-          property: isRTL ? 'فيلا السلام' : 'Peace Villa',
+          avatar: 'MD',
+          color: 'bg-[#D4AF37]',
+          property: isRTL ? 'فيلا النخيل' : 'Palm Villa',
         },
       ],
     },
     {
       id: '3',
       chatType: 'single-customer',
-      name: isRTL ? 'ليلى محمد الدوسري' : 'Layla Mohammed Al-Dosari',
+      name: isRTL ? 'نورة عبدالله السالم' : 'Noura Abdullah Al-Salem',
       type: 'customer',
-      lastMessage: isRTL ? 'أحتاج إلى مزيد من التفاصيل' : 'I need more details',
-      lastMessageTime: '09:30',
+      lastMessage: isRTL ? 'هل يمكنني الحصول على عرض تمويل أفضل؟' : 'Can I get a better financing offer?',
+      lastMessageTime: '08:45',
       unread: 0,
-      avatar: 'LM',
+      avatar: 'NA',
       color: 'bg-[#10B981]',
-      property: isRTL ? 'شقة الحديقة' : 'Garden Apartment',
+      property: isRTL ? 'شقة الفيحاء' : 'Faihaa Apartment',
+      requestType: 'referral',
+    },
+    {
+      id: '4',
+      chatType: 'single-customer',
+      name: isRTL ? 'عبدالرحمن محمد القحطاني' : 'Abdulrahman Mohammed Al-Qahtani',
+      type: 'customer',
+      lastMessage: isRTL ? 'ما هي المستندات المطلوبة؟' : 'What documents are required?',
+      lastMessageTime: 'Yesterday',
+      unread: 1,
+      avatar: 'AQ',
+      color: 'bg-[#0F4C5C]',
+      property: isRTL ? 'فيلا الورد' : 'Rose Villa',
       requestType: 'direct',
     },
   ]);

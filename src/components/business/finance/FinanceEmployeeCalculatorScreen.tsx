@@ -61,16 +61,19 @@ export function EmployeeCalculatorScreen({ onNavigate, language, employeeData }:
 
         {/* Top Bar */}
         <div className="relative z-20 px-4 pt-12 pb-6">
-          <div className="flex items-center justify-between" style={{ flexDirection: isRTL ? 'row-reverse' as const : 'row' }}>
-            <div className="flex items-center gap-3" style={{ flexDirection: isRTL ? 'row-reverse' as const : 'row' }}>
+          <div className="flex items-center justify-between" style={{ flexDirection: 'row' }}>
+            {/* Title + Back button on the left (button is left-most) */}
+            <div className="flex items-center gap-3" style={{ flexDirection: 'row' }}>
               <button className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm" onClick={() => onNavigate('home')}>
                 {isRTL ? <ArrowRight className="w-5 h-5 text-white" /> : <ArrowLeft className="w-5 h-5 text-white" />}
               </button>
-              <div>
+              <div className={isRTL ? 'text-right' : 'text-left'}>
                 <h2 className="text-lg font-semibold">{isRTL ? 'حاسبة التمويل' : 'Financing Calculator'}</h2>
                 <p className="text-sm text-white/80">{isRTL ? 'احسب الأقساط الشهرية' : 'Calculate monthly installments'}</p>
               </div>
             </div>
+
+            {/* Online status on the right */}
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-2 bg-emerald-500/20 px-3 py-1.5 rounded-full backdrop-blur-sm">
                 <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
@@ -266,3 +269,4 @@ export function EmployeeCalculatorScreen({ onNavigate, language, employeeData }:
     </div>
   );
 }
+

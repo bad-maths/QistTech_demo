@@ -89,19 +89,15 @@ export function EmployeeAuthScreen({ onComplete, language, onBack }: EmployeeAut
                 <button
                   type="button"
                   onClick={() => setEmployeeType('developer')}
-                  className={`p-4 rounded-lg border-2 transition-all ${
-                    employeeType === 'developer'
-                       ? 'border-[#0F4C5C]'
-                       : 'border-teal-100 hover:border-teal-200'
-                  }`}
+                  className="p-4 rounded-lg border-2 transition-all"
                   style={{
                     background:
                       employeeType === 'developer'
-                        ? 'linear-gradient(to bottom right, rgba(15, 76, 92, 0.1), rgba(15, 76, 92, 0.05), rgba(15, 76, 92, 0.03))'
+                        ? 'linear-gradient(to right bottom, rgba(15, 76, 92, 0.15), rgba(15, 76, 92, 0.08), rgba(15, 76, 92, 0.05))'
                         : '#FFFFFF',
                     borderColor:
                       employeeType === 'developer'
-                        ? 'rgba(15, 76, 92, 0.3)'
+                        ? 'rgba(15, 76, 92, 0.4)'
                         : 'rgba(15, 76, 92, 0.15)'
                   }}
                 >

@@ -1,8 +1,8 @@
 ﻿import { useState } from 'react';
 import { ArrowLeft, ArrowRight, User, Banknote, Building2, MessageSquare } from 'lucide-react';
-import { Card } from '../ui/card';
-import { Badge } from '../ui/badge';
-import { BottomNavBar } from '../BottomNavBar';
+import { Card } from '../../ui/card';
+import { Badge } from '../../ui/badge';
+import { BottomNavBar } from '../../BottomNavBar';
 
 interface ChatContact {
   id: string;
@@ -34,63 +34,76 @@ interface EmployeeMessagesScreenProps {
   employeeData: any;
 }
 
-export function EmployeeMessagesScreen({ onNavigate, language }: EmployeeMessagesScreenProps) {
+export function DeveloperEmployeeMessagesScreen({ onNavigate, language }: EmployeeMessagesScreenProps) {
   const isRTL = language === 'ar';
   
   const [contacts] = useState<Contact[]>([
     {
       id: '1',
       chatType: 'single-customer',
-      name: isRTL ? 'أحمد علي الشمري' : 'Ahmed Ali Al-Shammari',
+      name: isRTL ? 'محمد أحمد الغامدي' : 'Mohammed Ahmed Al-Ghamdi',
       type: 'customer',
-      lastMessage: isRTL ? 'شكراً على المساعدة' : 'Thank you for your help',
-      lastMessageTime: '11:20',
-      unread: 1,
-      avatar: 'AA',
+      lastMessage: isRTL ? 'هل يمكنني معاينة الفيلا غداً؟' : 'Can I view the villa tomorrow?',
+      lastMessageTime: '10:30',
+      unread: 2,
+      avatar: 'MA',
       color: 'bg-[#0F4C5C]',
-      property: isRTL ? 'شقة الزهور' : 'Flowers Apartment',
+      property: isRTL ? 'فيلا النرجس' : 'Narcissus Villa',
       requestType: 'referral',
     },
     {
       id: '2',
+      chatType: 'single-customer',
+      name: isRTL ? 'فاطمة سعيد القحطاني' : 'Fatima Saeed Al-Qahtani',
+      type: 'customer',
+      lastMessage: isRTL ? 'ما هي طرق الدفع المتاحة؟' : 'What payment methods are available?',
+      lastMessageTime: '09:15',
+      unread: 0,
+      avatar: 'FS',
+      color: 'bg-[#10B981]',
+      property: isRTL ? 'شقة البحر' : 'Sea Apartment',
+      requestType: 'direct',
+    },
+    {
+      id: '3',
       chatType: 'combined',
-      name: isRTL ? 'فيلا السلام - طلب #5678' : 'Peace Villa - Request #5678',
-      lastMessage: isRTL ? 'العميل: متى يمكننا التوقيع؟' : 'Customer: When can we sign?',
-      lastMessageTime: '10:15',
-      unread: 2,
-      avatar: '2',
+      name: isRTL ? 'شقة الياسمين - طلب #3421' : 'Jasmine Apartment - Request #3421',
+      lastMessage: isRTL ? 'الممول: تم الموافقة على التمويل' : 'Finance: Financing approved',
+      lastMessageTime: '14:22',
+      unread: 3,
+      avatar: '3',
       color: 'bg-gradient-to-r from-[#0F4C5C] to-[#10B981]',
-      property: isRTL ? 'فيلا السلام' : 'Peace Villa',
+      property: isRTL ? 'شقة الياسمين' : 'Jasmine Apartment',
       participants: [
         {
           id: 'customer-1',
-          name: isRTL ? 'هند عبدالله المالكي' : 'Hind Abdullah Al-Malki',
+          name: isRTL ? 'عبدالله محمد السعيد' : 'Abdullah Mohammed Al-Saeed',
           type: 'customer',
-          avatar: 'HM',
+          avatar: 'AS',
           color: 'bg-[#0F4C5C]',
-          property: isRTL ? 'فيلا السلام' : 'Peace Villa',
+          property: isRTL ? 'شقة الياسمين' : 'Jasmine Apartment',
         },
         {
           id: 'finance-1',
-          name: isRTL ? 'فيصل العمري - بنك الأهلي' : 'Faisal Al-Omari - Al Ahli Bank',
+          name: isRTL ? 'أحمد الراجحي - بنك الراجحي' : 'Ahmed Al-Rajhi - Al Rajhi Bank',
           type: 'finance',
-          avatar: 'FO',
+          avatar: 'AR',
           color: 'bg-[#10B981]',
-          property: isRTL ? 'فيلا السلام' : 'Peace Villa',
+          property: isRTL ? 'شقة الياسمين' : 'Jasmine Apartment',
         },
       ],
     },
     {
-      id: '3',
+      id: '4',
       chatType: 'single-customer',
-      name: isRTL ? 'ليلى محمد الدوسري' : 'Layla Mohammed Al-Dosari',
+      name: isRTL ? 'خالد عبدالعزيز النمر' : 'Khalid Abdulaziz Al-Nimer',
       type: 'customer',
-      lastMessage: isRTL ? 'أحتاج إلى مزيد من التفاصيل' : 'I need more details',
-      lastMessageTime: '09:30',
-      unread: 0,
-      avatar: 'LM',
-      color: 'bg-[#10B981]',
-      property: isRTL ? 'شقة الحديقة' : 'Garden Apartment',
+      lastMessage: isRTL ? 'هل السعر قابل للتفاوض؟' : 'Is the price negotiable?',
+      lastMessageTime: '08:45',
+      unread: 1,
+      avatar: 'KN',
+      color: 'bg-[#D4AF37]',
+      property: isRTL ? 'فيلا الربيع' : 'Spring Villa',
       requestType: 'direct',
     },
   ]);
