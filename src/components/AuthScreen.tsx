@@ -50,11 +50,11 @@ export function AuthScreen({ onComplete, language }: AuthScreenProps) {
       
       <div className="flex-1 flex flex-col justify-center max-w-md mx-auto w-full relative z-10">
         <div className="text-center mb-8">
-          <div className="bg-gradient-to-br from-[#0F4C5C] to-[#0A3540] rounded-3xl p-5 w-20 h-20 mx-auto mb-4 shadow-lifted flex items-center justify-center">
+          <div className="w-32 h-32 mx-auto mb-4">
             <img 
               src={QistTechLogo} 
               alt="QistTech Logo" 
-              className="w-full h-full object-contain"
+              className="w-full h-full object-contain rounded-2xl"
             />
           </div>
           <h1 className="text-3xl mb-2 text-[#0E1E25] tracking-tight">{isRTL ? 'قسط تك' : 'QistTech'}</h1>

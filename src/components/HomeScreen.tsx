@@ -153,28 +153,56 @@ export function HomeScreen({ onNavigate, language }: HomeScreenProps) {
             priority={true}
           />
           {/* Multi-layer Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[#0F4C5C]/95 via-[#0A3540]/90 to-[#0F4C5C]/85"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0F4C5C] via-transparent to-transparent"></div>
+          <div 
+            className="absolute inset-0" 
+            style={{ 
+              background: 'linear-gradient(to bottom right, rgba(15, 76, 92, 0.95), rgba(10, 53, 64, 0.90), rgba(15, 76, 92, 0.85))' 
+            }}
+          ></div>
+          <div 
+            className="absolute inset-0" 
+            style={{ 
+              background: 'linear-gradient(to top, rgba(15, 76, 92, 1), transparent, transparent)' 
+            }}
+          ></div>
         </div>
 
         {/* Animated Floating Elements */}
-        <div className="absolute top-10 right-[10%] w-32 h-32 bg-[#D4AF37]/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute top-20 left-[15%] w-24 h-24 bg-[#D4AF37]/10 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-        <div className="absolute bottom-10 right-[20%] w-40 h-40 bg-white/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+        <div 
+          className="absolute top-10 right-[10%] w-32 h-32 rounded-full blur-3xl animate-pulse"
+          style={{ backgroundColor: 'rgba(212, 175, 55, 0.20)' }}
+        ></div>
+        <div 
+          className="absolute top-20 left-[15%] w-24 h-24 rounded-full blur-2xl animate-pulse" 
+          style={{ backgroundColor: 'rgba(212, 175, 55, 0.10)', animationDelay: '1s' }}
+        ></div>
+        <div 
+          className="absolute bottom-10 right-[20%] w-40 h-40 rounded-full blur-3xl animate-pulse" 
+          style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)', animationDelay: '2s' }}
+        ></div>
         
         {/* Geometric Decorations */}
-        <div className="absolute top-16 right-8 w-16 h-16 border border-[#D4AF37]/20 rounded-2xl rotate-12 animate-float"></div>
-        <div className="absolute bottom-16 left-8 w-12 h-12 border border-white/10 rounded-full animate-float" style={{ animationDelay: '1.5s' }}></div>
+        <div 
+          className="absolute top-16 right-8 w-16 h-16 border rounded-2xl rotate-12 animate-float"
+          style={{ borderColor: 'rgba(212, 175, 55, 0.20)' }}
+        ></div>
+        <div 
+          className="absolute bottom-16 left-8 w-12 h-12 border rounded-full animate-float" 
+          style={{ borderColor: 'rgba(255, 255, 255, 0.10)', animationDelay: '1.5s' }}
+        ></div>
         
         <div className="relative z-10 h-full px-6 pt-6 pb-6 flex flex-col">
           {/* Top Bar - Logo, Search, Notifications */}
           <div className="flex items-center justify-between mb-6">
             {/* Logo */}
-            <div className="flex items-center gap-2">
+            <div className={`flex items-center ${isRTL ? 'pl-2' : 'pr-2'}`}>
               <img
                 src={QisTechBlackLogo}
                 alt={isRTL ? 'شعار قسط تك' : 'QistTech logo'}
-                className="h-8 w-auto md:h-9 object-contain drop-shadow"
+                className="h-10 w-auto md:h-11 object-contain drop-shadow-[0_0_8px_rgba(212,175,55,0.6)] hover:drop-shadow-[0_0_12px_rgba(212,175,55,0.8)] transition-all duration-300"
+                style={{
+                  filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2)) drop-shadow(0 0 8px rgba(212,175,55,0.5))'
+                }}
               />
             </div>
 
@@ -203,7 +231,10 @@ export function HomeScreen({ onNavigate, language }: HomeScreenProps) {
                 className="bg-white/15 backdrop-blur-xl rounded-xl p-2 relative hover:bg-white/25 transition-all duration-300 border border-white/10"
               >
                 <Bell className="w-4.5 h-4.5 text-white" />
-                <span className="absolute -top-1 -right-1 w-4.5 h-4.5 bg-gradient-to-br from-[#D4AF37] to-[#B8941F] rounded-full shadow-glow-gold flex items-center justify-center">
+                <span 
+                  className="absolute -top-1 -right-1 w-4.5 h-4.5 rounded-full shadow-glow-gold flex items-center justify-center"
+                  style={{ background: 'linear-gradient(to bottom right, #D4AF37, #B8941F)' }}
+                >
                   <span className="text-[9px] text-white">5</span>
                 </span>
               </button>
@@ -214,7 +245,10 @@ export function HomeScreen({ onNavigate, language }: HomeScreenProps) {
                 className="bg-white/15 backdrop-blur-xl rounded-xl p-2 relative hover:bg-white/25 transition-all duration-300 border border-white/10"
               >
                 <MessageSquare className="w-4.5 h-4.5 text-white" />
-                <span className="absolute -top-1 -right-1 w-4.5 h-4.5 bg-gradient-to-br from-[#D4AF37] to-[#B8941F] rounded-full shadow-glow-gold flex items-center justify-center">
+                <span 
+                  className="absolute -top-1 -right-1 w-4.5 h-4.5 rounded-full shadow-glow-gold flex items-center justify-center"
+                  style={{ background: 'linear-gradient(to bottom right, #D4AF37, #B8941F)' }}
+                >
                   <span className="text-[9px] text-white">3</span>
                 </span>
               </button>
@@ -345,19 +379,38 @@ export function HomeScreen({ onNavigate, language }: HomeScreenProps) {
         <FinancialInsightCard language={language} />
 
         {/* ========== CALCULATOR CTA CARD ========== */}
-        <Card className="p-6 mb-6 bg-gradient-to-br from-[#0F4C5C] via-[#0A3540] to-[#0F4C5C] text-white border-0 shadow-2xl overflow-hidden relative group cursor-pointer" onClick={() => setShowCalculatorDrawer(true)}>
+        <Card 
+          className="p-6 mb-6 text-white border-0 shadow-2xl overflow-hidden relative group cursor-pointer" 
+          style={{ background: 'linear-gradient(to bottom right, #0F4C5C, #0A3540, #0F4C5C)' }}
+          onClick={() => setShowCalculatorDrawer(true)}
+        >
           {/* Decorative glows */}
-          <div className="absolute top-0 right-0 w-40 h-40 bg-[#D4AF37]/20 rounded-full blur-3xl group-hover:scale-150 transition-all duration-500"></div>
-          <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full blur-2xl group-hover:scale-125 transition-all duration-500"></div>
+          <div 
+            className="absolute top-0 right-0 w-40 h-40 rounded-full blur-3xl group-hover:scale-150 transition-all duration-500"
+            style={{ backgroundColor: 'rgba(212, 175, 55, 0.20)' }}
+          ></div>
+          <div 
+            className="absolute bottom-0 left-0 w-32 h-32 rounded-full blur-2xl group-hover:scale-125 transition-all duration-500"
+            style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}
+          ></div>
           
           {/* Animated gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+          <div 
+            className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"
+            style={{ background: 'linear-gradient(to right, transparent, rgba(255, 255, 255, 0.05), transparent)' }}
+          ></div>
           
           <div className="relative flex items-center justify-between">
             <div className="flex items-center gap-4">
               <div className="relative">
-                <div className="absolute inset-0 bg-[#D4AF37] rounded-3xl blur-md opacity-50 group-hover:opacity-75 transition-all"></div>
-                <div className="relative bg-gradient-to-br from-[#D4AF37] to-[#B8941F] backdrop-blur-sm rounded-3xl p-4 shadow-glow-gold group-hover:scale-110 transition-all">
+                <div 
+                  className="absolute inset-0 rounded-3xl blur-md opacity-50 group-hover:opacity-75 transition-all"
+                  style={{ backgroundColor: '#D4AF37' }}
+                ></div>
+                <div 
+                  className="relative backdrop-blur-sm rounded-3xl p-4 shadow-glow-gold group-hover:scale-110 transition-all"
+                  style={{ background: 'linear-gradient(to bottom right, #D4AF37, #B8941F)' }}
+                >
                   <Calculator className="w-7 h-7 text-white" />
                 </div>
               </div>

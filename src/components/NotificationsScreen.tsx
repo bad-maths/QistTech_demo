@@ -217,31 +217,58 @@ export function NotificationsScreen({ onNavigate, language }: NotificationsScree
   return (
     <div className="min-h-screen bg-[#F2F4F5] pb-20" dir={isRTL ? 'rtl' : 'ltr'}>
       {/* Header */}
-      <div className="bg-gradient-to-br from-[#0F4C5C] to-[#0A3540] text-white px-6 pt-12 pb-6 shadow-sm">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => onNavigate('home')}
-              className="hover:bg-white/20 rounded-full p-2 transition-colors"
-            >
-              {isRTL ? (
-                <ArrowRight className="w-6 h-6" />
-              ) : (
-                <ArrowLeft className="w-6 h-6" />
-              )}
-            </button>
-            <div>
-              <h1 className="text-2xl font-bold">{isRTL ? 'الإشعارات' : 'Notifications'}</h1>
-              {unreadCount > 0 && (
-                <p className="text-teal-100 text-sm">
-                  {isRTL ? `${unreadCount} إشعارات جديدة` : `${unreadCount} new notifications`}
-                </p>
-              )}
+      <header className="relative bg-gradient-to-br from-[#0F4C5C] to-[#0A3540] text-white">
+        <div className="px-6 pt-12 pb-6">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => onNavigate('home')}
+                className="hover:bg-white/20 rounded-full p-2 transition-colors"
+              >
+                {isRTL ? (
+                  <ArrowRight className="w-6 h-6" />
+                ) : (
+                  <ArrowLeft className="w-6 h-6" />
+                )}
+              </button>
+              <div>
+                <h1 className="text-2xl font-bold">{isRTL ? 'الإشعارات' : 'Notifications'}</h1>
+                {unreadCount > 0 && (
+                  <p className="text-teal-100 text-sm">
+                    {isRTL ? `${unreadCount} إشعارات جديدة` : `${unreadCount} new notifications`}
+                  </p>
+                )}
+              </div>
             </div>
+            <Bell className="w-6 h-6" />
           </div>
-          <Bell className="w-6 h-6" />
         </div>
-      </div>
+
+        {/* Wave Separator */}
+        <svg 
+          className="w-full h-8 relative z-10" 
+          viewBox="0 0 1440 48" 
+          fill="none" 
+          preserveAspectRatio="none"
+        >
+          <path 
+            d="M0 24C360 12 720 12 1080 24C1260 30 1350 30 1440 24V48H0V24Z" 
+            fill="#F2F4F5"
+          />
+          <path 
+            d="M0 30C240 18 480 18 720 30C960 42 1200 42 1440 30V48H0V30Z" 
+            fill="url(#wave-gradient-notif)" 
+            fillOpacity="0.3"
+          />
+          <defs>
+            <linearGradient id="wave-gradient-notif" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#0F4C5C" stopOpacity="0.4" />
+              <stop offset="0.5" stopColor="#D4AF37" stopOpacity="0.5" />
+              <stop offset="1" stopColor="#0F4C5C" stopOpacity="0.4" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </header>
 
       {/* Notifications List */}
       <div className="px-6 py-4">

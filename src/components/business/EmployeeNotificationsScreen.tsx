@@ -26,120 +26,133 @@ interface Notification {
   actionRoute?: string;
   badgeText?: string;
   badgeBg?: string;
+  requestType?: 'financing' | 'property_with_financing' | 'property_cash';
 }
 
 export function EmployeeNotificationsScreen({ onNavigate, language, employeeData }: EmployeeNotificationsScreenProps) {
   const isRTL = language === 'ar';
+  const isFinanceEmployee = employeeData?.type === 'finance';
+  const isDeveloperEmployee = employeeData?.type === 'developer';
 
-  const [notifications, setNotifications] = useState<Notification[]>([
-    {
-      id: 1,
-      type: 'referral_request',
-      title: isRTL ? 'طلب إحالة عميل جديد' : 'New Customer Referral Request',
-      message: isRTL 
-        ? 'العميل محمد أحمد الغامدي يطلب منك مساعدته في التمويل والعقار. هل تقبل الإحالة؟'
-        : 'Customer Mohammed Ahmed Al-Ghamdi requests your assistance with financing and property. Do you accept the referral?',
-      time: isRTL ? 'منذ دقيقة' : '1 minute ago',
-      isRead: false,
-      icon: UserPlus,
-      iconBg: 'bg-indigo-600',
-      customerName: 'Mohammed Ahmed Al-Ghamdi',
-      customerPhone: '+966501234567',
-      propertyName: isRTL ? 'فيلا النرجس' : 'Narcissus Villa',
-      badgeText: isRTL ? 'جديد' : 'New',
-      badgeBg: 'bg-indigo-600',
-    },
-    {
-      id: 2,
-      type: 'referral_request',
-      title: isRTL ? 'طلب إحالة عميل جديد' : 'New Customer Referral Request',
-      message: isRTL 
-        ? 'العميلة فاطمة سعيد القحطاني تطلب منك مساعدتها في شراء عقار بالكاش. هل تقبل الإحالة؟'
-        : 'Customer Fatima Saeed Al-Qahtani requests your assistance in purchasing a property with cash. Do you accept the referral?',
-      time: isRTL ? 'منذ 10 دقائق' : '10 minutes ago',
-      isRead: false,
-      icon: UserPlus,
-      iconBg: 'bg-purple-600',
-      customerName: 'Fatima Saeed Al-Qahtani',
-      customerPhone: '+966509876543',
-      propertyName: isRTL ? 'شقة البحر' : 'Sea Apartment',
-      badgeText: isRTL ? 'جديد' : 'New',
-      badgeBg: 'bg-purple-600',
-    },
-    {
-      id: 3,
-      type: 'referral_accepted',
-      title: isRTL ? 'تم قبول إحالتك' : 'Your Referral Was Accepted',
-      message: isRTL 
-        ? 'تم قبول إحالتك للعميل خالد عبدالله السالم من قبل فريق المبيعات. ستحصل على عمولة عند إتمام العملية'
-        : 'Your referral of customer Khalid Abdullah Al-Salem has been accepted by the sales team. You will receive a commission upon transaction completion',
-      time: isRTL ? 'منذ ساعة' : '1 hour ago',
-      isRead: false,
-      icon: CheckCircle,
-      iconBg: 'bg-green-600',
-      customerName: 'Khalid Abdullah Al-Salem',
-      badgeText: isRTL ? 'مهم' : 'Important',
-      badgeBg: 'bg-green-600',
-    },
-    {
-      id: 4,
-      type: 'commission_earned',
-      title: isRTL ? 'عمولة جديدة محققة' : 'New Commission Earned',
-      message: isRTL 
-        ? 'تم إتمام عملية الشراء للعميل سارة علي العتيبي. حصلت على عمولة بقيمة 5,000 ريال'
-        : 'Purchase transaction completed for customer Sarah Ali Al-Otaibi. You earned a commission of 5,000 SAR',
-      time: isRTL ? 'منذ 3 ساعات' : '3 hours ago',
-      isRead: false,
-      icon: Award,
-      iconBg: 'bg-yellow-600',
-      customerName: 'Sarah Ali Al-Otaibi',
-      actionText: isRTL ? 'عرض محفظتي' : 'View My Wallet',
-      actionRoute: 'employeeWallet',
-      badgeText: isRTL ? 'عمولة' : 'Commission',
-      badgeBg: 'bg-yellow-600',
-    },
-    {
-      id: 5,
-      type: 'referral_rejected',
-      title: isRTL ? 'تم رفض إحالتك' : 'Your Referral Was Rejected',
-      message: isRTL 
-        ? 'للأسف، تم رفض إحالتك للعميل علي محمد الدعيع من قبل فريق المبيعات'
-        : 'Unfortunately, your referral of customer Ali Mohammed Al-Doaie has been rejected by the sales team',
-      time: isRTL ? 'منذ 5 ساعات' : '5 hours ago',
-      isRead: true,
-      icon: XCircle,
-      iconBg: 'bg-red-600',
-      customerName: 'Ali Mohammed Al-Doaie',
-    },
-    {
-      id: 6,
-      type: 'message',
-      title: isRTL ? 'رسالة جديدة من فريق التسويق' : 'New Message from Marketing Team',
-      message: isRTL 
-        ? 'فريق التسويق أرسل لك معلومات عن حملة جديدة للعقارات الفاخرة'
-        : 'The marketing team sent you information about a new luxury properties campaign',
-      time: isRTL ? 'منذ 6 ساعات' : '6 hours ago',
-      isRead: true,
-      icon: MessageSquare,
-      iconBg: 'bg-blue-600',
-      actionText: isRTL ? 'عرض الرسالة' : 'View Message',
-      actionRoute: 'messages',
-    },
-    {
-      id: 7,
-      type: 'task_assigned',
-      title: isRTL ? 'مهمة جديدة' : 'New Task Assigned',
-      message: isRTL 
-        ? 'تم تعيين لك مهمة متابعة العملاء المحتملين للعقارات الجديدة في حي الياسمين'
-        : 'You have been assigned a task to follow up with potential customers for new properties in Al-Yasmin district',
-      time: isRTL ? 'منذ يوم' : '1 day ago',
-      isRead: true,
-      icon: CheckCircle,
-      iconBg: 'bg-teal-600',
-      actionText: isRTL ? 'عرض التفاصيل' : 'View Details',
-      actionRoute: 'employeeRequests',
-    },
-  ]);
+  const [notifications, setNotifications] = useState<Notification[]>(() => {
+    if (isFinanceEmployee) {
+      // Finance employee only sees financing requests
+      return [
+        {
+          id: 1,
+          type: 'referral_request',
+          title: isRTL ? 'طلب تمويل جديد' : 'New Financing Request',
+          message: isRTL 
+            ? 'العميل محمد أحمد الغامدي يطلب منك مساعدته في التمويل العقاري. هل تقبل الطلب؟'
+            : 'Customer Mohammed Ahmed Al-Ghamdi requests your assistance with property financing. Do you accept the request?',
+          time: isRTL ? 'منذ دقيقة' : '1 minute ago',
+          isRead: false,
+          icon: UserPlus,
+          iconBg: 'bg-indigo-600',
+          customerName: 'Mohammed Ahmed Al-Ghamdi',
+          customerPhone: '+966501234567',
+          propertyName: isRTL ? 'فيلا النرجس' : 'Narcissus Villa',
+          badgeText: isRTL ? 'طلب تمويل' : 'Financing',
+          badgeBg: 'bg-indigo-600',
+          requestType: 'financing',
+        },
+        {
+          id: 2,
+          type: 'referral_request',
+          title: isRTL ? 'طلب تمويل جديد' : 'New Financing Request',
+          message: isRTL 
+            ? 'العميلة فاطمة سعيد القحطاني تطلب منك مساعدتها في التمويل السكني. هل تقبل الطلب؟'
+            : 'Customer Fatima Saeed Al-Qahtani requests your assistance with housing financing. Do you accept the request?',
+          time: isRTL ? 'منذ 10 دقائق' : '10 minutes ago',
+          isRead: false,
+          icon: UserPlus,
+          iconBg: 'bg-purple-600',
+          customerName: 'Fatima Saeed Al-Qahtani',
+          customerPhone: '+966509876543',
+          propertyName: isRTL ? 'شقة البحر' : 'Sea Apartment',
+          badgeText: isRTL ? 'طلب تمويل' : 'Financing',
+          badgeBg: 'bg-purple-600',
+          requestType: 'financing',
+        },
+      ];
+    } else if (isDeveloperEmployee) {
+      // Developer employee sees both property with financing and cash requests
+      return [
+        {
+          id: 1,
+          type: 'referral_request',
+          title: isRTL ? 'طلب عقار مع تمويل' : 'Property Request with Financing',
+          message: isRTL 
+            ? 'العميل محمد أحمد الغامدي يطلب منك مساعدته في شراء عقار مع التمويل. هل تقبل الطلب؟'
+            : 'Customer Mohammed Ahmed Al-Ghamdi requests your assistance in purchasing a property with financing. Do you accept the request?',
+          time: isRTL ? 'منذ دقيقة' : '1 minute ago',
+          isRead: false,
+          icon: UserPlus,
+          iconBg: 'bg-indigo-600',
+          customerName: 'Mohammed Ahmed Al-Ghamdi',
+          customerPhone: '+966501234567',
+          propertyName: isRTL ? 'فيلا النرجس' : 'Narcissus Villa',
+          badgeText: isRTL ? 'عقار + تمويل' : 'Property + Financing',
+          badgeBg: 'bg-indigo-600',
+          requestType: 'property_with_financing',
+        },
+        {
+          id: 2,
+          type: 'referral_request',
+          title: isRTL ? 'طلب شراء عقار كاش' : 'Cash Property Purchase Request',
+          message: isRTL 
+            ? 'العميلة فاطمة سعيد القحطاني تطلب منك مساعدتها في شراء عقار بالكاش. هل تقبل الطلب؟'
+            : 'Customer Fatima Saeed Al-Qahtani requests your assistance in purchasing a property with cash. Do you accept the request?',
+          time: isRTL ? 'منذ 10 دقائق' : '10 minutes ago',
+          isRead: false,
+          icon: UserPlus,
+          iconBg: 'bg-purple-600',
+          customerName: 'Fatima Saeed Al-Qahtani',
+          customerPhone: '+966509876543',
+          propertyName: isRTL ? 'شقة البحر' : 'Sea Apartment',
+          badgeText: isRTL ? 'شراء كاش' : 'Cash Purchase',
+          badgeBg: 'bg-purple-600',
+          requestType: 'property_cash',
+        },
+      ];
+    }
+    
+    // Default notifications (shouldn't reach here)
+    return [
+      {
+        id: 1,
+        type: 'referral_request',
+        title: isRTL ? 'طلب إحالة عميل جديد' : 'New Customer Referral Request',
+        message: isRTL 
+          ? 'العميل محمد أحمد الغامدي يطلب منك مساعدته في التمويل والعقار. هل تقبل الإحالة؟'
+          : 'Customer Mohammed Ahmed Al-Ghamdi requests your assistance with financing and property. Do you accept the referral?',
+        time: isRTL ? 'منذ دقيقة' : '1 minute ago',
+        isRead: false,
+        icon: UserPlus,
+        iconBg: 'bg-indigo-600',
+        customerName: 'Mohammed Ahmed Al-Ghamdi',
+        customerPhone: '+966501234567',
+        propertyName: isRTL ? 'فيلا النرجس' : 'Narcissus Villa',
+        badgeText: isRTL ? 'جديد' : 'New',
+        badgeBg: 'bg-indigo-600',
+      },
+      {
+        id: 3,
+        type: 'referral_accepted',
+        title: isRTL ? 'تم قبول إحالتك' : 'Your Referral Was Accepted',
+        message: isRTL 
+          ? 'تم قبول إحالتك للعميل خالد عبدالله السالم من قبل فريق المبيعات. ستحصل على عمولة عند إتمام العملية'
+          : 'Your referral of customer Khalid Abdullah Al-Salem has been accepted by the sales team. You will receive a commission upon transaction completion',
+        time: isRTL ? 'منذ ساعة' : '1 hour ago',
+        isRead: false,
+        icon: CheckCircle,
+        iconBg: 'bg-green-600',
+        customerName: 'Khalid Abdullah Al-Salem',
+        badgeText: isRTL ? 'مهم' : 'Important',
+        badgeBg: 'bg-green-600',
+      },
+    ];
+  });
 
   const handleDismiss = (notificationId: number) => {
     setNotifications(notifications.filter(n => n.id !== notificationId));
@@ -156,29 +169,80 @@ export function EmployeeNotificationsScreen({ onNavigate, language, employeeData
     if (notification && notification.type === 'referral_request') {
       // Mark as read and accept the referral
       handleMarkAsRead(notificationId);
-      // Navigate to chat with the customer
-      onNavigate('employeeChat', {
-        chat: {
-          id: notification.id.toString(),
-          chatType: 'single-customer',
-          name: notification.customerName || 'Customer',
-          lastMessage: isRTL ? 'طلب إحالة جديد' : 'New Referral Request',
-          lastMessageTime: 'now',
-          unread: 0,
-          avatar: notification.customerName?.charAt(0) || 'C',
-          color: 'bg-blue-500',
-          property: notification.propertyName,
-          participants: [
-            {
-              id: 'customer',
-              name: notification.customerName || 'Customer',
-              type: 'customer',
-              avatar: notification.customerName?.substring(0, 2).toUpperCase() || 'C',
-              color: 'bg-blue-500',
-            },
-          ],
-        },
-      });
+      
+      const isFinanceEmployee = employeeData?.type === 'finance';
+      const isDeveloperEmployee = employeeData?.type === 'developer';
+
+      // Finance employee: only financing requests -> navigate to existing chat (id: '1')
+      if (isFinanceEmployee && notification.requestType === 'financing') {
+        onNavigate('employeeChat', {
+          contact: {
+            id: '1',
+            chatType: 'single-customer',
+            name: isRTL ? 'سعود أحمد العتيبي' : 'Saud Ahmed Al-Otaibi',
+            type: 'customer',
+            lastMessage: isRTL ? 'متى سيتم الرد على طلب التمويل؟' : 'When will the financing request be answered?',
+            lastMessageTime: '10:30',
+            unread: 2,
+            avatar: 'SA',
+            color: 'bg-[#0F4C5C]',
+            property: isRTL ? 'شقة الأندلس' : 'Andalus Apartment',
+            requestType: 'direct',
+          },
+        });
+      }
+      // Developer employee: property with financing -> navigate to combined chat (id: '3')
+      else if (isDeveloperEmployee && notification.requestType === 'property_with_financing') {
+        onNavigate('employeeChat', {
+          contact: {
+            id: '3',
+            chatType: 'combined',
+            name: isRTL ? 'شقة الياسمين - طلب #3421' : 'Jasmine Apartment - Request #3421',
+            lastMessage: isRTL ? 'الممول: تم الموافقة على التمويل' : 'Finance: Financing approved',
+            lastMessageTime: '14:22',
+            unread: 3,
+            avatar: '3',
+            color: 'bg-gradient-to-r from-[#0F4C5C] to-[#10B981]',
+            property: isRTL ? 'شقة الياسمين' : 'Jasmine Apartment',
+            participants: [
+              {
+                id: 'customer-1',
+                name: isRTL ? 'عبدالله محمد السعيد' : 'Abdullah Mohammed Al-Saeed',
+                type: 'customer',
+                avatar: 'AS',
+                color: 'bg-[#0F4C5C]',
+                property: isRTL ? 'شقة الياسمين' : 'Jasmine Apartment',
+              },
+              {
+                id: 'finance-1',
+                name: isRTL ? 'أحمد الراجحي - بنك الراجحي' : 'Ahmed Al-Rajhi - Al Rajhi Bank',
+                type: 'finance',
+                avatar: 'AR',
+                color: 'bg-[#10B981]',
+                property: isRTL ? 'شقة الياسمين' : 'Jasmine Apartment',
+              },
+            ],
+          },
+        });
+      }
+      // Developer employee: property cash -> navigate to single-customer chat (id: '1')
+      else if (isDeveloperEmployee && notification.requestType === 'property_cash') {
+        onNavigate('employeeChat', {
+          contact: {
+            id: '1',
+            chatType: 'single-customer',
+            name: isRTL ? 'محمد أحمد الغامدي' : 'Mohammed Ahmed Al-Ghamdi',
+            type: 'customer',
+            lastMessage: isRTL ? 'هل يمكنني معاينة الفيلا غداً؟' : 'Can I view the villa tomorrow?',
+            lastMessageTime: '10:30',
+            unread: 2,
+            avatar: 'MA',
+            color: 'bg-[#0F4C5C]',
+            property: isRTL ? 'فيلا النرجس' : 'Narcissus Villa',
+            requestType: 'referral',
+          },
+        });
+      }
     }
   };
 
@@ -192,31 +256,58 @@ export function EmployeeNotificationsScreen({ onNavigate, language, employeeData
   return (
     <div className="min-h-screen bg-[#F2F4F5] pb-20" dir={isRTL ? 'rtl' : 'ltr'}>
       {/* Header */}
-      <div className="bg-gradient-to-br from-[#0F4C5C] to-[#0A3540] text-white px-6 pt-12 pb-6 shadow-sm">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => onNavigate('home')}
-              className="hover:bg-white/20 rounded-full p-2 transition-colors"
-            >
-              {isRTL ? (
-                <ArrowRight className="w-6 h-6" />
-              ) : (
-                <ArrowLeft className="w-6 h-6" />
-              )}
-            </button>
-            <div>
-              <h1 className="text-2xl font-bold">{isRTL ? 'الإشعارات' : 'Notifications'}</h1>
-              {unreadCount > 0 && (
-                <p className="text-teal-100 text-sm">
-                  {isRTL ? `${unreadCount} إشعارات جديدة` : `${unreadCount} new notifications`}
-                </p>
-              )}
+      <header className="relative bg-gradient-to-br from-[#0F4C5C] to-[#0A3540] text-white">
+        <div className="px-6 pt-12 pb-6">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => onNavigate('home')}
+                className="hover:bg-white/20 rounded-full p-2 transition-colors"
+              >
+                {isRTL ? (
+                  <ArrowRight className="w-6 h-6" />
+                ) : (
+                  <ArrowLeft className="w-6 h-6" />
+                )}
+              </button>
+              <div>
+                <h1 className="text-2xl font-bold">{isRTL ? 'الإشعارات' : 'Notifications'}</h1>
+                {unreadCount > 0 && (
+                  <p className="text-teal-100 text-sm">
+                    {isRTL ? `${unreadCount} إشعارات جديدة` : `${unreadCount} new notifications`}
+                  </p>
+                )}
+              </div>
             </div>
+            <Bell className="w-6 h-6" />
           </div>
-          <Bell className="w-6 h-6" />
         </div>
-      </div>
+
+        {/* Wave Separator */}
+        <svg 
+          className="w-full h-8 relative z-10" 
+          viewBox="0 0 1440 48" 
+          fill="none" 
+          preserveAspectRatio="none"
+        >
+          <path 
+            d="M0 24C360 12 720 12 1080 24C1260 30 1350 30 1440 24V48H0V24Z" 
+            fill="#F2F4F5"
+          />
+          <path 
+            d="M0 30C240 18 480 18 720 30C960 42 1200 42 1440 30V48H0V30Z" 
+            fill="url(#wave-gradient-emp-notif)" 
+            fillOpacity="0.3"
+          />
+          <defs>
+            <linearGradient id="wave-gradient-emp-notif" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#0F4C5C" stopOpacity="0.4" />
+              <stop offset="0.5" stopColor="#D4AF37" stopOpacity="0.5" />
+              <stop offset="1" stopColor="#0F4C5C" stopOpacity="0.4" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </header>
 
       {/* Notifications List */}
       <div className="px-6 py-4">

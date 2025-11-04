@@ -80,29 +80,54 @@ export function EmployeeReferralScreen({ onNavigate, language }: EmployeeReferra
   return (
     <div className="min-h-screen bg-[#F2F4F5] pb-6" dir={isRTL ? 'rtl' : 'ltr'}>
       {/* Header */}
-      <div className="bg-gradient-to-br from-[#0F4C5C] to-[#0A3540] text-white px-6 pt-12 pb-6 shadow-sm flex items-center gap-4">
-        <button
-          onClick={() => onNavigate('home')}
-          className="p-2 hover:bg-white/20 rounded-full transition-colors"
-        >
-          {isRTL ? (
-            <ArrowRight className="w-5 h-5" />
-          ) : (
-            <ArrowLeft className="w-5 h-5" />
-          )}
-        </button>
-        
-        <div>
-          <h1 className="text-2xl font-bold">
-            {isRTL ? 'إحالة موظف مبيعات' : 'Sales Agent Referral'}
-          </h1>
-          <p className="text-sm text-teal-100">
-            {isRTL ? 'أدخل رقم هوية الموظف للتواصل معه' : 'Enter employee ID to connect'}
-          </p>
+      <header className="relative bg-gradient-to-br from-[#0F4C5C] to-[#0A3540] text-white">
+        <div className="px-6 pt-12 pb-6 flex items-center gap-4">
+          <button
+            onClick={() => onNavigate('home')}
+            className="p-2 hover:bg-white/20 rounded-full transition-colors"
+          >
+            {isRTL ? (
+              <ArrowRight className="w-5 h-5" />
+            ) : (
+              <ArrowLeft className="w-5 h-5" />
+            )}
+          </button>
+          
+          <div>
+            <h1 className="text-2xl font-bold">
+              {isRTL ? 'إحالة موظف مبيعات' : 'Sales Agent Referral'}
+            </h1>
+            <p className="text-sm text-teal-100">
+              {isRTL ? 'أدخل رقم هوية الموظف للتواصل معه' : 'Enter employee ID to connect'}
+            </p>
+          </div>
         </div>
-        
-      </div>
-  
+
+        {/* Wave Separator */}
+        <svg 
+          className="w-full h-8 relative z-10" 
+          viewBox="0 0 1440 48" 
+          fill="none" 
+          preserveAspectRatio="none"
+        >
+          <path 
+            d="M0 24C360 12 720 12 1080 24C1260 30 1350 30 1440 24V48H0V24Z" 
+            fill="#F2F4F5"
+          />
+          <path 
+            d="M0 30C240 18 480 18 720 30C960 42 1200 42 1440 30V48H0V30Z" 
+            fill="url(#wave-gradient-referral)" 
+            fillOpacity="0.3"
+          />
+          <defs>
+            <linearGradient id="wave-gradient-referral" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#0F4C5C" stopOpacity="0.4" />
+              <stop offset="0.5" stopColor="#D4AF37" stopOpacity="0.5" />
+              <stop offset="1" stopColor="#0F4C5C" stopOpacity="0.4" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </header>
 
       <div className="px-6 py-6">
         {/* Success Message */}

@@ -177,8 +177,8 @@ export function DeveloperClientManagementScreen({
 
   return (
     <div className="min-h-screen bg-[#F2F4F5] pb-20" dir={isRTL ? 'rtl' : 'ltr'}>
-      {/* Header */}
-      <header className="relative gradient-primary text-white">
+  {/* Header */}
+  <header className="relative gradient-primary text-white pb-20">
         <div className="px-4 py-6">
           <div className="flex items-center justify-between mb-6">
             <button
@@ -232,7 +232,7 @@ export function DeveloperClientManagementScreen({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={t('Search for client...', 'البحث عن عميل...')}
-              className="w-full p-3 pr-12 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-white/70"
+              className="w-full p-3 pr-12 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-white-70"
             />
             <SearchIcon className={`absolute top-1/2 -translate-y-1/2 ${isRTL ? 'right-4' : 'left-4'} w-4 h-4 text-white/70`} />
           </div>
@@ -249,8 +249,12 @@ export function DeveloperClientManagementScreen({
         </div>
 
         {/* Wave SVG */}
-        <svg viewBox="0 0 1440 120" className="w-full h-20 relative z-10">
-          <path d="M0 60C360 30 720 30 1080 60C1260 75 1350 75 1440 60V120H0V60Z" fill="#F2F4F5" />
+        <svg
+          viewBox="0 0 1440 120"
+          preserveAspectRatio="none"
+          className="absolute inset-x-0 bottom-0 w-full h-20 pointer-events-none text-[#F2F4F5]"
+        >
+          <path d="M0 60C360 30 720 30 1080 60C1260 75 1350 75 1440 60V120H0V60Z" fill="currentColor" />
         </svg>
       </header>
 
@@ -274,7 +278,7 @@ export function DeveloperClientManagementScreen({
                   onClick={() => setActiveFilter(tab.id)}
                   className={`px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-colors ${
                     activeFilter === tab.id
-                      ? 'bg-[#0F4C5C] text-white'
+                      ? 'bg-brand text-white'
                       : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                   }`}
                 >
