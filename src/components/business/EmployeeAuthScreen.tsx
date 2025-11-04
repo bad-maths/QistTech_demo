@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { Mail, Lock, ArrowLeft, ArrowRight, Building2, UserCheck } from 'lucide-react';
+import { Mail, Lock, ArrowLeft, ArrowRight, UserCheck, Home } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { Card } from '../ui/card';
 import { Badge } from '../ui/badge';
+import QistTechLogo from '../../assets/Qistech_logo.jpg';
 
 interface EmployeeAuthScreenProps {
   onComplete: (employeeData: any) => void;
@@ -67,13 +68,13 @@ export function EmployeeAuthScreen({ onComplete, language, onBack }: EmployeeAut
         </button>
 
         <div className="text-center mb-8">
-          <div className="bg-gradient-to-br from-[#0F4C5C] to-[#0A3540] rounded-3xl p-5 w-20 h-20 mx-auto mb-4 shadow-lg flex items-center justify-center">
-            <Building2 className="w-10 h-10 text-[#D4AF37]" />
+          <div className="w-32 h-32 mx-auto mb-4">
+            <img 
+              src={QistTechLogo} 
+              alt="QistTech Logo" 
+              className="w-full h-full object-contain rounded-2xl"
+            />
           </div>
-          <h1 className="text-3xl mb-2 text-[#0E1E25] font-bold tracking-tight">{isRTL ? 'قسط تك أعمال' : 'QistTech Business'}</h1>
-          <p className="text-[#4B5563]">
-            {isRTL ? 'منصة الموظفين الذكية' : 'Smart Employee Platform'}
-          </p>
         </div>
 
         {/* Login Form */}
@@ -105,7 +106,7 @@ export function EmployeeAuthScreen({ onComplete, language, onBack }: EmployeeAut
                   }}
                 >
                   <div className={`flex flex-col items-center gap-2`}>
-                    <Building2 className={`w-6 h-6 ${employeeType === 'developer' ? 'text-[#0F4C5C]' : 'text-[#4B5563]'}`} />
+                    <Home className={`w-6 h-6 ${employeeType === 'developer' ? 'text-[#0F4C5C]' : 'text-[#4B5563]'}`} />
                     <span className={`text-sm font-medium ${employeeType === 'developer' ? 'text-[#0F4C5C]' : 'text-[#4B5563]'}`}>
                       {isRTL ? 'موظف عقار' : 'Property Staff'}
                     </span>

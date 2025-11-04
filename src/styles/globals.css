@@ -325,6 +325,15 @@ html {
   }
 }
 
+@keyframes subtleFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
 @keyframes shimmer {
   0% {
     transform: translateX(-100%);
@@ -355,6 +364,45 @@ html {
   }
 }
 
+@keyframes gentle-wave-float {
+  0%, 100% {
+    transform: translateX(0) translateY(0);
+  }
+  25% {
+    transform: translateX(-10px) translateY(-2px);
+  }
+  50% {
+    transform: translateX(10px) translateY(2px);
+  }
+  75% {
+    transform: translateX(-5px) translateY(-1px);
+  }
+}
+
+@keyframes wave-sway {
+  0%, 100% {
+    transform: scaleX(1) skewX(0deg) translateX(0);
+  }
+  25% {
+    transform: scaleX(1.05) skewX(2deg) translateX(-5px);
+  }
+  50% {
+    transform: scaleX(0.95) skewX(-2deg) translateX(-10px);
+  }
+  75% {
+    transform: scaleX(1.03) skewX(1deg) translateX(-5px);
+  }
+}
+
+.animate-wave-sway {
+  transform-origin: center;
+  animation: wave-sway 8s ease-in-out infinite;
+}
+
+.animate-gentle-wave-float {
+  animation: gentle-wave-float 10s ease-in-out infinite;
+}
+
 .animate-in {
   animation: fadeIn 0.3s var(--ease-smooth);
 }
@@ -376,7 +424,11 @@ html {
 }
 
 .animate-float {
-  animation: float 6s ease-in-out infinite;
+  animation: float 20s ease-in-out infinite;
+}
+
+.animate-subtle-float {
+  animation: subtleFloat 4s ease-in-out infinite;
 }
 
 .animate-shimmer {

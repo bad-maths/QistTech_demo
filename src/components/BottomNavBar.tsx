@@ -5,9 +5,10 @@ interface BottomNavBarProps {
   onNavigate: (screen: string) => void;
   language: 'en' | 'ar';
   variant?: 'customer' | 'business';
+  role?: 'developer' | 'finance' | 'customer';
 }
 
-export function BottomNavBar({ currentScreen, onNavigate, language, variant = 'customer' }: BottomNavBarProps) {
+export function BottomNavBar({ currentScreen, onNavigate, language, variant = 'customer', role }: BottomNavBarProps) {
   const isRTL = language === 'ar';
 
   const customerNavItems = [
@@ -61,7 +62,7 @@ export function BottomNavBar({ currentScreen, onNavigate, language, variant = 'c
       icon: ClipboardList,
       labelAr: 'الطلبات',
       labelEn: 'Requests',
-      screen: 'requests',
+      screen: role === 'developer' ? 'clientManagement' : 'requests',
     },
     {
       id: 'calculator',
@@ -93,7 +94,10 @@ export function BottomNavBar({ currentScreen, onNavigate, language, variant = 'c
       <div className="flex justify-around items-center max-w-md mx-auto">
         {navItems.map((item) => {
           const Icon = item.icon;
-          const isActive = currentScreen === item.screen || currentScreen === item.id;
+          // Special handling for requests tab - it should be active when on clientManagement for developers
+          const isActive = currentScreen === item.screen || 
+                          currentScreen === item.id ||
+                          (item.id === 'requests' && currentScreen === 'clientManagement' && role === 'developer');
           
           return (
             <button

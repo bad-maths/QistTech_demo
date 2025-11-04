@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Building2 } from 'lucide-react';
+import QistTechLogo from '../assets/Qistech_logo.jpg';
 
 interface SplashScreenProps {
   onComplete: () => void;
@@ -18,16 +18,15 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
       <div className="absolute bottom-20 left-10 w-48 h-48 bg-white/5 rounded-full blur-2xl float-subtle" style={{ animationDelay: '1s' }}></div>
       
       {/* Logo with glassmorphism */}
-      <div className="relative z-10 bg-white/10 backdrop-blur-md rounded-3xl p-8 shadow-lifted mb-8">
-        <div className="animate-pulse">
-          <Building2 className="w-24 h-24 text-[#D4AF37] drop-shadow-[0_0_24px_rgba(212,175,55,0.4)]" />
+      <div className="relative z-10 animate-float">
+        <div className="w-48 h-48 flex items-center justify-center">
+          <img 
+            src={QistTechLogo} 
+            alt="QistTech Logo" 
+            className="w-full h-full object-contain rounded-3xl animate-pulse-slow"
+          />
         </div>
       </div>
-      
-      {/* Brand Name */}
-      <h1 className="text-5xl mb-2 tracking-tight relative z-10">قسط تك</h1>
-      <h2 className="text-2xl mb-2 text-white/80 tracking-wide relative z-10">QistTech</h2>
-      <p className="text-white/60 text-sm tracking-wide relative z-10">منصة عقارية ذكية</p>
       
       {/* Loading indicator */}
       <div className="absolute bottom-12">
@@ -37,6 +36,23 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
           <div className="w-2.5 h-2.5 bg-[#D4AF37] rounded-full animate-bounce shadow-glow-gold" style={{ animationDelay: '300ms' }}></div>
         </div>
       </div>
+
+      <style>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
+        }
+        @keyframes pulse-slow {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.9; transform: scale(1.02); }
+        }
+        .animate-float {
+          animation: float 3s ease-in-out infinite;
+        }
+        .animate-pulse-slow {
+          animation: pulse-slow 2s ease-in-out infinite;
+        }
+      `}</style>
     </div>
   );
 }

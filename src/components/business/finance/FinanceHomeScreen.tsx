@@ -118,7 +118,10 @@ export function FinanceHomeScreen({ onNavigate, language, employeeData }: Financ
               {employeeData?.company} • {isRTL ? 'موظف تمويل' : 'Finance Staff'}
             </p>
           </div>
-          <button className="p-2 hover:bg-white/20 rounded-xl transition-all duration-300 border border-white/10">
+          <button 
+            onClick={() => onNavigate('notifications')}
+            className="p-2 hover:bg-white/20 rounded-xl transition-all duration-300 border border-white/10"
+          >
             <Bell className="w-5 h-5 text-white" />
           </button>
         </div>

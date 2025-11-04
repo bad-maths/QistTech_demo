@@ -127,7 +127,10 @@ export function DeveloperHomeScreen({ onNavigate, language, employeeData }: Deve
               {employeeData?.company} • {isRTL ? 'مطور عقاري' : 'Property Developer'}
             </p>
           </div>
-          <button className="p-2 hover:bg-white/20 rounded-xl transition-all duration-300 border border-white/10">
+          <button 
+            onClick={() => onNavigate('notifications')}
+            className="p-2 hover:bg-white/20 rounded-xl transition-all duration-300 border border-white/10"
+          >
             <Bell className="w-5 h-5 text-white" />
           </button>
         </div>
@@ -429,6 +432,7 @@ export function DeveloperHomeScreen({ onNavigate, language, employeeData }: Deve
         onNavigate={onNavigate}
         language={language}
         variant="business"
+        role="developer"
       />
     </div>
   );

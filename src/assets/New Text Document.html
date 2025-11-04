@@ -1,0 +1,1411 @@
+<html lang="ar" dir="rtl">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme:
+        {
+          extend:
+          {
+            colors:
+            {
+              primary: '#0F4C5C',
+              'primary-dark': '#0A3540',
+              accent: '#D4AF37',
+              'accent-dark': '#B8941F',
+              'bg-light': '#F2F4F5'
+            },
+            fontFamily:
+            {
+              'arabic': ['Noto Sans Arabic', 'system-ui', 'sans-serif'],
+              'inter': ['Inter', 'system-ui', 'sans-serif']
+            }
+          }
+        }
+      }
+    </script>
+    <script>
+      window.FontAwesomeConfig = {
+        autoReplaceSvg: 'nest'
+      };
+    </script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap"
+      rel="stylesheet">
+    <style>
+      ::-webkit-scrollbar
+      {
+        display: none;
+      }
+
+      body
+      {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      .gradient-primary
+      {
+        background: linear-gradient(135deg, #0F4C5C 0%, #0A3540 100%);
+      }
+
+      .gradient-accent
+      {
+        background: linear-gradient(135deg, #D4AF37 0%, #B8941F 100%);
+      }
+
+      .animate-float
+      {
+        animation: float 3s ease-in-out infinite;
+      }
+
+      @keyframes float
+      {
+
+        0%,
+        100%
+        {
+          transform: translateY(0px);
+        }
+
+        50%
+        {
+          transform: translateY(-10px);
+        }
+      }
+
+      .animate-pulse-slow
+      {
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+
+      .backdrop-blur-sm
+      {
+        backdrop-filter: blur(4px);
+      }
+    </style>
+    <style data-grapesjs-styles="true">
+      *
+      {
+        box-sizing: border-box;
+      }
+
+      body
+      {
+        margin: 0;
+      }
+
+      ::-webkit-scrollbar
+      {
+        display: none;
+      }
+
+      body
+      {
+        scrollbar-width: none;
+        margin-top: 0px;
+        margin-right: 0px;
+        margin-bottom: 0px;
+        margin-left: 0px;
+      }
+
+      .gradient-primary
+      {
+        background-image: linear-gradient(135deg, rgb(15, 76, 92) 0%, rgb(10, 53, 64) 100%);
+        background-position-x: initial;
+        background-position-y: initial;
+        background-size: initial;
+        background-repeat: initial;
+        background-attachment: initial;
+        background-origin: initial;
+        background-clip: initial;
+        background-color: initial;
+      }
+
+      .backdrop-blur-sm
+      {
+        backdrop-filter: blur(4px);
+      }
+
+      *
+      {
+        box-sizing: border-box;
+      }
+
+      #iyr94
+      {
+        animation-delay: 0.5s;
+      }
+
+      #ijkca
+      {
+        animation-delay: 1s;
+      }
+
+      #i97ll
+      {
+        animation-delay: 1.5s;
+      }
+
+      #i3bkfx
+      {
+        width: 51%;
+      }
+
+      #inx9hw
+      {
+        width: 26%;
+      }
+
+      #iu2ixe
+      {
+        width: 15%;
+      }
+
+      #i3x0o1
+      {
+        width: 8%;
+      }
+
+      #i3ovc
+      {
+        flex-direction: row-reverse;
+      }
+
+      #if0by
+      {
+        flex-direction: row-reverse;
+      }
+
+      @keyframes float
+      {
+
+        0%,
+        100%
+        {
+          transform: translateY(0px);
+        }
+
+        50%
+        {
+          transform: translateY(-10px);
+        }
+      }
+    </style>
+  </head>
+
+  <body class="bg-bg-light font-arabic">
+    <!-- Header with Gradient and Wave -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Management</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap"
+      rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Management</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap"
+      rel="stylesheet">
+    <header id="header" class="relative gradient-primary text-white">
+      <div class="px-4 py-6">
+        <!-- Top Navigation Bar -->
+        <div id="i3ovc" class="flex items-center justify-between mb-6"><button
+            class="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-all"><i
+              class="fa-solid fa-arrow-right text-lg"></i></button>
+          <div class="text-center">
+            <h1 class="text-lg font-bold">إدارة العملاء</h1>
+            <p class="text-sm text-white/80">طلبات حساب البنك والتفاعل مع
+              العملاء</p>
+          </div>
+          <div class="flex items-center gap-2"></div>
+        </div><!-- Status and Search Section -->
+        <div class="space-y-4 mb-6">
+          <!-- Online Status Toggle -->
+          <div
+            class="flex items-center justify-between bg-white/10 backdrop-blur-sm rounded-xl p-3">
+            <div class="flex items-center gap-3">
+              <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse">
+              </div><span class="text-sm font-semibold">متاح للعملاء</span>
+            </div><label
+              class="relative inline-flex items-center cursor-pointer"><input
+                type="checkbox" checked="" class="sr-only peer">
+              <div
+                class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500">
+              </div>
+            </label>
+          </div><!-- Search Bar -->
+          <div class="relative"><input type="text"
+              placeholder="البحث عن عميل..."
+              class="w-full p-3 pr-12 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-accent"
+              id="if0by"><i
+              class="fa-solid fa-search absolute right-4 top-1/2 transform -translate-y-1/2 text-white/70"></i>
+          </div><!-- Quick Stats -->
+          <div class="grid grid-cols-4 gap-2">
+            <div
+              class="bg-white/10 backdrop-blur-sm rounded-lg p-2 text-center">
+              <div class="text-accent text-lg font-bold">47</div>
+              <div class="text-xs text-white/80">إجمالي العملاء</div>
+            </div>
+            <div
+              class="bg-white/10 backdrop-blur-sm rounded-lg p-2 text-center">
+              <div class="text-green-300 text-lg font-bold">24</div>
+              <div class="text-xs text-white/80">نشط</div>
+            </div>
+            <div
+              class="bg-white/10 backdrop-blur-sm rounded-lg p-2 text-center">
+              <div class="text-yellow-300 text-lg font-bold">12</div>
+              <div class="text-xs text-white/80">في انتظار</div>
+            </div>
+            <div
+              class="bg-white/10 backdrop-blur-sm rounded-lg p-2 text-center">
+              <div class="text-red-300 text-lg font-bold">3</div>
+              <div class="text-xs text-white/80">طلبات جديدة</div>
+            </div>
+          </div>
+        </div>
+      </div><!-- Wave SVG Separator --><svg viewBox="0 0 1440 120" fill="none"
+        xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"
+        class="w-full h-20 relative z-10">
+        <path d="M0 60C360 30 720 30 1080 60C1260 75 1350 75 1440 60V120H0V60Z"
+          fill="#F2F4F5"></path>
+        <path d="M0 70C240 40 480 40 720 70C960 100 1200 100 1440 70V120H0V70Z"
+          fill="url(#wave-gradient-1)" opacity="0.4"></path>
+        <path d="M0 50C300 20 600 20 900 50C1140 75 1320 75 1440 50V120H0V50Z"
+          fill="#F2F4F5" opacity="0.5"></path>
+        <defs>
+          <linearGradient id="wave-gradient-1" x1="0" y1="0" x2="1440" y2="0"
+            gradientUnits="userSpaceOnUse">
+            <stop stopcolor="#0F4C5C" stopopacity="0.4"></stop>
+            <stop offset="0.5" stopcolor="#D4AF37" stopopacity="0.5"></stop>
+            <stop offset="1" stopcolor="#0F4C5C" stopopacity="0.4"></stop>
+          </linearGradient>
+        </defs>
+      </svg><!-- Decorative Elements -->
+      <div
+        class="absolute bottom-6 left-1/4 w-2 h-2 bg-accent/30 rounded-full animate-pulse">
+      </div>
+      <div id="iyr94"
+        class="absolute bottom-8 left-1/3 w-1.5 h-1.5 bg-primary/20 rounded-full animate-pulse">
+      </div>
+      <div id="ijkca"
+        class="absolute bottom-7 right-1/3 w-2 h-2 bg-accent/25 rounded-full animate-pulse">
+      </div>
+      <div id="i97ll"
+        class="absolute bottom-9 right-1/4 w-1.5 h-1.5 bg-primary/30 rounded-full animate-pulse">
+      </div>
+    </header><!-- Main Content -->
+    <main id="main-content" class="px-4 pb-24">
+      <!-- Quick Actions Section -->
+      <section id="quick-actions" class="mb-6 -mt-6 relative z-20"></section>
+      <!-- Filter and Sort Section -->
+      <section id="filter-sort" class="mb-6">
+        <div class="bg-white rounded-2xl shadow-lg p-4 border border-gray-100">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-bold text-primary">تصفية وترتيب</h2><button
+              class="text-primary text-sm font-semibold">إعادة تعيين</button>
+          </div><!-- Filter Tabs -->
+          <div class="flex gap-2 mb-4 overflow-x-auto"><button
+              class="px-4 py-2 bg-primary text-white rounded-full text-sm font-semibold whitespace-nowrap">الكل</button><button
+              class="px-4 py-2 bg-gray-100 text-gray-600 rounded-full text-sm font-semibold whitespace-nowrap hover:bg-gray-200 transition-colors">نشط</button><button
+              class="px-4 py-2 bg-gray-100 text-gray-600 rounded-full text-sm font-semibold whitespace-nowrap hover:bg-gray-200 transition-colors">في
+              انتظار</button><button
+              class="px-4 py-2 bg-gray-100 text-gray-600 rounded-full text-sm font-semibold whitespace-nowrap hover:bg-gray-200 transition-colors">جديد</button><button
+              class="px-4 py-2 bg-gray-100 text-gray-600 rounded-full text-sm font-semibold whitespace-nowrap hover:bg-gray-200 transition-colors">مكتمل</button>
+          </div><!-- Sort Options -->
+          <div class="grid grid-cols-2 gap-3"><select
+              class="p-3 border border-gray-200 rounded-lg text-sm">
+              <option>ترتيب حسب التاريخ</option>
+              <option>ترتيب حسب الاسم</option>
+              <option>ترتيب حسب الحالة</option>
+              <option>ترتيب حسب قيمة العقار</option>
+            </select><select
+              class="p-3 border border-gray-200 rounded-lg text-sm">
+              <option>الأحدث أولاً</option>
+              <option>الأقدم أولاً</option>
+              <option>الأعلى قيمة</option>
+              <option>الأقل قيمة</option>
+            </select></div>
+        </div>
+      </section><!-- Bank Calculation Requests Section -->
+      <section id="bank-calculation-requests" class="mb-6">
+        <div class="bg-white rounded-2xl shadow-lg p-4 border border-gray-100">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-bold text-primary flex items-center gap-2">
+              <i class="fa-solid fa-university text-accent"></i>
+              طلبات حساب البنك
+            </h2>
+            <div class="flex items-center gap-2"><span
+                class="bg-red-100 text-red-700 px-2 py-1 rounded-full text-xs font-semibold">3
+                طلبات جديدة</span><button
+                class="bg-accent text-white px-3 py-1 rounded-full text-sm font-semibold hover:bg-accent-dark transition-colors"><i
+                  class="fa-solid fa-plus mr-1"></i> طلب جديد
+              </button></div>
+          </div><!-- Request Cards -->
+          <div class="space-y-4">
+            <!-- Priority Request -->
+            <div class="border-2 border-red-200 rounded-xl p-4 bg-red-50/50">
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-3"><img
+                    src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-5.jpg"
+                    alt="Client"
+                    class="w-10 h-10 rounded-full object-cover border-2 border-red-300">
+                  <div>
+                    <h3 class="font-semibold text-gray-800 text-sm">سارة أحمد
+                      الزهراني</h3>
+                    <p class="text-xs text-gray-500">+966 50 123 4567</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2"><span
+                    class="bg-red-500 text-white px-2 py-1 rounded-full text-xs font-semibold animate-pulse">عاجل</span><button
+                    class="text-red-500 hover:text-red-600"><i
+                      class="fa-solid fa-exclamation-triangle text-lg"></i></button>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-3 text-sm mb-3">
+                <div class="bg-white rounded-lg p-2"><span
+                    class="text-gray-500 block">نوع العقار:</span><span
+                    class="font-semibold text-gray-800">شقة سكنية</span></div>
+                <div class="bg-white rounded-lg p-2"><span
+                    class="text-gray-500 block">قيمة العقار:</span><span
+                    class="font-semibold text-accent">1,200,000 ريال</span>
+                </div>
+                <div class="bg-white rounded-lg p-2"><span
+                    class="text-gray-500 block">الدفعة الأولى:</span><span
+                    class="font-semibold text-gray-800">240,000 ريال
+                    (20%)</span></div>
+                <div class="bg-white rounded-lg p-2"><span
+                    class="text-gray-500 block">مدة التمويل:</span><span
+                    class="font-semibold text-gray-800">20 سنة</span></div>
+              </div>
+              <div class="bg-white rounded-lg p-3 mb-3">
+                <div class="flex items-center justify-between mb-2"><span
+                    class="text-sm font-semibold text-gray-700">البنوك
+                    المطلوبة:</span><span class="text-xs text-gray-500">3
+                    بنوك</span></div>
+                <div class="flex gap-2"><span
+                    class="bg-primary/10 text-primary px-2 py-1 rounded-full text-xs">الأهلي</span><span
+                    class="bg-primary/10 text-primary px-2 py-1 rounded-full text-xs">الراجحي</span><span
+                    class="bg-primary/10 text-primary px-2 py-1 rounded-full text-xs">سامبا</span>
+                </div>
+              </div>
+              <div class="flex gap-2"><button
+                  class="flex-1 bg-red-500 text-white py-2 rounded-lg text-sm font-semibold hover:bg-red-600 transition-colors"><i
+                    class="fa-solid fa-paper-plane mr-1"></i>
+                  إرسال للبنوك
+                </button><button
+                  class="px-4 py-2 border border-red-200 rounded-lg text-sm text-red-600 hover:bg-red-50 transition-colors"><i
+                    class="fa-solid fa-comment"></i></button><button
+                  class="px-4 py-2 border border-red-200 rounded-lg text-sm text-red-600 hover:bg-red-50 transition-colors"><i
+                    class="fa-solid fa-eye"></i></button></div>
+            </div><!-- Standard Request -->
+            <div class="border border-gray-200 rounded-xl p-4">
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-3"><img
+                    src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg"
+                    alt="Client" class="w-10 h-10 rounded-full object-cover">
+                  <div>
+                    <h3 class="font-semibold text-gray-800 text-sm">محمد علي
+                      السالم</h3>
+                    <p class="text-xs text-gray-500">+966 55 987 6543</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2"><span
+                    class="bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full text-xs font-semibold">في
+                    انتظار</span>
+                  <div class="flex items-center gap-1 text-xs text-gray-500"><i
+                      class="fa-solid fa-clock"></i><span>منذ 2 ساعات</span>
+                  </div>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-3 text-sm mb-3">
+                <div><span class="text-gray-500">نوع العقار:</span><span
+                    class="font-semibold text-gray-800 mr-2">فيلا</span></div>
+                <div><span class="text-gray-500">قيمة العقار:</span><span
+                    class="font-semibold text-accent mr-2">2,800,000 ريال</span>
+                </div>
+                <div><span class="text-gray-500">الدفعة الأولى:</span><span
+                    class="font-semibold text-gray-800 mr-2">560,000 ريال</span>
+                </div>
+                <div><span class="text-gray-500">مدة التمويل:</span><span
+                    class="font-semibold text-gray-800 mr-2">25 سنة</span></div>
+              </div>
+              <div class="flex gap-2"><button
+                  class="flex-1 bg-primary text-white py-2 rounded-lg text-sm font-semibold hover:bg-primary-dark transition-colors">
+                  متابعة الطلب
+                </button><button
+                  class="px-4 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 hover:bg-gray-50 transition-colors"><i
+                    class="fa-solid fa-comment"></i></button><button
+                  class="px-4 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 hover:bg-gray-50 transition-colors"><i
+                    class="fa-solid fa-eye"></i></button></div>
+            </div><!-- Completed Request -->
+            <div class="border border-green-200 rounded-xl p-4 bg-green-50/30">
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-3"><img
+                    src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-6.jpg"
+                    alt="Client"
+                    class="w-10 h-10 rounded-full object-cover border-2 border-green-300">
+                  <div>
+                    <h3 class="font-semibold text-gray-800 text-sm">فاطمة خالد
+                      النمر</h3>
+                    <p class="text-xs text-gray-500">+966 56 456 7890</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2"><span
+                    class="bg-green-500 text-white px-2 py-1 rounded-full text-xs font-semibold">مكتمل</span><i
+                    class="fa-solid fa-check-circle text-green-500 text-lg"></i>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-3 text-sm mb-3">
+                <div><span class="text-gray-500">البنك المختار:</span><span
+                    class="font-semibold text-green-600 mr-2">بنك الراجحي</span>
+                </div>
+                <div><span class="text-gray-500">القسط الشهري:</span><span
+                    class="font-semibold text-green-600 mr-2">4,250 ريال</span>
+                </div>
+                <div><span class="text-gray-500">معدل الربح:</span><span
+                    class="font-semibold text-gray-800 mr-2">4.2%</span></div>
+                <div><span class="text-gray-500">حالة الموافقة:</span><span
+                    class="font-semibold text-green-600 mr-2">موافق
+                    مبدئياً</span></div>
+              </div>
+              <div class="flex gap-2"><button
+                  class="flex-1 bg-green-500 text-white py-2 rounded-lg text-sm font-semibold hover:bg-green-600 transition-colors"><i
+                    class="fa-solid fa-download mr-1"></i>
+                  تحميل التقرير
+                </button><button
+                  class="px-4 py-2 border border-green-200 rounded-lg text-sm text-green-600 hover:bg-green-50 transition-colors"><i
+                    class="fa-solid fa-share"></i></button></div>
+            </div>
+          </div><button
+            class="w-full mt-4 py-3 text-primary font-semibold text-sm hover:bg-primary/5 rounded-lg transition-colors border border-primary/20">
+            عرض جميع طلبات البنك (15 طلب) <i
+              class="fa-solid fa-arrow-left mr-2"></i></button>
+        </div>
+      </section><!-- Active Clients Management Section -->
+      <section id="active-clients-management" class="mb-6">
+        <div class="bg-white rounded-2xl shadow-lg p-4 border border-gray-100">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-bold text-primary flex items-center gap-2">
+              <i class="fa-solid fa-users text-accent"></i>
+              إدارة العملاء النشطين
+            </h2>
+            <div class="flex items-center gap-2"><span
+                class="bg-accent/10 text-accent-dark px-3 py-1 rounded-full text-sm font-semibold">24
+                عميل نشط</span></div>
+          </div><!-- Client Management Cards -->
+          <div class="space-y-4">
+            <!-- High Priority Client -->
+            <div
+              class="border-l-4 border-l-red-500 bg-red-50/30 rounded-xl p-4">
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-3">
+                  <div class="relative"><img
+                      src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-5.jpg"
+                      alt="Client"
+                      class="w-12 h-12 rounded-full object-cover border-2 border-red-300">
+                    <div
+                      class="absolute -bottom-1 -right-1 w-4 h-4 bg-red-500 border-2 border-white rounded-full animate-pulse">
+                    </div>
+                  </div>
+                  <div>
+                    <h3 class="font-semibold text-gray-800">سارة أحمد الزهراني
+                    </h3>
+                    <p class="text-sm text-gray-600">مهتمة بشقة في الرياض - حي
+                      النرجس</p>
+                    <div class="flex items-center gap-2 mt-1"><span
+                        class="bg-red-100 text-red-700 px-2 py-1 rounded-full text-xs font-semibold">أولوية
+                        عالية</span><span class="text-xs text-gray-500">آخر
+                        تفاعل: منذ 15 دقيقة</span></div>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <div class="text-accent font-bold text-sm">1,200,000 ريال
+                  </div>
+                  <div class="text-xs text-gray-500">الميزانية المتوقعة</div>
+                </div>
+              </div><!-- Client Actions -->
+              <div class="grid grid-cols-2 gap-3 mb-3">
+                <div class="bg-white rounded-lg p-2 text-center">
+                  <div class="text-primary text-sm font-bold">3</div>
+                  <div class="text-xs text-gray-500">عقارات مرسلة</div>
+                </div>
+                <div class="bg-white rounded-lg p-2 text-center">
+                  <div class="text-green-600 text-sm font-bold">2</div>
+                  <div class="text-xs text-gray-500">معاينات مجدولة</div>
+                </div>
+              </div><!-- Recent Interactions -->
+              <div class="bg-white rounded-lg p-3 mb-3">
+                <h4 class="font-semibold text-gray-700 text-sm mb-2">آخر
+                  التفاعلات:</h4>
+                <div class="space-y-2">
+                  <div class="flex items-center gap-2 text-sm"><i
+                      class="fa-solid fa-phone text-green-500"></i><span
+                      class="text-gray-600">مكالمة هاتفية - منذ 15 دقيقة</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-sm"><i
+                      class="fa-solid fa-message text-blue-500"></i><span
+                      class="text-gray-600">رسالة واتساب - منذ ساعة</span></div>
+                  <div class="flex items-center gap-2 text-sm"><i
+                      class="fa-solid fa-building text-accent"></i><span
+                      class="text-gray-600">إرسال عقار - منذ 3 ساعات</span>
+                  </div>
+                </div>
+              </div><!-- Action Buttons -->
+              <div class="flex gap-2"><button
+                  class="flex-1 bg-red-500 text-white py-2 rounded-lg text-sm font-semibold hover:bg-red-600 transition-colors"><i
+                    class="fa-solid fa-comments mr-1"></i>
+                  محادثة ثلاثية
+                </button><button
+                  class="px-4 py-2 bg-white border border-red-200 rounded-lg text-sm text-red-600 hover:bg-red-50 transition-colors"><i
+                    class="fa-solid fa-phone"></i></button><button
+                  class="px-4 py-2 bg-white border border-red-200 rounded-lg text-sm text-red-600 hover:bg-red-50 transition-colors"><i
+                    class="fa-solid fa-building"></i></button><button
+                  class="px-4 py-2 bg-white border border-red-200 rounded-lg text-sm text-red-600 hover:bg-red-50 transition-colors"><i
+                    class="fa-solid fa-ellipsis-v"></i></button></div>
+            </div><!-- Standard Priority Client -->
+            <div class="border border-gray-200 rounded-xl p-4">
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-3">
+                  <div class="relative"><img
+                      src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg"
+                      alt="Client" class="w-12 h-12 rounded-full object-cover">
+                    <div
+                      class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 border-2 border-white rounded-full">
+                    </div>
+                  </div>
+                  <div>
+                    <h3 class="font-semibold text-gray-800">محمد علي السالم</h3>
+                    <p class="text-sm text-gray-600">يبحث عن فيلا في جدة - حي
+                      الصفا</p>
+                    <div class="flex items-center gap-2 mt-1"><span
+                        class="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-semibold">نشط</span><span
+                        class="text-xs text-gray-500">آخر تفاعل: منذ 2
+                        ساعات</span></div>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <div class="text-accent font-bold text-sm">2,800,000 ريال
+                  </div>
+                  <div class="text-xs text-gray-500">الميزانية المتوقعة</div>
+                </div>
+              </div>
+              <div class="grid grid-cols-3 gap-2 mb-3">
+                <div class="bg-gray-50 rounded-lg p-2 text-center">
+                  <div class="text-primary text-sm font-bold">5</div>
+                  <div class="text-xs text-gray-500">عقارات</div>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-2 text-center">
+                  <div class="text-yellow-600 text-sm font-bold">1</div>
+                  <div class="text-xs text-gray-500">معاينة</div>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-2 text-center">
+                  <div class="text-blue-600 text-sm font-bold">8</div>
+                  <div class="text-xs text-gray-500">رسائل</div>
+                </div>
+              </div>
+              <div class="flex gap-2"><button
+                  class="flex-1 bg-primary text-white py-2 rounded-lg text-sm font-semibold hover:bg-primary-dark transition-colors"><i
+                    class="fa-solid fa-comment mr-1"></i>
+                  محادثة عادية
+                </button><button
+                  class="px-4 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 hover:bg-gray-50 transition-colors"><i
+                    class="fa-solid fa-phone"></i></button><button
+                  class="px-4 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 hover:bg-gray-50 transition-colors"><i
+                    class="fa-solid fa-building"></i></button></div>
+            </div><!-- New Client -->
+            <div
+              class="border-l-4 border-l-blue-500 bg-blue-50/30 rounded-xl p-4">
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-3">
+                  <div class="relative"><img
+                      src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-6.jpg"
+                      alt="Client"
+                      class="w-12 h-12 rounded-full object-cover border-2 border-blue-300">
+                    <div
+                      class="absolute -bottom-1 -right-1 w-4 h-4 bg-blue-500 border-2 border-white rounded-full">
+                    </div>
+                  </div>
+                  <div>
+                    <h3 class="font-semibold text-gray-800">فاطمة خالد النمر
+                    </h3>
+                    <p class="text-sm text-gray-600">مهتمة بشقة استثمارية -
+                      الدمام</p>
+                    <div class="flex items-center gap-2 mt-1"><span
+                        class="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-xs font-semibold">عميل
+                        جديد</span><span class="text-xs text-gray-500">انضم: منذ
+                        يوم واحد</span></div>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <div class="text-accent font-bold text-sm">800,000 ريال</div>
+                  <div class="text-xs text-gray-500">الميزانية المتوقعة</div>
+                </div>
+              </div>
+              <div class="bg-white rounded-lg p-3 mb-3">
+                <h4 class="font-semibold text-gray-700 text-sm mb-2">معلومات
+                  العميل:</h4>
+                <div class="grid grid-cols-2 gap-3 text-sm">
+                  <div><span class="text-gray-500">العمر:</span><span
+                      class="font-semibold text-gray-800 mr-2">35 سنة</span>
+                  </div>
+                  <div><span class="text-gray-500">المهنة:</span><span
+                      class="font-semibold text-gray-800 mr-2">معلمة</span>
+                  </div>
+                  <div><span class="text-gray-500">الراتب:</span><span
+                      class="font-semibold text-gray-800 mr-2">12,000
+                      ريال</span></div>
+                  <div><span class="text-gray-500">الغرض:</span><span
+                      class="font-semibold text-gray-800 mr-2">استثمار</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex gap-2"><button
+                  class="flex-1 bg-blue-500 text-white py-2 rounded-lg text-sm font-semibold hover:bg-blue-600 transition-colors"><i
+                    class="fa-solid fa-user-check mr-1"></i>
+                  بدء المتابعة
+                </button><button
+                  class="px-4 py-2 bg-white border border-blue-200 rounded-lg text-sm text-blue-600 hover:bg-blue-50 transition-colors"><i
+                    class="fa-solid fa-phone"></i></button><button
+                  class="px-4 py-2 bg-white border border-blue-200 rounded-lg text-sm text-blue-600 hover:bg-blue-50 transition-colors"><i
+                    class="fa-solid fa-envelope"></i></button></div>
+            </div>
+          </div>
+        </div>
+      </section><!-- Three-Way Chat Interface Section -->
+      <section id="three-way-chat" class="mb-6">
+        <div class="bg-white rounded-2xl shadow-lg p-4 border border-gray-100">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-bold text-primary flex items-center gap-2">
+              <i class="fa-solid fa-comments text-accent"></i>
+              المحادثات الثلاثية النشطة
+            </h2>
+            <div class="flex items-center gap-2"><span
+                class="bg-red-100 text-red-700 px-2 py-1 rounded-full text-xs font-semibold">5
+                رسائل جديدة</span><button
+                class="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-semibold hover:bg-blue-600 transition-colors"><i
+                  class="fa-solid fa-plus mr-1"></i> محادثة جديدة
+              </button></div>
+          </div><!-- Active Chats -->
+          <div class="space-y-4">
+            <!-- High Priority Chat -->
+            <div class="border-2 border-red-200 rounded-xl p-4 bg-red-50/30">
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-3">
+                  <div class="flex -space-x-2"><img
+                      src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-5.jpg"
+                      alt="Client"
+                      class="w-8 h-8 rounded-full border-2 border-white object-cover"><img
+                      src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-4.jpg"
+                      alt="Finance Employee"
+                      class="w-8 h-8 rounded-full border-2 border-white object-cover">
+                  </div>
+                  <div>
+                    <h3 class="font-semibold text-gray-800 text-sm">سارة أحمد +
+                      موظف التمويل</h3>
+                    <p class="text-xs text-gray-600">مناقشة شروط التمويل للشقة
+                      في النرجس</p>
+                  </div>
+                </div>
+                <div class="text-right"><span
+                    class="bg-red-500 text-white px-2 py-1 rounded-full text-xs font-semibold">عاجل</span>
+                  <div class="text-xs text-gray-500 mt-1">منذ 5 دقائق</div>
+                </div>
+              </div><!-- Last Message Preview -->
+              <div
+                class="bg-white rounded-lg p-3 mb-3 border-r-4 border-r-accent">
+                <div class="flex items-center gap-2 mb-1"><img
+                    src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-4.jpg"
+                    alt="Finance Employee"
+                    class="w-5 h-5 rounded-full object-cover"><span
+                    class="text-xs font-semibold text-primary">موظف
+                    التمويل</span><span class="text-xs text-gray-500">منذ 5
+                    دقائق</span></div>
+                <p class="text-sm text-gray-700">يمكننا تعديل مبلغ الدفعة الأولى
+                  إلى 15% بدلاً من 20%. هل يناسب هذا العميلة؟</p>
+              </div><!-- Chat Stats -->
+              <div class="grid grid-cols-3 gap-2 mb-3">
+                <div class="bg-white rounded-lg p-2 text-center">
+                  <div class="text-red-600 text-sm font-bold">23</div>
+                  <div class="text-xs text-gray-500">رسائل اليوم</div>
+                </div>
+                <div class="bg-white rounded-lg p-2 text-center">
+                  <div class="text-accent text-sm font-bold">3</div>
+                  <div class="text-xs text-gray-500">مشاركين</div>
+                </div>
+                <div class="bg-white rounded-lg p-2 text-center">
+                  <div class="text-green-600 text-sm font-bold">2د</div>
+                  <div class="text-xs text-gray-500">متوسط الرد</div>
+                </div>
+              </div>
+              <div class="flex gap-2"><button
+                  class="flex-1 bg-red-500 text-white py-2 rounded-lg text-sm font-semibold hover:bg-red-600 transition-colors"><i
+                    class="fa-solid fa-comment-dots mr-1"></i>
+                  الانضمام للمحادثة
+                </button><button
+                  class="px-4 py-2 bg-white border border-red-200 rounded-lg text-sm text-red-600 hover:bg-red-50 transition-colors"><i
+                    class="fa-solid fa-phone"></i></button><button
+                  class="px-4 py-2 bg-white border border-red-200 rounded-lg text-sm text-red-600 hover:bg-red-50 transition-colors"><i
+                    class="fa-solid fa-video"></i></button></div>
+            </div><!-- Standard Chat -->
+            <div class="border border-gray-200 rounded-xl p-4">
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-3">
+                  <div class="flex -space-x-2"><img
+                      src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg"
+                      alt="Client"
+                      class="w-8 h-8 rounded-full border-2 border-white object-cover"><img
+                      src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-8.jpg"
+                      alt="Finance Employee"
+                      class="w-8 h-8 rounded-full border-2 border-white object-cover">
+                  </div>
+                  <div>
+                    <h3 class="font-semibold text-gray-800 text-sm">محمد علي +
+                      موظف التمويل</h3>
+                    <p class="text-xs text-gray-600">مراجعة وثائق الفيلا في جدة
+                    </p>
+                  </div>
+                </div>
+                <div class="text-right"><span
+                    class="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-semibold">نشط</span>
+                  <div class="text-xs text-gray-500 mt-1">منذ 30 دقيقة</div>
+                </div>
+              </div>
+              <div class="bg-gray-50 rounded-lg p-3 mb-3">
+                <div class="flex items-center gap-2 mb-1"><img
+                    src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg"
+                    alt="Client" class="w-5 h-5 rounded-full object-cover"><span
+                    class="text-xs font-semibold text-gray-700">محمد
+                    علي</span><span class="text-xs text-gray-500">منذ 30
+                    دقيقة</span></div>
+                <p class="text-sm text-gray-700">شكراً لكم، سأراجع العرض مع
+                  زوجتي وأعود إليكم غداً</p>
+              </div>
+              <div class="flex gap-2"><button
+                  class="flex-1 bg-primary text-white py-2 rounded-lg text-sm font-semibold hover:bg-primary-dark transition-colors"><i
+                    class="fa-solid fa-comment mr-1"></i>
+                  فتح المحادثة
+                </button><button
+                  class="px-4 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 hover:bg-gray-50 transition-colors"><i
+                    class="fa-solid fa-archive"></i></button></div>
+            </div><!-- Completed Chat -->
+            <div class="border border-green-200 rounded-xl p-4 bg-green-50/30">
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-3">
+                  <div class="flex -space-x-2"><img
+                      src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-6.jpg"
+                      alt="Client"
+                      class="w-8 h-8 rounded-full border-2 border-white object-cover"><img
+                      src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-9.jpg"
+                      alt="Finance Employee"
+                      class="w-8 h-8 rounded-full border-2 border-white object-cover">
+                  </div>
+                  <div>
+                    <h3 class="font-semibold text-gray-800 text-sm">فاطمة خالد +
+                      موظف التمويل</h3>
+                    <p class="text-xs text-gray-600">تم الانتهاء من إجراءات
+                      التمويل</p>
+                  </div>
+                </div>
+                <div class="text-right"><span
+                    class="bg-green-500 text-white px-2 py-1 rounded-full text-xs font-semibold">مكتمل</span>
+                  <div class="text-xs text-gray-500 mt-1">منذ يومين</div>
+                </div>
+              </div>
+              <div
+                class="bg-white rounded-lg p-3 mb-3 border-r-4 border-r-green-500">
+                <div class="flex items-center gap-2 mb-1"><i
+                    class="fa-solid fa-check-circle text-green-500"></i><span
+                    class="text-xs font-semibold text-green-700">تم إنجاز
+                    المعاملة</span></div>
+                <p class="text-sm text-gray-700">تمت الموافقة على التمويل وتم
+                  توقيع العقد بنجاح</p>
+              </div>
+              <div class="flex gap-2"><button
+                  class="flex-1 bg-green-500 text-white py-2 rounded-lg text-sm font-semibold hover:bg-green-600 transition-colors"><i
+                    class="fa-solid fa-file-contract mr-1"></i>
+                  عرض العقد النهائي
+                </button><button
+                  class="px-4 py-2 bg-white border border-green-200 rounded-lg text-sm text-green-600 hover:bg-green-50 transition-colors"><i
+                    class="fa-solid fa-star"></i></button></div>
+            </div>
+          </div><button
+            class="w-full mt-4 py-3 text-primary font-semibold text-sm hover:bg-primary/5 rounded-lg transition-colors border border-primary/20">
+            عرض جميع المحادثات (12 محادثة) <i
+              class="fa-solid fa-arrow-left mr-2"></i></button>
+        </div>
+      </section><!-- Client Interaction Timeline Section -->
+      <section id="client-timeline" class="mb-6">
+        <div class="bg-white rounded-2xl shadow-lg p-4 border border-gray-100">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-bold text-primary flex items-center gap-2">
+              <i class="fa-solid fa-timeline text-accent"></i>
+              الجدول الزمني للتفاعلات
+            </h2><select
+              class="text-sm border border-gray-200 rounded-lg px-3 py-1">
+              <option>اليوم</option>
+              <option>هذا الأسبوع</option>
+              <option>هذا الشهر</option>
+            </select>
+          </div><!-- Timeline Events -->
+          <div class="space-y-4">
+            <!-- Recent Event -->
+            <div class="flex gap-4">
+              <div class="flex flex-col items-center">
+                <div
+                  class="w-10 h-10 bg-red-500 rounded-full flex items-center justify-center">
+                  <i class="fa-solid fa-exclamation text-white text-sm"></i>
+                </div>
+                <div class="w-px h-12 bg-gray-200 mt-2"></div>
+              </div>
+              <div class="flex-1 pb-4">
+                <div class="bg-red-50 rounded-lg p-3 border border-red-100">
+                  <div class="flex items-center justify-between mb-2">
+                    <h3 class="font-semibold text-gray-800 text-sm">طلب حساب
+                      بنكي عاجل</h3><span class="text-xs text-gray-500">منذ 15
+                      دقيقة</span>
+                  </div>
+                  <p class="text-sm text-gray-600 mb-2">سارة أحمد طلبت حساب بنكي
+                    عاجل لشقة بقيمة 1.2 مليون ريال</p>
+                  <div class="flex items-center gap-2"><img
+                      src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-5.jpg"
+                      alt="Client"
+                      class="w-6 h-6 rounded-full object-cover"><span
+                      class="text-xs text-gray-500">سارة أحمد الزهراني</span>
+                  </div>
+                </div>
+              </div>
+            </div><!-- Standard Event -->
+            <div class="flex gap-4">
+              <div class="flex flex-col items-center">
+                <div
+                  class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
+                  <i class="fa-solid fa-comment text-white text-sm"></i></div>
+                <div class="w-px h-12 bg-gray-200 mt-2"></div>
+              </div>
+              <div class="flex-1 pb-4">
+                <div class="bg-blue-50 rounded-lg p-3 border border-blue-100">
+                  <div class="flex items-center justify-between mb-2">
+                    <h3 class="font-semibold text-gray-800 text-sm">محادثة
+                      ثلاثية جديدة</h3><span class="text-xs text-gray-500">منذ
+                      ساعة</span>
+                  </div>
+                  <p class="text-sm text-gray-600 mb-2">بدء محادثة ثلاثية بين
+                    محمد علي وموظف التمويل</p>
+                  <div class="flex items-center gap-2">
+                    <div class="flex -space-x-1"><img
+                        src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg"
+                        alt="Client"
+                        class="w-6 h-6 rounded-full border border-white object-cover"><img
+                        src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-8.jpg"
+                        alt="Finance"
+                        class="w-6 h-6 rounded-full border border-white object-cover">
+                    </div><span class="text-xs text-gray-500">محمد علي + موظف
+                      التمويل</span>
+                  </div>
+                </div>
+              </div>
+            </div><!-- Success Event -->
+            <div class="flex gap-4">
+              <div class="flex flex-col items-center">
+                <div
+                  class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
+                  <i class="fa-solid fa-check text-white text-sm"></i></div>
+                <div class="w-px h-12 bg-gray-200 mt-2"></div>
+              </div>
+              <div class="flex-1 pb-4">
+                <div class="bg-green-50 rounded-lg p-3 border border-green-100">
+                  <div class="flex items-center justify-between mb-2">
+                    <h3 class="font-semibold text-gray-800 text-sm">موافقة بنكية
+                      مكتملة</h3><span class="text-xs text-gray-500">منذ 3
+                      ساعات</span>
+                  </div>
+                  <p class="text-sm text-gray-600 mb-2">تمت الموافقة على طلب
+                    التمويل لفاطمة خالد من بنك الراجحي</p>
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2"><img
+                        src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-6.jpg"
+                        alt="Client"
+                        class="w-6 h-6 rounded-full object-cover"><span
+                        class="text-xs text-gray-500">فاطمة خالد النمر</span>
+                    </div><span
+                      class="text-xs font-semibold text-green-600">+8,000 ريال
+                      عمولة</span>
+                  </div>
+                </div>
+              </div>
+            </div><!-- Property Event -->
+            <div class="flex gap-4">
+              <div class="flex flex-col items-center">
+                <div
+                  class="w-10 h-10 bg-accent rounded-full flex items-center justify-center">
+                  <i class="fa-solid fa-building text-white text-sm"></i></div>
+                <div class="w-px h-12 bg-gray-200 mt-2"></div>
+              </div>
+              <div class="flex-1 pb-4">
+                <div
+                  class="bg-yellow-50 rounded-lg p-3 border border-yellow-100">
+                  <div class="flex items-center justify-between mb-2">
+                    <h3 class="font-semibold text-gray-800 text-sm">إرسال عقارات
+                      للعميل</h3><span class="text-xs text-gray-500">منذ 5
+                      ساعات</span>
+                  </div>
+                  <p class="text-sm text-gray-600 mb-2">تم إرسال 3 عقارات مناسبة
+                    لمحمد علي في منطقة الصفا</p>
+                  <div class="flex items-center gap-2"><img
+                      src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg"
+                      alt="Client"
+                      class="w-6 h-6 rounded-full object-cover"><span
+                      class="text-xs text-gray-500">محمد علي السالم</span></div>
+                </div>
+              </div>
+            </div><!-- Call Event -->
+            <div class="flex gap-4">
+              <div class="flex flex-col items-center">
+                <div
+                  class="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center">
+                  <i class="fa-solid fa-phone text-white text-sm"></i></div>
+              </div>
+              <div class="flex-1 pb-4">
+                <div
+                  class="bg-purple-50 rounded-lg p-3 border border-purple-100">
+                  <div class="flex items-center justify-between mb-2">
+                    <h3 class="font-semibold text-gray-800 text-sm">مكالمة
+                      هاتفية</h3><span class="text-xs text-gray-500">منذ 8
+                      ساعات</span>
+                  </div>
+                  <p class="text-sm text-gray-600 mb-2">مكالمة هاتفية مع سارة
+                    أحمد لمناقشة تفاصيل الشقة - مدة المكالمة: 25 دقيقة</p>
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2"><img
+                        src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-5.jpg"
+                        alt="Client"
+                        class="w-6 h-6 rounded-full object-cover"><span
+                        class="text-xs text-gray-500">سارة أحمد الزهراني</span>
+                    </div><span class="text-xs text-purple-600">25 دقيقة</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div><button
+            class="w-full mt-4 py-3 text-primary font-semibold text-sm hover:bg-primary/5 rounded-lg transition-colors border border-primary/20">
+            عرض المزيد من الأحداث <i
+              class="fa-solid fa-arrow-down mr-2"></i></button>
+        </div>
+      </section><!-- Client Statistics and Analytics Section -->
+      <section id="client-analytics" class="mb-6">
+        <div class="bg-white rounded-2xl shadow-lg p-4 border border-gray-100">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-bold text-primary flex items-center gap-2">
+              <i class="fa-solid fa-chart-bar text-accent"></i>
+              إحصائيات العملاء
+            </h2><select
+              class="text-sm border border-gray-200 rounded-lg px-3 py-1">
+              <option>هذا الشهر</option>
+              <option>الشهر الماضي</option>
+              <option>آخر 3 أشهر</option>
+            </select>
+          </div><!-- Key Metrics -->
+          <div class="grid grid-cols-2 gap-4 mb-6">
+            <div
+              class="bg-gradient-to-br from-primary/5 to-primary/10 rounded-xl p-4 border border-primary/20">
+              <div class="flex items-center justify-between mb-2"><i
+                  class="fa-solid fa-users text-primary text-2xl"></i><span
+                  class="bg-primary text-white px-2 py-1 rounded-full text-xs">+15%</span>
+              </div>
+              <div class="text-primary font-bold text-xl">47</div>
+              <div class="text-sm text-gray-600">إجمالي العملاء</div>
+              <div class="text-xs text-gray-500 mt-1">24 نشط، 12 في انتظار، 11
+                مكتمل</div>
+            </div>
+            <div
+              class="bg-gradient-to-br from-accent/5 to-accent/10 rounded-xl p-4 border border-accent/20">
+              <div class="flex items-center justify-between mb-2"><i
+                  class="fa-solid fa-handshake text-accent text-2xl"></i><span
+                  class="bg-accent text-white px-2 py-1 rounded-full text-xs">+8%</span>
+              </div>
+              <div class="text-accent font-bold text-xl">68%</div>
+              <div class="text-sm text-gray-600">معدل التحويل</div>
+              <div class="text-xs text-gray-500 mt-1">32 من 47 عميل</div>
+            </div>
+            <div
+              class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4 border border-green-200">
+              <div class="flex items-center justify-between mb-2"><i
+                  class="fa-solid fa-clock text-green-500 text-2xl"></i><span
+                  class="bg-green-500 text-white px-2 py-1 rounded-full text-xs">-2د</span>
+              </div>
+              <div class="text-green-700 font-bold text-xl">8د</div>
+              <div class="text-sm text-gray-600">متوسط وقت الرد</div>
+              <div class="text-xs text-gray-500 mt-1">تحسن بنسبة 20%</div>
+            </div>
+            <div
+              class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 border border-blue-200">
+              <div class="flex items-center justify-between mb-2"><i
+                  class="fa-solid fa-star text-blue-500 text-2xl"></i><span
+                  class="bg-blue-500 text-white px-2 py-1 rounded-full text-xs">+0.2</span>
+              </div>
+              <div class="text-blue-700 font-bold text-xl">4.8</div>
+              <div class="text-sm text-gray-600">تقييم العملاء</div>
+              <div class="text-xs text-gray-500 mt-1">من 5 نجوم</div>
+            </div>
+          </div><!-- Client Distribution Chart -->
+          <div class="bg-gray-50 rounded-xl p-4 mb-4">
+            <h3 class="font-semibold text-gray-700 mb-3 text-sm">توزيع العملاء
+              حسب الحالة</h3>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="w-4 h-4 bg-green-500 rounded-full"></div><span
+                    class="text-sm text-gray-600">عملاء نشطين</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <div class="w-24 bg-gray-200 rounded-full h-2">
+                    <div id="i3bkfx" class="bg-green-500 h-2 rounded-full">
+                    </div>
+                  </div><span
+                    class="text-sm font-semibold text-gray-700">24</span>
+                </div>
+              </div>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="w-4 h-4 bg-yellow-500 rounded-full"></div><span
+                    class="text-sm text-gray-600">في انتظار</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <div class="w-24 bg-gray-200 rounded-full h-2">
+                    <div id="inx9hw" class="bg-yellow-500 h-2 rounded-full">
+                    </div>
+                  </div><span
+                    class="text-sm font-semibold text-gray-700">12</span>
+                </div>
+              </div>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="w-4 h-4 bg-blue-500 rounded-full"></div><span
+                    class="text-sm text-gray-600">عملاء جدد</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <div class="w-24 bg-gray-200 rounded-full h-2">
+                    <div id="iu2ixe" class="bg-blue-500 h-2 rounded-full"></div>
+                  </div><span
+                    class="text-sm font-semibold text-gray-700">7</span>
+                </div>
+              </div>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="w-4 h-4 bg-gray-400 rounded-full"></div><span
+                    class="text-sm text-gray-600">غير نشط</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <div class="w-24 bg-gray-200 rounded-full h-2">
+                    <div id="i3x0o1" class="bg-gray-400 h-2 rounded-full"></div>
+                  </div><span
+                    class="text-sm font-semibold text-gray-700">4</span>
+                </div>
+              </div>
+            </div>
+          </div><!-- Response Time Analysis -->
+          <div class="bg-blue-50 rounded-xl p-4">
+            <h3 class="font-semibold text-gray-700 mb-3 text-sm">تحليل أوقات
+              الاستجابة</h3>
+            <div class="grid grid-cols-3 gap-3">
+              <div class="text-center">
+                <div class="text-green-600 font-bold text-lg">5د</div>
+                <div class="text-xs text-gray-500">أسرع رد</div>
+              </div>
+              <div class="text-center">
+                <div class="text-blue-600 font-bold text-lg">8د</div>
+                <div class="text-xs text-gray-500">متوسط الرد</div>
+              </div>
+              <div class="text-center">
+                <div class="text-orange-600 font-bold text-lg">15د</div>
+                <div class="text-xs text-gray-500">أبطأ رد</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section><!-- Bank Partnerships Section -->
+      <section id="bank-partnerships" class="mb-6">
+        <div class="bg-white rounded-2xl shadow-lg p-4 border border-gray-100">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-bold text-primary flex items-center gap-2">
+              <i class="fa-solid fa-building-columns text-accent"></i>
+              الشراكات البنكية
+            </h2><button class="text-primary text-sm font-semibold">إدارة
+              الشراكات</button>
+          </div><!-- Bank Partners -->
+          <div class="space-y-3 mb-4">
+            <div
+              class="flex items-center justify-between p-3 bg-green-50 rounded-xl border border-green-100">
+              <div class="flex items-center gap-3">
+                <div
+                  class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
+                  <i class="fa-solid fa-university text-white text-sm"></i>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-gray-800 text-sm">مصرف الراجحي
+                  </h3>
+                  <p class="text-xs text-gray-500">شريك معتمد - معدل موافقة عالي
+                  </p>
+                </div>
+              </div>
+              <div class="text-right">
+                <div class="text-green-600 font-bold text-sm">92%</div>
+                <div class="text-xs text-gray-500">معدل الموافقة</div>
+              </div>
+            </div>
+            <div
+              class="flex items-center justify-between p-3 bg-blue-50 rounded-xl border border-blue-100">
+              <div class="flex items-center gap-3">
+                <div
+                  class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
+                  <i class="fa-solid fa-university text-white text-sm"></i>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-gray-800 text-sm">البنك الأهلي
+                  </h3>
+                  <p class="text-xs text-gray-500">شريك معتمد - أسعار تنافسية
+                  </p>
+                </div>
+              </div>
+              <div class="text-right">
+                <div class="text-blue-600 font-bold text-sm">88%</div>
+                <div class="text-xs text-gray-500">معدل الموافقة</div>
+              </div>
+            </div>
+            <div
+              class="flex items-center justify-between p-3 bg-purple-50 rounded-xl border border-purple-100">
+              <div class="flex items-center gap-3">
+                <div
+                  class="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center">
+                  <i class="fa-solid fa-university text-white text-sm"></i>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-gray-800 text-sm">بنك سامبا</h3>
+                  <p class="text-xs text-gray-500">شريك جديد - عروض خاصة</p>
+                </div>
+              </div>
+              <div class="text-right">
+                <div class="text-purple-600 font-bold text-sm">85%</div>
+                <div class="text-xs text-gray-500">معدل الموافقة</div>
+              </div>
+            </div>
+          </div><!-- Bank Performance Stats -->
+          <div class="bg-gray-50 rounded-xl p-4">
+            <h3 class="font-semibold text-gray-700 mb-3 text-sm">إحصائيات الأداء
+              - هذا الشهر</h3>
+            <div class="grid grid-cols-3 gap-3">
+              <div class="text-center">
+                <div class="text-primary font-bold text-lg">28</div>
+                <div class="text-xs text-gray-500">طلبات مرسلة</div>
+              </div>
+              <div class="text-center">
+                <div class="text-green-600 font-bold text-lg">23</div>
+                <div class="text-xs text-gray-500">موافقات</div>
+              </div>
+              <div class="text-center">
+                <div class="text-red-600 font-bold text-lg">5</div>
+                <div class="text-xs text-gray-500">رفض</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section><!-- Quick Tools Section -->
+      <section id="quick-tools" class="mb-6">
+        <div class="bg-white rounded-2xl shadow-lg p-4 border border-gray-100">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-bold text-primary flex items-center gap-2">
+              <i class="fa-solid fa-tools text-accent"></i>
+              أدوات سريعة
+            </h2>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <!-- Financing Calculator -->
+            <div
+              class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4 border border-green-200">
+              <div class="text-center">
+                <div
+                  class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-2">
+                  <i class="fa-solid fa-calculator text-white text-lg"></i>
+                </div>
+                <h3 class="font-semibold text-green-700 text-sm mb-1">حاسبة
+                  التمويل</h3>
+                <p class="text-xs text-green-600 mb-3">احسب الأقساط والفوائد</p>
+                <button
+                  class="w-full bg-green-500 text-white py-2 rounded-lg text-sm font-semibold hover:bg-green-600 transition-colors">
+                  فتح الحاسبة
+                </button>
+              </div>
+            </div><!-- Document Generator -->
+            <div
+              class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 border border-blue-200">
+              <div class="text-center">
+                <div
+                  class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-2">
+                  <i class="fa-solid fa-file-contract text-white text-lg"></i>
+                </div>
+                <h3 class="font-semibold text-blue-700 text-sm mb-1">مولد العقود
+                </h3>
+                <p class="text-xs text-blue-600 mb-3">إنشاء عقود تلقائياً</p>
+                <button
+                  class="w-full bg-blue-500 text-white py-2 rounded-lg text-sm font-semibold hover:bg-blue-600 transition-colors">
+                  إنشاء عقد
+                </button>
+              </div>
+            </div><!-- Property Matcher -->
+            <div
+              class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-4 border border-purple-200">
+              <div class="text-center">
+                <div
+                  class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-2">
+                  <i class="fa-solid fa-search text-white text-lg"></i></div>
+                <h3 class="font-semibold text-purple-700 text-sm mb-1">مطابق
+                  العقارات</h3>
+                <p class="text-xs text-purple-600 mb-3">اعثر على العقار المناسب
+                </p><button
+                  class="w-full bg-purple-500 text-white py-2 rounded-lg text-sm font-semibold hover:bg-purple-600 transition-colors">
+                  بحث ذكي
+                </button>
+              </div>
+            </div><!-- Report Generator -->
+            <div
+              class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-4 border border-orange-200">
+              <div class="text-center">
+                <div
+                  class="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-2">
+                  <i class="fa-solid fa-chart-pie text-white text-lg"></i></div>
+                <h3 class="font-semibold text-orange-700 text-sm mb-1">مولد
+                  التقارير</h3>
+                <p class="text-xs text-orange-600 mb-3">تقارير شاملة للعملاء</p>
+                <button
+                  class="w-full bg-orange-500 text-white py-2 rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors">
+                  إنشاء تقرير
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main><!-- Bottom Navigation -->
+    <nav id="bottom-nav"
+      class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2 z-50">
+      <div class="flex items-center justify-around"><button
+          class="flex flex-col items-center gap-1 p-2 text-gray-400 hover:text-primary transition-colors"><i
+            class="fa-solid fa-home text-lg"></i><span
+            class="text-xs">الرئيسية</span></button><button
+          class="flex flex-col items-center gap-1 p-2 text-primary"><i
+            class="fa-solid fa-clipboard-list text-lg"></i><span
+            class="text-xs font-semibold">الطلبات</span></button><button
+          class="flex flex-col items-center gap-1 p-2 text-gray-400 hover:text-primary transition-colors"><i
+            class="fa-solid fa-calculator text-lg"></i><span
+            class="text-xs">الحاسبة</span></button><button
+          class="flex flex-col items-center gap-1 p-2 text-gray-400 hover:text-primary transition-colors relative"><i
+            class="fa-solid fa-comments text-lg"></i><span
+            class="text-xs">الرسائل</span>
+          <div
+            class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full text-white text-xs flex items-center justify-center">
+            5</div>
+        </button><button
+          class="flex flex-col items-center gap-1 p-2 text-gray-400 hover:text-primary transition-colors"><i
+            class="fa-solid fa-user text-lg"></i><span
+            class="text-xs">الملف</span></button></div>
+    </nav>
+    <script>
+      // Toggle availability status
+      document.addEventListener('DOMContentLoaded', function()
+      {
+        const toggleSwitch = document.querySelector(
+          'input[type="checkbox"]');
+
+        toggleSwitch.addEventListener('change', function()
+        {
+          const statusText = this.parentElement.parentElement
+            .querySelector('span');
+          const statusIndicator = this.parentElement.parentElement
+            .querySelector('.bg-green-400');
+
+          if (this.checked)
+          {
+            statusText.textContent = 'متاح للعملاء';
+            statusIndicator.className =
+              'w-3 h-3 bg-green-400 rounded-full animate-pulse';
+          }
+          else
+          {
+            statusText.textContent = 'غير متاح';
+            statusIndicator.className =
+              'w-3 h-3 bg-red-400 rounded-full animate-pulse';
+          }
+        });
+
+        // Filter tabs functionality
+        const filterTabs = document.querySelectorAll('#filter-sort button');
+        filterTabs.forEach(tab =>
+        {
+          tab.addEventListener('click', function()
+          {
+            filterTabs.forEach(t =>
+            {
+              t.className =
+                'px-4 py-2 bg-gray-100 text-gray-600 rounded-full text-sm font-semibold whitespace-nowrap hover:bg-gray-200 transition-colors';
+            });
+            this.className =
+              'px-4 py-2 bg-primary text-white rounded-full text-sm font-semibold whitespace-nowrap';
+          });
+        });
+
+        // Bottom navigation active state
+        const navButtons = document.querySelectorAll('#bottom-nav button');
+        navButtons.forEach(button =>
+        {
+          button.addEventListener('click', function()
+          {
+            navButtons.forEach(btn =>
+            {
+              btn.className =
+                'flex flex-col items-center gap-1 p-2 text-gray-400 hover:text-primary transition-colors';
+              const span = btn.querySelector('span');
+              if (span) span.className = 'text-xs';
+
+              // Keep message badge
+              const badge = btn.querySelector('.bg-red-500');
+              if (badge)
+              {
+                btn.className += ' relative';
+              }
+            });
+
+            this.className =
+              'flex flex-col items-center gap-1 p-2 text-primary';
+            const span = this.querySelector('span');
+            if (span && !span.classList.contains('bg-red-500'))
+            {
+              span.className = 'text-xs font-semibold';
+            }
+          });
+        });
+
+        // Auto-refresh notifications
+        setInterval(() =>
+        {
+          const notifications = document.querySelectorAll(
+            '.animate-pulse');
+          notifications.forEach(notification =>
+          {
+            notification.style.animationDuration = Math.random() *
+              2 + 1 + 's';
+          });
+        }, 5000);
+      });
+    </script>
+  </body>
+
+</html>

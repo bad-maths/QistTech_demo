@@ -5,6 +5,10 @@ import { Card } from './ui/card';
 import { Badge } from './ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import AlAhliLogo from '../assets/شعار البنك الأهلي التجاري.svg';
+import AlRajhiLogo from '../assets/شعار مصرف الراجحي الجديد.svg';
+import RiyadBankLogo from '../assets/شعار بنك الرياض الجديد.svg';
+import MapImage from '../assets/map.png';
 
 interface PropertyDetailsScreenProps {
   onNavigate: (screen: string, data?: any) => void;
@@ -49,6 +53,7 @@ export function PropertyDetailsScreen({ onNavigate, language }: PropertyDetailsS
     {
       id: 1,
       bank: isRTL ? 'البنك الأهلي' : 'National Bank',
+      logo: AlAhliLogo,
       rate: '3.2%',
       monthly: '4,200',
       downPayment: '125,000',
@@ -58,6 +63,7 @@ export function PropertyDetailsScreen({ onNavigate, language }: PropertyDetailsS
     {
       id: 2,
       bank: isRTL ? 'بنك الراجحي' : 'Al Rajhi Bank',
+      logo: AlRajhiLogo,
       rate: '3.5%',
       monthly: '4,450',
       downPayment: '125,000',
@@ -67,6 +73,7 @@ export function PropertyDetailsScreen({ onNavigate, language }: PropertyDetailsS
     {
       id: 3,
       bank: isRTL ? 'بنك الرياض' : 'Riyadh Bank',
+      logo: RiyadBankLogo,
       rate: '3.8%',
       monthly: '4,680',
       downPayment: '125,000',
@@ -262,14 +269,29 @@ export function PropertyDetailsScreen({ onNavigate, language }: PropertyDetailsS
             </div>
             <div>
               <h3 className="mb-3" style={{ color: '#111827' }}>{isRTL ? 'الموقع' : 'Location'}</h3>
-              <div 
-                className="rounded-lg h-48 flex items-center justify-center"
+              <div
+                className="relative h-48 rounded-lg overflow-hidden"
                 style={{
-                  backgroundColor: '#E5E7EB',
-                  color: '#6B7280',
+                  borderWidth: '1px',
+                  borderColor: '#CCFBF1',
+                  borderStyle: 'solid',
                 }}
               >
-                {isRTL ? 'خريطة الموقع' : 'Map View'}
+                <ImageWithFallback
+                  src={MapImage}
+                  alt={isRTL ? 'خريطة الموقع' : 'Map View'}
+                  className="w-full h-full object-cover"
+                />
+
+                {/* Centered location pin placeholder */}
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+                  <div className="relative">
+                    <div className="absolute -inset-3 rounded-full bg-[#D4AF37]/30 animate-ping"></div>
+                    <div className="rounded-full bg-white/90 p-2 shadow-md border border-[#0F4C5C]/10 flex items-center justify-center">
+                      <MapPin className="w-5 h-5" style={{ color: '#0F4C5C' }} />
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </TabsContent>
@@ -500,27 +522,29 @@ export function PropertyDetailsScreen({ onNavigate, language }: PropertyDetailsS
                     </Badge>
                   )}
                   
-                  <div className="flex items-center justify-between mb-3">
-                    <h4 className="font-semibold" style={{ color: '#0E1E25' }}>{option.bank}</h4>
+                    <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-3">
+                      <h4 className="font-semibold text-lg" style={{ color: '#0E1E25' }}>{option.bank}</h4>
+                    </div>
                     {selectedFinancing === option.id && (
                       <div className="rounded-full p-1" style={{ backgroundColor: '#0F4C5C' }}>
-                        <Check className="w-4 h-4" style={{ color: '#FFFFFF' }} />
+                      <Check className="w-4 h-4" style={{ color: '#FFFFFF' }} />
                       </div>
                     )}
-                  </div>
+                    </div>
 
                   <div className="grid grid-cols-3 gap-2">
                     <div className="rounded p-2 text-center" style={{ backgroundColor: '#FFFFFF' }}>
-                      <p className="text-xs mb-1" style={{ color: '#4B5563' }}>{isRTL ? 'قسط شهري' : 'Monthly'}</p>
-                      <p className="font-semibold" style={{ color: '#0F4C5C' }}>{option.monthly} {isRTL ? 'ر.س' : 'SAR'}</p>
+                      <p className="text-sm mb-1" style={{ color: '#4B5563' }}>{isRTL ? 'قسط شهري' : 'Monthly'}</p>
+                      <p className="font-semibold text-base" style={{ color: '#0F4C5C' }}>{option.monthly} {isRTL ? 'ر.س' : 'SAR'}</p>
                     </div>
                     <div className="rounded p-2 text-center" style={{ backgroundColor: '#FFFFFF' }}>
-                      <p className="text-xs mb-1" style={{ color: '#4B5563' }}>{isRTL ? 'معدل' : 'Rate'}</p>
-                      <p className="font-semibold" style={{ color: '#0F4C5C' }}>{option.rate}</p>
+                      <p className="text-sm mb-1" style={{ color: '#4B5563' }}>{isRTL ? 'معدل' : 'Rate'}</p>
+                      <p className="font-semibold text-base" style={{ color: '#0F4C5C' }}>{option.rate}</p>
                     </div>
                     <div className="rounded p-2 text-center" style={{ backgroundColor: '#FFFFFF' }}>
-                      <p className="text-xs mb-1" style={{ color: '#4B5563' }}>{isRTL ? 'مدة' : 'Term'}</p>
-                      <p className="font-semibold" style={{ color: '#0F4C5C' }}>{option.term}</p>
+                      <p className="text-sm mb-1" style={{ color: '#4B5563' }}>{isRTL ? 'مدة' : 'Term'}</p>
+                      <p className="font-semibold text-base" style={{ color: '#0F4C5C' }}>{option.term}</p>
                     </div>
                   </div>
                 </Card>

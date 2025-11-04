@@ -91,6 +91,7 @@ export function EmployeeReferralScreen({ onNavigate, language }: EmployeeReferra
             <ArrowLeft className="w-5 h-5" />
           )}
         </button>
+        
         <div>
           <h1 className="text-2xl font-bold">
             {isRTL ? 'إحالة موظف مبيعات' : 'Sales Agent Referral'}
@@ -99,7 +100,9 @@ export function EmployeeReferralScreen({ onNavigate, language }: EmployeeReferra
             {isRTL ? 'أدخل رقم هوية الموظف للتواصل معه' : 'Enter employee ID to connect'}
           </p>
         </div>
+        
       </div>
+  
 
       <div className="px-6 py-6">
         {/* Success Message */}

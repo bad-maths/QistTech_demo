@@ -131,76 +131,64 @@ export function DeveloperRequestsScreen({ onNavigate, language, employeeData }: 
   });
 
   return (
-    <div className="min-h-screen bg-[#F2F4F5] relative overflow-hidden pb-20" dir={isRTL ? 'rtl' : 'ltr'}>
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-20 w-72 h-72 bg-[#D4AF37] rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob"></div>
-        <div className="absolute top-40 right-20 w-72 h-72 bg-[#0F4C5C] rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-2000"></div>
-      </div>
-
-      <div className="relative z-10">
-        <div className="bg-gradient-to-r from-[#0F4C5C] via-[#0A3540] to-[#0F4C5C] text-white px-6 pt-6 pb-6 relative overflow-visible">
-          <div className="absolute inset-0 bg-gradient-to-b from-white/5 via-transparent to-transparent pointer-events-none"></div>
-
+    <div className="min-h-screen bg-[#F2F4F5] pb-20" dir={isRTL ? 'rtl' : 'ltr'}>
+      {/* Header */}
+      <div className="relative h-auto overflow-hidden">
+        {/* Background with gradient */}
+        <div className="bg-gradient-to-br from-[#0F4C5C] to-[#0A3540] text-white px-6 pt-12 pb-8">
           <div className="relative z-10">
             <div className="flex items-center justify-between mb-6">
               <button
                 onClick={() => onNavigate('home')}
-                className="p-2 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm transition-all duration-300"
+                className="w-10 h-10 rounded-xl bg-white/15 backdrop-blur-xl hover:bg-white/25 transition-all duration-300 border border-white/10 flex items-center justify-center"
               >
                 <ArrowLeft className={`w-5 h-5 ${isRTL ? 'rotate-180' : ''}`} />
               </button>
 
-              <h1 className="text-2xl font-bold tracking-tight">{isRTL ? 'طلبات العملاء' : 'Client Requests'}</h1>
+              <div className="text-center flex-1 mx-4">
+                <h1 className="text-xl text-white mb-1 tracking-[-0.4px]">
+                  {isRTL ? 'طلبات العملاء' : 'Client Requests'}
+                </h1>
+                <p className="text-sm text-[rgba(255,255,255,0.8)]">
+                  {isRTL ? `${filteredRequests.length} طلب نشط` : `${filteredRequests.length} active requests`}
+                </p>
+              </div>
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
                 <button
                   onClick={() => onNavigate('notifications')}
-                  className="p-2 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm transition-all duration-300 relative"
+                  className="w-10 h-10 rounded-xl bg-white/15 backdrop-blur-xl hover:bg-white/25 transition-all duration-300 border border-white/10 flex items-center justify-center relative"
                 >
                   <Bell className="w-5 h-5" />
-                  <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-                </button>
-
-                <button
-                  onClick={() => onNavigate('profile')}
-                  className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center font-bold hover:bg-white/30 transition-all duration-300"
-                >
-                  {employeeData?.name?.[0] || 'A'}
+                  <span className="absolute -top-1 -right-1 w-4.5 h-4.5 bg-gradient-to-br from-[#D4AF37] to-[#B8941F] rounded-full shadow-glow-gold flex items-center justify-center">
+                    <span className="text-[9px] text-white">3</span>
+                  </span>
                 </button>
               </div>
             </div>
 
-            <div 
-              className="flex items-center justify-between p-4 rounded-xl transition-all duration-300 relative z-30"
-              style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                backdropFilter: 'blur(12px)',
-                borderWidth: '1px',
-                borderStyle: 'solid',
-                borderColor: 'rgba(255, 255, 255, 0.2)',
-              }}
-            >
-              <div className="flex items-center gap-3">
-                <div
-                  className="w-3 h-3 rounded-full animate-pulse"
-                  style={{ backgroundColor: isOnline ? '#10B981' : '#6B7280' }}
-                ></div>
-                <span className="font-medium" style={{ color: '#FFFFFF' }}>
-                  {isOnline ? (isRTL ? 'متصل الآن' : 'Online Now') : isRTL ? 'غير متصل' : 'Offline'}
-                </span>
+            {/* Online Status Card */}
+            <div className="bg-white/15 backdrop-blur-xl rounded-2xl p-4 mb-4 border border-white/10">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div
+                    className="w-3 h-3 rounded-full animate-pulse"
+                    style={{ backgroundColor: isOnline ? '#10B981' : '#6B7280' }}
+                  ></div>
+                  <span className="font-medium text-white">
+                    {isOnline ? (isRTL ? 'متصل الآن' : 'Online Now') : isRTL ? 'غير متصل' : 'Offline'}
+                  </span>
+                </div>
+                <Switch checked={isOnline} onCheckedChange={setIsOnline} />
               </div>
-              <Switch 
-                checked={isOnline} 
-                onCheckedChange={setIsOnline}
-                style={{
-                  backgroundColor: isOnline ? '#10B981' : undefined,
-                }}
-              />
             </div>
 
-            <div className="relative mb-6">
+            {/* Search Bar */}
+            <div className="relative mb-4">
               <Search
-                className={`absolute top-1/2 transform -translate-y-1/2 w-5 h-5 text-white/60 ${isRTL ? 'right-3' : 'left-3'}`}
+                className={`absolute top-1/2 transform -translate-y-1/2 w-4 h-4 text-white/60 ${
+                  isRTL ? 'right-4' : 'left-4'
+                }`}
               />
               <Input
                 type="text"
@@ -208,136 +196,138 @@ export function DeveloperRequestsScreen({ onNavigate, language, employeeData }: 
                 onChange={e => setSearchQuery(e.target.value)}
                 placeholder={isRTL ? 'ابحث عن عميل أو عقار...' : 'Search for client or property...'}
                 className={`bg-white/15 backdrop-blur-xl border border-white/10 text-white placeholder-white/60 rounded-xl ${
-                  isRTL ? 'pr-10 pl-4' : 'pl-10 pr-4'
-                } py-2.5 hover:bg-white/20 transition-all duration-300`}
+                  isRTL ? 'pr-11 pl-4' : 'pl-11 pr-4'
+                } py-3 h-12 hover:bg-white/20 transition-all duration-300`}
               />
             </div>
 
+            {/* Stats Grid */}
             <div className="grid grid-cols-4 gap-3">
               {stats.map((stat, index) => (
                 <div
                   key={index}
-                  className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl p-3 text-center hover:bg-white/20 transition-all duration-300"
+                  className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-3 text-center hover:bg-white/15 transition-all duration-300"
                 >
-                  <stat.icon className="w-5 h-5 mx-auto mb-1.5 text-white/80" />
-                  <div className="text-xl font-bold mb-0.5">{stat.value}</div>
+                  <stat.icon className="w-5 h-5 mx-auto mb-1.5 text-white/90" />
+                  <div className="text-xl font-bold text-white mb-0.5">{stat.value}</div>
                   <div className="text-[10px] text-white/80 leading-tight">{stat.label}</div>
                 </div>
               ))}
             </div>
           </div>
-
-          <div className="absolute bottom-0 left-0 right-0 -mb-16 z-20">
-            <svg viewBox="0 0 1440 120" className="w-full h-16" preserveAspectRatio="none">
-              <defs>
-                <linearGradient id="waveGradientDeveloperRequests" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#0F4C5C" stopOpacity="0.3" />
-                  <stop offset="50%" stopColor="#0A3540" stopOpacity="0.2" />
-                  <stop offset="100%" stopColor="#0F4C5C" stopOpacity="0.3" />
-                </linearGradient>
-              </defs>
-              <path
-                d="M0,40 C320,80 420,20 720,40 C1020,60 1120,20 1440,40 L1440,120 L0,120 Z"
-                fill="url(#waveGradientDeveloperRequests)"
-                opacity="0.5"
-              />
-              <path
-                d="M0,60 C360,20 540,80 720,60 C900,40 1080,80 1440,60 L1440,120 L0,120 Z"
-                fill="#F2F4F5"
-                opacity="0.8"
-              />
-              <path
-                d="M0,70 C240,90 480,50 720,70 C960,90 1200,50 1440,70 L1440,120 L0,120 Z"
-                fill="#F2F4F5"
-                className="animate-float"
-              />
-            </svg>
-          </div>
         </div>
 
-        <div className="px-6 pt-6 pb-4">
-          <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
-            {filters.map(filter => (
-              <button
-                key={filter.id}
-                onClick={() => setSelectedFilter(filter.id)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-300 flex items-center gap-2 ${
-                  selectedFilter === filter.id
-                    ? 'bg-gradient-to-r from-[#D4AF37] to-[#B8941F] text-white shadow-lg'
-                    : 'bg-white text-[#0F4C5C] border border-[#0F4C5C]/20 hover:bg-[#F2F4F5]'
-                }`}
-              >
-                <filter.icon className="w-4 h-4" />
-                {filter.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="px-6 pb-6">
-          {filteredRequests.length === 0 ? (
-            <Card className="p-8 text-center bg-gradient-to-br from-white via-white to-[#F2F4F5]/30 border-[#0F4C5C]/5 rounded-2xl shadow-lifted">
-              <ClipboardList className="w-12 h-12 text-[#4B5563] mx-auto mb-3" />
-              <p className="text-[#4B5563]">{isRTL ? 'لا توجد طلبات' : 'No requests found'}</p>
-            </Card>
-          ) : (
-            <div className="space-y-4">
-              {filteredRequests.map(request => (
-                <Card
-                  key={request.id}
-                  onClick={() => onNavigate('requestDetails', request)}
-                  className="p-4 bg-gradient-to-br from-white via-white to-[#F2F4F5]/30 border-[#0F4C5C]/5 rounded-2xl cursor-pointer hover:shadow-2xl hover:scale-[1.01] transition-all duration-300 text-gray-900"
-                >
-                  <div className="flex items-start justify-between mb-3">
-                    <Badge className={`text-xs font-medium ${getStatusColor(request.status)}`}>
-                      {getStatusText(request.status)}
-                    </Badge>
-                    <span className="text-xs text-[#4B5563]">{request.time}</span>
-                  </div>
-
-                  <h4 className="font-semibold text-[#0E1E25] mb-1 text-sm">{request.customerName}</h4>
-                  <p className="text-xs text-[#4B5563] mb-3">{request.propertyName}</p>
-
-                  <div className="flex items-center justify-between">
-                    <span className="text-lg font-bold text-white bg-gradient-to-r from-[#D4AF37] to-[#B8941F] px-3 py-1 rounded-lg">
-                      {request.amount} {isRTL ? 'ر.س' : 'SAR'}
-                    </span>
-                    <Badge variant="outline" className="text-xs font-medium border-[#D4AF37]/40 text-[#B8941F]">
-                      {request.type === 'financing'
-                        ? isRTL
-                          ? 'تمويل'
-                          : 'Financing'
-                        : isRTL
-                        ? 'حجز'
-                        : 'Booking'}
-                    </Badge>
-                  </div>
-                </Card>
-              ))}
-            </div>
-          )}
+        {/* Wave SVG */}
+        <div className="relative -mt-16 overflow-hidden">
+          <svg viewBox="0 0 1440 120" className="w-full h-16" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="wave-gradient-requests" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#0F4C5C" stopOpacity="0.3" />
+                <stop offset="50%" stopColor="#0A3540" stopOpacity="0.2" />
+                <stop offset="100%" stopColor="#0F4C5C" stopOpacity="0.3" />
+              </linearGradient>
+            </defs>
+            <path
+              d="M0,40 C320,80 420,20 720,40 C1020,60 1120,20 1440,40 L1440,120 L0,120 Z"
+              fill="url(#wave-gradient-requests)"
+              opacity="0.5"
+            />
+            <path
+              d="M0,60 C360,20 540,80 720,60 C900,40 1080,80 1440,60 L1440,120 L0,120 Z"
+              fill="#F2F4F5"
+              opacity="0.8"
+            />
+            <path
+              d="M0,70 C240,90 480,50 720,70 C960,90 1200,50 1440,70 L1440,120 L0,120 Z"
+              fill="#F2F4F5"
+            />
+          </svg>
         </div>
       </div>
 
-      <BottomNavBar currentScreen="requests" onNavigate={onNavigate} language={language} variant="business" />
+      {/* Filters */}
+      <div className="px-6 py-4">
+        <div className="flex gap-2 overflow-x-auto pb-2 hide-scrollbar">
+          {filters.map(filter => (
+            <button
+              key={filter.id}
+              onClick={() => setSelectedFilter(filter.id)}
+              className={`px-4 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition-all duration-300 flex items-center gap-2 ${
+                selectedFilter === filter.id
+                  ? 'bg-gradient-to-r from-[#0F4C5C] to-[#0A3540] text-white shadow-[0px_4px_12px_0px_rgba(15,76,92,0.2)]'
+                  : 'bg-white text-[#0F4C5C] border border-[rgba(15,76,92,0.1)] hover:border-[rgba(15,76,92,0.2)]'
+              }`}
+            >
+              <filter.icon className="w-4 h-4" />
+              {filter.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Request Cards */}
+      <div className="px-6 pb-6">
+        {filteredRequests.length === 0 ? (
+          <Card className="p-12 text-center bg-gradient-to-br from-white to-[#F2F4F5]/30 border-[#0F4C5C]/5 rounded-3xl shadow-lifted">
+            <div className="bg-gradient-to-br from-[#F2F4F5] to-white rounded-3xl size-20 flex items-center justify-center mx-auto mb-4">
+              <ClipboardList className="w-10 h-10 text-gray-300" />
+            </div>
+            <p className="text-gray-500">{isRTL ? 'لا توجد طلبات' : 'No requests found'}</p>
+          </Card>
+        ) : (
+          <div className="space-y-4">
+            {filteredRequests.map((request, index) => (
+              <Card
+                key={request.id}
+                onClick={() => onNavigate('requestDetails', request)}
+                className="p-5 bg-gradient-to-br from-white to-[#F2F4F5]/30 border-[#0F4C5C]/8 rounded-3xl cursor-pointer hover:shadow-lifted hover:scale-[1.01] transition-all duration-300 shadow-soft"
+                style={{ animationDelay: `${index * 50}ms` }}
+              >
+                <div className="flex items-start justify-between mb-4">
+                  <Badge className={`text-xs font-medium px-3 py-1 rounded-full ${getStatusColor(request.status)}`}>
+                    {getStatusText(request.status)}
+                  </Badge>
+                  <span className="text-xs text-[#4B5563] flex items-center gap-1">
+                    <Clock className="w-3 h-3" />
+                    {request.time}
+                  </span>
+                </div>
+
+                <h4 className="font-semibold text-[#0E1E25] mb-2 text-base tracking-[-0.3px]">
+                  {request.customerName}
+                </h4>
+                <p className="text-sm text-[#4B5563] mb-4">{request.propertyName}</p>
+
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xl font-bold text-white bg-gradient-to-r from-[#D4AF37] to-[#B8941F] px-4 py-2 rounded-xl shadow-soft">
+                      {request.amount}
+                    </span>
+                    <span className="text-xs text-[#4B5563]">{isRTL ? 'ر.س' : 'SAR'}</span>
+                  </div>
+                  <Badge variant="outline" className="text-xs font-medium border-[#D4AF37]/40 text-[#B8941F] bg-[#D4AF37]/5">
+                    {request.type === 'financing'
+                      ? isRTL
+                        ? 'تمويل'
+                        : 'Financing'
+                      : isRTL
+                      ? 'حجز'
+                      : 'Booking'}
+                  </Badge>
+                </div>
+              </Card>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <BottomNavBar currentScreen="requests" onNavigate={onNavigate} language={language} variant="business" role="developer" />
 
       <style>{`
-        @keyframes blob {
-          0% { transform: translate(0px, 0px) scale(1); }
-          33% { transform: translate(30px, -50px) scale(1.1); }
-          66% { transform: translate(-20px, 20px) scale(0.9); }
-          100% { transform: translate(0px, 0px) scale(1); }
-        }
-        .animate-blob {
-          animation: blob 7s infinite;
-        }
-        .animation-delay-2000 {
-          animation-delay: 2s;
-        }
-        .scrollbar-hide::-webkit-scrollbar {
+        .hide-scrollbar::-webkit-scrollbar {
           display: none;
         }
-        .scrollbar-hide {
+        .hide-scrollbar {
           -ms-overflow-style: none;
           scrollbar-width: none;
         }

@@ -4,7 +4,6 @@ import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Badge } from './ui/badge';
-import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription } from './ui/drawer';
 import { Slider } from './ui/slider';
 import { Label } from './ui/label';
 import { ImageWithFallback } from './figma/ImageWithFallback';
@@ -14,6 +13,8 @@ import { FinancialInsightCard } from './FinancialInsightCard';
 import { ActivityTimeline } from './ActivityTimeline';
 import { MarketTrendCard } from './MarketTrendCard';
 import { SmartRecommendation } from './SmartRecommendation';
+import AlAhliLogo from '../assets/شعار البنك الأهلي التجاري.svg';
+import AlRajhiLogo from '../assets/شعار مصرف الراجحي الجديد.svg';
 
 interface HomeScreenProps {
   onNavigate: (screen: string, data?: any) => void;
@@ -92,7 +93,7 @@ export function HomeScreen({ onNavigate, language }: HomeScreenProps) {
       term: isRTL ? '25 سنة' : '25 years',
       monthly: '5,200',
       badge: isRTL ? 'الأفضل' : 'Best',
-      logo: '/src/assets/شعار البنك الأهلي التجاري.svg',
+      logo: AlAhliLogo,
     },
     {
       id: 2,
@@ -101,7 +102,7 @@ export function HomeScreen({ onNavigate, language }: HomeScreenProps) {
       term: isRTL ? '20 سنة' : '20 years',
       monthly: '5,450',
       badge: isRTL ? 'معدل منخفض' : 'Low Rate',
-      logo: '/src/assets/شعار مصرف الراجحي الجديد.svg',
+      logo: AlRajhiLogo,
     },
   ];
 
@@ -194,7 +195,10 @@ export function HomeScreen({ onNavigate, language }: HomeScreenProps) {
             {/* Search & Notifications */}
             <div className="flex items-center gap-2">
               {/* Search by Location */}
-              <button className="bg-white/15 backdrop-blur-xl rounded-xl px-3 py-2 hover:bg-white/25 transition-all duration-300 border border-white/10 flex items-center gap-1.5">
+              <button 
+                onClick={() => onNavigate('mapView')}
+                className="bg-white/15 backdrop-blur-xl rounded-xl px-3 py-2 hover:bg-white/25 transition-all duration-300 border border-white/10 flex items-center gap-1.5"
+              >
                 <MapPin className="w-4 h-4 text-white" />
                 <Search className="w-4 h-4 text-white" />
               </button>
@@ -250,14 +254,14 @@ export function HomeScreen({ onNavigate, language }: HomeScreenProps) {
         
         {/* Wave SVG with gradient */}
         <svg className="w-full h-28 relative z-10" viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-          {/* Main wave */}
+
           <path d="M0 60C360 30 720 30 1080 60C1260 75 1350 75 1440 60V120H0V60Z" fill="#F2F4F5"/>
           
-          {/* Accent wave with gradient */}
-          <path d="M0 70C240 40 480 40 720 70C960 100 1200 100 1440 70V120H0V70Z" fill="url(#wave-gradient-1)" opacity="0.4"/>
+
+          <path d="M0 70C240 40 480 40 720 70C960 100 1200 100 1440 70V120H0V70Z" fill="url(#wave-gradient-1)" opacity="0.4" className="animate-gentle-float"/>
           
-          {/* Top highlight wave */}
-          <path d="M0 50C300 20 600 20 900 50C1140 75 1320 75 1440 50V120H0V50Z" fill="#F2F4F5" opacity="0.5"/>
+
+          <path d="M0 50C300 20 600 20 900 50C1140 75 1320 75 1440 50V120H0V50Z" fill="#F2F4F5" opacity="0.5" className="animate-gentle-float"/>
           
           <defs>
             <linearGradient id="wave-gradient-1" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
@@ -456,104 +460,104 @@ export function HomeScreen({ onNavigate, language }: HomeScreenProps) {
         </div>
       </div>
 
-      {/* ========== CALCULATOR DRAWER ========== */}
-      <Drawer open={showCalculatorDrawer} onOpenChange={setShowCalculatorDrawer}>
-        <DrawerContent dir={isRTL ? 'rtl' : 'ltr'}>
-          <DrawerHeader>
-            <DrawerTitle className="flex items-center gap-2">
-              <Calculator className="w-5 h-5 text-[#D4AF37]" />
-              <span dir="auto">{isRTL ? 'حاسبة التمويل العقاري' : 'Mortgage Calculator'}</span>
-            </DrawerTitle>
-            <DrawerDescription dir="auto">
-              {isRTL ? 'احسب القسط الشهري المتوقع' : 'Calculate your estimated monthly payment'}
-            </DrawerDescription>
-          </DrawerHeader>
-          
-          <div className="p-6 space-y-6">
-            {/* Loan Amount */}
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <Label dir="auto">{isRTL ? 'مبلغ القرض' : 'Loan Amount'}</Label>
-                <span className="text-lg text-[#0F4C5C]">{loanAmount[0].toLocaleString()} <span className="text-sm">{isRTL ? 'ر.س' : 'SAR'}</span></span>
+      {/* ========== CALCULATOR OVERLAY ========== */}
+      {showCalculatorDrawer && (
+        <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/40" onClick={() => setShowCalculatorDrawer(false)}>
+          <div className="w-full max-w-md mx-auto bg-white rounded-t-2xl p-4 overflow-y-auto" style={{ maxHeight: '50vh' }} onClick={(e) => e.stopPropagation()} dir={isRTL ? 'rtl' : 'ltr'}>
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <Calculator className="w-5 h-5 text-[#D4AF37]" />
+                <h4 className="text-sm font-semibold text-[#0E1E25]" dir="auto">{isRTL ? 'حاسبة التمويل العقاري' : 'Mortgage Calculator'}</h4>
               </div>
-              <Slider
-                value={loanAmount}
-                onValueChange={setLoanAmount}
-                max={5000000}
-                min={100000}
-                step={50000}
-                className="w-full"
-              />
+              <button className="text-[#4B5563] text-sm" onClick={() => setShowCalculatorDrawer(false)}>✕</button>
             </div>
-
-            {/* Down Payment */}
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <Label dir="auto">{isRTL ? 'الدفعة المقدمة' : 'Down Payment'}</Label>
-                <span className="text-lg text-[#0F4C5C]">
-                  {downPaymentAmount.toLocaleString()} <span className="text-sm">{isRTL ? 'ر.س' : 'SAR'}</span>
-                  <span className="text-xs text-[#4B5563] mr-1">({downPaymentPercentage}%)</span>
-                </span>
-              </div>
-              <Slider
-                value={[downPaymentAmount]}
-                onValueChange={(v) => setDownPaymentAmount(v[0])}
-                max={loanAmount[0] * 0.5}
-                min={loanAmount[0] * 0.05}
-                step={10000}
-                className="w-full"
-              />
-            </div>
-
-            {/* Term Years */}
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <Label dir="auto">{isRTL ? 'مدة القرض' : 'Loan Term'}</Label>
-                <span className="text-lg text-[#0F4C5C]">{termYears} <span className="text-sm">{isRTL ? 'سنة' : 'years'}</span></span>
-              </div>
-              <Slider
-                value={[termYears]}
-                onValueChange={(v) => setTermYears(v[0])}
-                max={30}
-                min={5}
-                step={5}
-                className="w-full"
-              />
-            </div>
-
-            {/* Results */}
-            <Card className="p-6 bg-gradient-to-br from-[#0F4C5C] to-[#0A3540] text-white border-0">
-              <div className="space-y-4">
+            
+            <div className="space-y-6">
+              {/* Loan Amount */}
+              <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-white/80" dir="auto">{isRTL ? 'القسط الشهري المتوقع' : 'Estimated Monthly Payment'}</span>
+                  <Label dir="auto">{isRTL ? 'مبلغ القرض' : 'Loan Amount'}</Label>
+                  <span className="text-lg text-[#0F4C5C]">{loanAmount[0].toLocaleString()} <span className="text-sm">{isRTL ? 'ر.س' : 'SAR'}</span></span>
                 </div>
-                <div className="text-3xl">{monthlyPayment.toLocaleString()} <span className="text-lg">{isRTL ? 'ر.س' : 'SAR'}</span></div>
-                
-                <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/10">
-                  <div>
-                    <p className="text-xs text-white/60 mb-1" dir="auto">{isRTL ? 'الفائدة السنوية' : 'Annual Rate'}</p>
-                    <p className="text-lg">3.5%</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-white/60 mb-1" dir="auto">{isRTL ? 'إجمالي الدفعات' : 'Total Payments'}</p>
-                    <p className="text-lg">{(monthlyPayment * termYears * 12).toLocaleString()}</p>
-                  </div>
-                </div>
+                <Slider
+                  value={loanAmount}
+                  onValueChange={setLoanAmount}
+                  max={5000000}
+                  min={100000}
+                  step={50000}
+                  className="w-full"
+                />
               </div>
-            </Card>
 
-            <Button 
-              className="w-full bg-gradient-to-r from-[#D4AF37] to-[#B8941F] hover:from-[#B8941F] hover:to-[#D4AF37] text-white"
-              onClick={() => {
-                setShowCalculatorDrawer(false);
-                onNavigate('financingListings');
-              }}
-            >
-              <span dir="auto">{isRTL ? 'تقدم بطلب تمويل' : 'Apply for Financing'}</span>
-            </Button>
+              {/* Down Payment */}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <Label dir="auto">{isRTL ? 'الدفعة المقدمة' : 'Down Payment'}</Label>
+                  <span className="text-lg text-[#0F4C5C]">
+                    {downPaymentAmount.toLocaleString()} <span className="text-sm">{isRTL ? 'ر.س' : 'SAR'}</span>
+                    <span className="text-xs text-[#4B5563] mr-1">({downPaymentPercentage}%)</span>
+                  </span>
+                </div>
+                <Slider
+                  value={[downPaymentAmount]}
+                  onValueChange={(v: number[]) => setDownPaymentAmount(v[0])}
+                  max={loanAmount[0] * 0.5}
+                  min={loanAmount[0] * 0.05}
+                  step={10000}
+                  className="w-full"
+                />
+              </div>
+
+              {/* Term Years */}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <Label dir="auto">{isRTL ? 'مدة القرض' : 'Loan Term'}</Label>
+                  <span className="text-lg text-[#0F4C5C]">{termYears} <span className="text-sm">{isRTL ? 'سنة' : 'years'}</span></span>
+                </div>
+                <Slider
+                  value={[termYears]}
+                  onValueChange={(v: number[]) => setTermYears(v[0])}
+                  max={30}
+                  min={5}
+                  step={5}
+                  className="w-full"
+                />
+              </div>
+
+              {/* Results */}
+              <Card className="p-6 bg-gradient-to-br from-[#0F4C5C] to-[#0A3540] text-white border-0">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-white/80" dir="auto">{isRTL ? 'القسط الشهري المتوقع' : 'Estimated Monthly Payment'}</span>
+                  </div>
+                  <div className="text-3xl">{monthlyPayment.toLocaleString()} <span className="text-lg">{isRTL ? 'ر.س' : 'SAR'}</span></div>
+                  
+                  <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/10">
+                    <div>
+                      <p className="text-xs text-white/60 mb-1" dir="auto">{isRTL ? 'الفائدة السنوية' : 'Annual Rate'}</p>
+                      <p className="text-lg">3.5%</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-white/60 mb-1" dir="auto">{isRTL ? 'إجمالي الدفعات' : 'Total Payments'}</p>
+                      <p className="text-lg">{(monthlyPayment * termYears * 12).toLocaleString()}</p>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+
+              <Button 
+                className="w-full bg-gradient-to-r from-[#D4AF37] to-[#B8941F] hover:from-[#B8941F] hover:to-[#D4AF37] text-white"
+                onClick={() => {
+                  setShowCalculatorDrawer(false);
+                  onNavigate('financingListings');
+                }}
+              >
+                <span dir="auto">{isRTL ? 'تقدم بطلب تمويل' : 'Apply for Financing'}</span>
+              </Button>
+            </div>
           </div>
-        </DrawerContent>
-      </Drawer>
+        </div>
+      )}
 
       {/* ========== BOTTOM NAVIGATION ========== */}
       <BottomNavBar language={language} onNavigate={onNavigate} currentScreen="home" />

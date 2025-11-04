@@ -225,6 +225,7 @@ export const EmployeeProfileScreen: React.FC<EmployeeProfileScreenProps> = ({ on
             onNavigate={onNavigate}
             language={language}
             variant="business"
+            role="developer"
           />
         </div>
       </main>

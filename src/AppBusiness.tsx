@@ -7,11 +7,13 @@ import { EmployeeHomeScreen } from './components/business/EmployeeHomeScreen';
 import { FinanceHomeScreen } from './components/business/finance/FinanceHomeScreen';
 import { DeveloperHomeScreen } from './components/business/developer/DeveloperHomeScreen';
 import { DeveloperRequestsScreen } from './components/business/developer/DeveloperRequestsScreen';
+import { DeveloperClientManagementScreen } from './components/business/developer/DeveloperClientManagementScreen';
 import { PullClientScreen } from './components/business/PullClientScreen';
 import { EmployeeWalletScreen } from './components/business/EmployeeWalletScreen';
 import { EmployeeRequestsScreen } from './components/business/EmployeeRequestsScreen';
 import { EmployeeRequestDetailsScreen } from './components/business/EmployeeRequestDetailsScreen';
 import { EmployeeCalculatorScreen as FinanceEmployeeCalculatorScreen } from './components/business/finance/FinanceEmployeeCalculatorScreen';
+import { EmployeeRequestsScreen as FinanceEmployeeRequestsScreen } from './components/business/finance/FinanceEmployeeRequestsScreen';
 import { EmployeeCalculatorScreen as DeveloperEmployeeCalculatorScreen } from './components/business/developer/DeveloperEmployeeCalculatorScreen';
 import { EmployeePropertiesScreen } from './components/business/EmployeePropertiesScreen';
 import { EmployeePropertyDetailsScreen } from './components/business/EmployeePropertyDetailsScreen';
@@ -19,6 +21,7 @@ import { EmployeeMessagesScreen } from './components/business/EmployeeMessagesSc
 import { EmployeeChatScreen } from './components/business/EmployeeChatScreen';
 import { EmployeeProfileScreen as CommonEmployeeProfileScreen } from './components/business/EmployeeProfileScreen';
 import { EmployeeProfileScreen as DeveloperEmployeeProfileScreen } from './components/business/developer/EmployeeProfileScreen';
+import { ProfileScreen as FinanceEmployeeProfileScreen } from './components/business/finance/FinanceEmployeeProfileScreen';
 import { EmployeeNotificationsScreen } from './components/business/EmployeeNotificationsScreen';
 
 interface AppBusinessProps {
@@ -61,9 +64,27 @@ export default function AppBusiness({ onBack }: AppBusinessProps) {
       messages: <EmployeeMessagesScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
       employeeChat: <EmployeeChatScreen onNavigate={handleNavigate} language={language} contactData={navigationData} />,
       notifications: <EmployeeNotificationsScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
-      profile: isDeveloper 
-        ? <DeveloperEmployeeProfileScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} onLogout={() => setCurrentScreen('auth')} />
-        : <CommonEmployeeProfileScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} onLogout={() => setCurrentScreen('auth')} />,
+      profile: isDeveloper
+        ? (
+          <DeveloperEmployeeProfileScreen
+            onNavigate={handleNavigate}
+            language={language}
+            employeeData={employeeData}
+            onLogout={() => setCurrentScreen('auth')}
+          />
+        ) : isFinance ? (
+          <FinanceEmployeeProfileScreen
+            onNavigate={handleNavigate}
+            language={language}
+          />
+        ) : (
+          <CommonEmployeeProfileScreen
+            onNavigate={handleNavigate}
+            language={language}
+            employeeData={employeeData}
+            onLogout={() => setCurrentScreen('auth')}
+          />
+        ),
     };
 
     if (isDeveloper) {
@@ -72,6 +93,7 @@ export default function AppBusiness({ onBack }: AppBusinessProps) {
         home: <DeveloperHomeScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
         calculator: <DeveloperEmployeeCalculatorScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
         requests: <DeveloperRequestsScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
+        clientManagement: <DeveloperClientManagementScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
         properties: <EmployeePropertiesScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
         propertyDetails: <EmployeePropertyDetailsScreen onNavigate={handleNavigate} language={language} propertyData={navigationData} employeeData={employeeData} />,
       };
@@ -82,6 +104,7 @@ export default function AppBusiness({ onBack }: AppBusinessProps) {
         ...commonScreens,
         home: <FinanceHomeScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
         calculator: <FinanceEmployeeCalculatorScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
+        requests: <FinanceEmployeeRequestsScreen onNavigate={handleNavigate} language={language} employeeData={employeeData} />,
       };
     }
 

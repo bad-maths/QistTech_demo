@@ -5,6 +5,7 @@ import { Input } from './ui/input';
 import { Card } from './ui/card';
 import { Badge } from './ui/badge';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import MapImage from '../assets/map.png';
 
 interface MapViewScreenProps {
   onNavigate: (screen: string, data?: any) => void;
@@ -141,15 +142,14 @@ export function MapViewScreen({ onNavigate, language }: MapViewScreenProps) {
 
       {/* Map Container */}
       <div className="flex-1 relative">
-        {/* Full Screen Interactive Map */}
+        {/* Full Screen Map Background */}
         <div 
-          className="absolute inset-0 bg-gradient-to-br from-blue-50 to-green-50"
+          className="absolute inset-0"
           style={{
-            backgroundImage: `
-              linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)
-            `,
-            backgroundSize: '40px 40px',
+            backgroundImage: `url(${MapImage})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
           }}
         >
           {/* Map Controls */}

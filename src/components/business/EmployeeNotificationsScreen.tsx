@@ -310,7 +310,8 @@ export function EmployeeNotificationsScreen({ onNavigate, language, employeeData
                             {notification.time}
                           </span>
                           
-                          <div className="flex gap-2 flex-wrap justify-end">
+                          <div  className="flex gap-2 flex-wrap justify-end"
+                            style={{ maxWidth: '150px' , minWidth: '250px' }}>
                             {!notification.isRead && (
                               <Button 
                                 size="sm" 

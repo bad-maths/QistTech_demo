@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Building2, User, Mail, Lock, Phone, Shield } from 'lucide-react';
+import { User, Mail, Lock, Phone, Shield } from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
+import QistTechLogo from '../assets/Qistech_logo.jpg';
 
 interface AuthScreenProps {
   onComplete: () => void;
@@ -50,7 +51,11 @@ export function AuthScreen({ onComplete, language }: AuthScreenProps) {
       <div className="flex-1 flex flex-col justify-center max-w-md mx-auto w-full relative z-10">
         <div className="text-center mb-8">
           <div className="bg-gradient-to-br from-[#0F4C5C] to-[#0A3540] rounded-3xl p-5 w-20 h-20 mx-auto mb-4 shadow-lifted flex items-center justify-center">
-            <Building2 className="w-10 h-10 text-[#D4AF37]" />
+            <img 
+              src={QistTechLogo} 
+              alt="QistTech Logo" 
+              className="w-full h-full object-contain"
+            />
           </div>
           <h1 className="text-3xl mb-2 text-[#0E1E25] tracking-tight">{isRTL ? 'قسط تك' : 'QistTech'}</h1>
           <p className="text-[#4B5563]">
