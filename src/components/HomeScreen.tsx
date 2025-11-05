@@ -382,7 +382,10 @@ export function HomeScreen({ onNavigate, language }: HomeScreenProps) {
         <Card 
           className="p-6 mb-6 text-white border-0 shadow-2xl overflow-hidden relative group cursor-pointer" 
           style={{ background: 'linear-gradient(to bottom right, #0F4C5C, #0A3540, #0F4C5C)' }}
-          onClick={() => setShowCalculatorDrawer(true)}
+          onClick={() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            onNavigate('financingListings');
+          }}
         >
           {/* Decorative glows */}
           <div 
