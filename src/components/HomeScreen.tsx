@@ -13,7 +13,7 @@ import { ActivityTimeline } from './ActivityTimeline';
 import { MarketTrendCard } from './MarketTrendCard';
 import { SmartRecommendation } from './SmartRecommendation';
 import { FinancingCalculator } from './FinancingCalculator';
-import QisTechBlackLogo from '../assets/Qis-Tech-white-logo.png';
+import QisTechBlackLogo from '../assets/Qist-Tech-white-small.png';
 import AlAhliLogo from '../assets/شعار البنك الأهلي التجاري.svg';
 import AlRajhiLogo from '../assets/شعار مصرف الراجحي الجديد.svg';
 

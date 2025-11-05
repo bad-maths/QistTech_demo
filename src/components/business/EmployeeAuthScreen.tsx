@@ -5,7 +5,7 @@ import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { Card } from '../ui/card';
 import { Badge } from '../ui/badge';
-import QistTechLogo from '../../assets/Qis-Tech-highris.png';
+import QistTechLogo from '../../assets/Qist-Tech-white-small.png';
 
 interface EmployeeAuthScreenProps {
   onComplete: (employeeData: any) => void;
@@ -67,15 +67,19 @@ export function EmployeeAuthScreen({ onComplete, language, onBack }: EmployeeAut
           )}
         </button>
 
-        <div className="text-center mb-8">
-          <div className="w-32 h-32 mx-auto mb-4">
-            <img 
-              src={QistTechLogo} 
-              alt="QistTech Logo" 
-              className="w-full h-full object-contain rounded-2xl"
-            />
-          </div>
+      {/* Logo and Title */}
+      <div className="text-center mb-12">
+        <div
+          className="mx-auto mb-4 flex items-center justify-center rounded-3xl p-4 md:p-6 shadow-lg w-40 h-40 sm:w-48 sm:h-48"
+          style={{ backgroundColor: '#1f6862' }}
+        >
+          <img
+            src={QistTechLogo}
+            alt="QistTech Logo"
+            className="w-auto h-24 sm:h-32 object-contain rounded-2xl"
+          />
         </div>
+      </div>
 
         {/* Login Form */}
         <Card className="p-6 bg-white/95 backdrop-blur-lg border border-teal-100 shadow-lg">

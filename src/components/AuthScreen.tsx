@@ -4,7 +4,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
-import QistTechLogo from '../assets/Qis-Tech-highris.png';
+import QistTechLogo from '../assets/Qist-Tech-white-small.png';
 
 interface AuthScreenProps {
   onComplete: () => void;
@@ -49,19 +49,20 @@ export function AuthScreen({ onComplete, language }: AuthScreenProps) {
       <div className="absolute bottom-20 left-10 w-48 h-48 bg-[#D4AF37]/5 rounded-full blur-3xl"></div>
       
       <div className="flex-1 flex flex-col justify-center max-w-md mx-auto w-full relative z-10">
-        <div className="text-center mb-8">
-          <div className="w-32 h-32 mx-auto mb-4">
-            <img 
-              src={QistTechLogo} 
-              alt="QistTech Logo" 
-              className="w-full h-full object-contain rounded-2xl"
-            />
-          </div>
-          <h1 className="text-3xl mb-2 text-[#0E1E25] tracking-tight">{isRTL ? 'قسط تك' : 'QistTech'}</h1>
-          <p className="text-[#4B5563]">
-            {isRTL ? 'منصتك الذكية للعقارات والتمويل' : 'Your Smart Real Estate & Financing Platform'}
-          </p>
+        
+      {/* Logo and Title */}
+      <div className="text-center mb-12">
+        <div
+          className="mx-auto mb-4 flex items-center justify-center rounded-3xl p-4 md:p-6 shadow-lg w-40 h-40 sm:w-48 sm:h-48"
+          style={{ backgroundColor: '#1f6862' }}
+        >
+          <img
+            src={QistTechLogo}
+            alt="QistTech Logo"
+            className="w-auto h-24 sm:h-32 object-contain rounded-2xl"
+          />
         </div>
+      </div>
 
         <Tabs defaultValue="login" className="w-full">
           <TabsList className="grid w-full grid-cols-2 mb-8">
